@@ -1,0 +1,23 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+	<?php 
+		$form_type = 'detail';
+		$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( $data );
+		$form_field = $ctrapp_form;
+		// $form_link = array( 'edit'=>'/administrate/forms/edit/', 'list'=>'/administrate/forms/index/' );
+		$form_lang = $lang;
+		
+		$form_link = array( 
+			'edit'=>'/administrate/forms/edit/', 
+			'list'=>'/administrate/forms/index/' 
+		);
+		
+		$forms->build( $form_type, $form_model, $form_field, $form_link, $form_lang );
+	?>
+		
+<?php echo $sidebars->footer($lang); ?>

@@ -1,0 +1,21 @@
+<ul>
+<?php 
+	foreach( $codes as $code ) {
+		/*
+		echo('
+			<li><b>'.$code['CodingIcd10']['id'].'</b>
+				<br />
+				'.$code['CodingIcd10']['category'].'<br />
+				'.$code['CodingIcd10']['group'].'<br />
+				'.$code['CodingIcd10']['description'].'
+			</li>
+		');
+		*/
+		
+		echo('
+			<li><span title="'.$code['CodingIcd10']['category'].' - '.$code['CodingIcd10']['group'].' - '.$code['CodingIcd10']['description'].'">'.$code['CodingIcd10']['id'].'</span></li>
+		');
+		
+	}
+?>
+</ul>

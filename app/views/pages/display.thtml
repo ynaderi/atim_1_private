@@ -1,0 +1,17 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+?>
+	
+	<?php
+	
+		echo '
+			<h3>'.$translations->t( $data['Page']['language_title'], $lang ).'</h3>
+			'.$translations->t( $data['Page']['language_body'], $lang ).'
+		';
+		
+		// pr($data);
+	
+	?>
+
+<?php echo $sidebars->footer($lang); ?>

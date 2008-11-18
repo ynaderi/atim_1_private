@@ -1,0 +1,173 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+	<?php
+		
+		/* START pulldown for selecting PRIMARY, to filter Treatment MASTER */
+		
+			// setup variables for build 
+			$option_array = array();
+			$pulldown_display = '';
+				
+			// build PRIMARY radio button set 
+			
+			// go through all DX, make array of DX divided by PRIMARY NUMBER for building radio buttons 
+			$last_primary_number = 0;
+			foreach ( $dx_listall as $dx ) {
+			
+				// create array var 
+				if ( !isset( $option_array[ $dx['Diagnosis']['case_number'] ] ) ) {
+					$option_array[ $dx['Diagnosis']['case_number'] ] = array();
+				} 
+				
+				// remember highest CASE/PRIMARY number 
+				if ( $last_primary_number<$dx['Diagnosis']['case_number'] ) {
+					$last_primary_number=$dx['Diagnosis']['case_number'];
+				}
+				
+				// save CASE/PRIMARY number, and all DX ids/descripts 
+				$option_array[ $dx['Diagnosis']['case_number'] ][ $dx['Diagnosis']['id'] ] = 
+					$dx['Diagnosis']['dx_date']
+					.', '.
+					$translations->t( $dx['Diagnosis']['dx_method'], $lang )
+					.', '.
+					$translations->t( $dx['Diagnosis']['dx_nature'], $lang )
+				;
+			
+				
+			}
+			
+			/*
+			echo('<pre>');
+			print_r($option_array);
+			echo('</pre>');
+			
+			echo('<pre>');
+			print_r($dx_listall);
+			echo('</pre>');
+			*/
+			
+			$pulldown_display .= '
+				'.$html->formTag( '/clinicalannotation/treatment_masters/listall/'.$participant_id.'/', 'post', array( 'id'=>'expanded_filter' ) ).'
+					<fieldset>
+						<select name="tx_filter">
+							<option value="">'.$translations->t( 'all', $lang, 0 ).'</option>
+			';
+			
+			// each PRIMARY, make PULLDOWN OPTION and OPTGROUP
+			for ( $primary=0; $primary<=$last_primary_number; $primary++ ) {
+			// foreach ( $option_array as $primary=>$dx_list ) {
+			
+				// radio button 
+				$pulldown_display .= '
+					<optgroup label="'.$translations->t( 'primary', $lang, 0 ).' '.$primary.'">
+				';
+				
+				// radio button 
+				$pulldown_display .= '
+						<option value="p'.$primary.'" '.( $_SESSION['ctrapp_core']['clinical_annotation']['tx_filter']=='p'.$primary ? 'selected="selected"' : '' ).'>'.$translations->t( 'all diagnoses', $lang, 0 ).'</option>
+				';
+				
+					if ( isset($option_array[$primary]) ) {
+						
+						// in OPTGROUP, list all DXs
+						foreach ( $option_array[$primary] as $dx_id=>$dx_descript ) {
+							
+							$pulldown_display .= '
+									<option value="'.$dx_id.'" '.( $_SESSION['ctrapp_core']['clinical_annotation']['tx_filter']==$dx_id ? 'selected="selected"' : '' ).'>'.$dx_descript.'</option>
+							';
+							
+						}
+						
+					}
+				
+				// end optgroup 
+				$pulldown_display .= '
+					</optgroup>
+				';
+			
+			}
+			
+			$pulldown_display .= '
+						</select>
+						
+						<input type="submit" class="submit filter" value="'.$translations->t( 'filter', $lang, 0 ).'" />
+					</fieldset>
+				</form>
+			';
+			
+			echo($pulldown_display);
+		
+		/* END pulldown */
+		
+	?>
+	
+	<?php 
+		
+		$form_type = 'index';
+		$form_model = $tx_masters;
+		$form_field = $ctrapp_form;
+		$form_link = array( 'detail'=>'/clinicalannotation/treatment_masters/detail/'.$participant_id.'/' );
+		$form_lang = $lang;
+		$form_pagination = $paging;
+		$form_override = array(
+			'TreatmentMaster/protocol_id'=>$all_protocols
+		);
+		$form_extras = NULL;		
+		
+		// ************ START CUSTOM CODE CHECK **************
+		if (file_exists($custom_ctrapp_view_hook)) { 
+			require($custom_ctrapp_view_hook);
+		}
+		// ************* END CUSTOM CODE CHECK ***************
+		
+		$forms->build( 
+			$form_type, 
+			$form_model, 
+			$form_field, 
+			$form_link, 
+			$form_lang, 
+			$form_pagination, 
+			$form_override, 
+			$form_extras ); 
+		
+		/* EXPANDED add action, based on CONTROL->MASTER->DETAIL datatable setup */
+		
+			$expanded_add = array();
+			
+			// loop through related CONTROL table rows 
+			foreach ( $tx_controls as $option ) {
+				if ( $option['TreatmentControl']['detail_form_alias'] && $option['TreatmentControl']['detail_tablename'] ) {
+					$expanded_add [ $option['TreatmentControl']['id'] ] = $translations->t( $option['TreatmentControl']['disease_site'], $lang ).' - '.$translations->t( $option['TreatmentControl']['tx_group'], $lang );
+				}
+			}
+			
+			if ( !empty( $expanded_add ) ) {
+			
+				echo( 
+					$html->formTag( '/clinicalannotation/treatment_masters/add/'.$participant_id.'/', 'post', array( 'id'=>'expanded_add' ) ).'
+						<fieldset>
+							<select name="tx_control_id">
+				');
+					foreach ( $expanded_add as $key=>$value ) {
+						echo('
+							<option value="'.$key.'">'.$value.'</option>
+						');
+					}
+				echo('
+							</select>
+						<input type="submit" class="submit add" value="'.$translations->t( 'add', $lang, 0 ).'" />
+						</fieldset>
+					</form>
+				');
+			} // end IF !empty
+			
+		/* END expanded add */
+		
+	?>
+
+<?php echo $sidebars->footer($lang); ?>

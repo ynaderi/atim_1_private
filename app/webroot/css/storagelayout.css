@@ -1,0 +1,49 @@
+/*=========================================================================== 
+
+	written by Nicolas Luc
+	
+	storagelayout.css
+	
+	this stylesheet contains additional
+	data to display pages of the 
+	'storage layout' module.
+
+===========================================================================*/
+
+/*================================================================
+	-=tables  // general table styles
+================================================================*/
+table.storagelayout {
+	margin: 0.5em 0;
+	border: 1px solid #D2E1EE;
+	border-width: 0 1px 1px 0;
+}
+
+/* styles for multi-column data views */
+table.storagelayout td {
+	border-top: 1px solid #D2E1EE;
+	border-left: 1px solid #D2E1EE;
+}
+
+table.storagelayout td.label_1d_1 {
+	width: 25%;    
+	color: #5081A5;
+    font-weight: bold;
+}
+
+table.storagelayout td.label_2d_1 {
+	width: 10%;    
+	color: #5081A5;
+    font-weight: bold;
+}
+
+table.storagelayout td.label_2d_2 {
+	width: 10%;    
+	color: #5081A5;
+    font-weight: bold;
+}
+
+table.storagelayout td.label_std {
+	color: #5081A5;
+    font-weight: bold;
+}

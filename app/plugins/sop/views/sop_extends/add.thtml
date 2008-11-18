@@ -1,0 +1,21 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+	<?php 
+		$form_type = 'add';
+		$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( array( 'SopExtend'=>array() ) );
+		$form_field = $ctrapp_form;
+		$form_link = array( 'add'=>'/sop/sop_extends/add/'.$sop_master_id.'/', 'cancel'=>'/sop/sop_extends/listall/'.$sop_master_id.'/' );
+		$form_lang = $lang;
+		$form_pagination = NULL;
+		$form_overrides = array('SopExtend/material_id'=>$material_id_findall);
+		$form_extras = $html->hiddenTag( 'SopExtend/sop_master_id', $sop_master_id );
+		
+		$forms->build( $form_type, $form_model, $form_field, $form_link, $form_lang, $form_pagination, $form_overrides, $form_extras ); 
+	?>
+		
+<?php echo $sidebars->footer($lang); ?>

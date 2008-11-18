@@ -1,0 +1,14 @@
+<?php 
+	
+	foreach ( $messages as $message ) {
+	
+		// print_r($message);
+		if ( $message['FormFormat']['flag_override_help'] ) {
+			echo( '<p>'.nl2br( $translations->t($message['FormFormat']['language_help'], $lang) ).'</p>' );
+		} else {
+			echo( '<p>'.nl2br( $translations->t($message['FormField']['language_help'], $lang) ).'</p>' );
+		}
+		
+	
+	}
+?>

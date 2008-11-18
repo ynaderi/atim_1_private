@@ -1,0 +1,79 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+	<?php
+		
+		// if any VALIDATION ERROR MESSAGES, display 
+		$messages = array();
+		
+			if ( isset( $this->validationErrors ) ) {
+				foreach( $this->validationErrors as $table ) {
+					
+					foreach($table as $field => $message) {
+						$messages[] = empty( $message ) ? $translations->t( 'Error in form input: '.$field, $lang) : $translations->t( $message, $lang);
+					}
+					
+				}
+				
+				echo('
+					<ul class="error validation">
+						<li>'.implode( '</li><li>', $messages ).'</li>
+					</ul>
+				');
+			}
+		
+	?>
+	
+	<form action="<?php echo $html->url('/administrate/passwords/index/'.$bank_id.'/'.$group_id.'/'.$user_id); ?>" method="post">
+					
+			<fieldset class="form">
+			
+				<table class="edit" cellspacing="0">
+				<tbody>
+			
+					<tr>
+						<td class="label">
+							<?php echo $translations->t( 'newpassword', $lang ); ?>
+						</td>
+						<td class="content">
+							<input name="data[User][new_password]" class="required password" size="30" value="" type="password" id="UserNewPassword" />
+						</td>
+						<td class="help">
+							<span class="error help">?</span>
+						</td>
+					</tr>
+					
+					<tr>
+						<td class="label">
+							<?php echo $translations->t( 'confirmpassword', $lang ); ?>
+						</td>
+						<td class="content">
+							<input name="data[User][confirm_password]" class="required password" size="30" value="" type="password" id="UserConfirmPassword" />
+						</td>
+						<td class="help">
+							<span class="error help">?</span>
+						</td>
+					</tr>
+					
+				</tbody>
+				</table>
+			
+		</fieldset>
+
+			<!-- HERE -->
+			<input type="hidden" name="data[User][id]"  class="hidden" value="<?php echo $user_id; ?>" id="UserId" />
+			<input type="hidden" name="data[User][modified_by]"  class="hiddenhidden" value="<?php echo $user_id; ?>" id="UserModifiedBy" />
+			<input type="hidden" name="data[User][passwd]" value="" />
+		</fieldset>
+			
+		<fieldset class="button">
+			<input type="submit" class="submit" value="<?php echo $translations->t( 'update', $lang, 0 ); ?>" />
+		</fieldset>
+					
+	</form>
+		
+<?php echo $sidebars->footer($lang); ?>

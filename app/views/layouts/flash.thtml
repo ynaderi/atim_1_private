@@ -1,0 +1,34 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">		
+
+<head>
+	
+	<title>CTRApp Dev Environment :: <?php echo $page_title ?></title>
+	
+	<?php if(DEBUG == 0) { ?>
+	<meta http-equiv="Refresh" content="<?php echo $pause?>; url=<?php echo $url?>" />
+	<?php } ?>
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+
+	<?php echo $html->charset('UTF-8') ?>
+	
+	<?php echo $html->css('stub') ?>
+	<?php echo $javascript->link('jquery') ?>
+	<?php echo $javascript->link('jtip') ?>
+
+	
+</head>
+
+<body class="flash" onunload="javascript:history.go(1)">
+
+    <div id="wrapper">
+
+        <a href="<?php echo $url; ?>"> <?php echo $translations->t( $message, $lang ); ?> </a>
+
+    </div>
+    
+</body>
+
+</html>

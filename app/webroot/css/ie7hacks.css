@@ -1,0 +1,18 @@
+/*===========================================================================
+
+	written by julian@visuallizard.com / wil@visuallizard.com 
+	modified by ross@visuallizard.com
+
+	This file is the ie7hacks.css file.
+	
+	It also has the added bonus of making sure
+	Netscape 4 gets no styles at all, because it
+	does not understand the @import command.
+	
+	&copy;2008 - visuallizard.com
+
+===========================================================================*/
+
+div#views h2 div#h2_summary {
+    top: 31px;    
+}

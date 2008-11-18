@@ -1,0 +1,128 @@
+/*
+	written by:
+	
+	* julian at visuallizard dot com
+	* ross at visuallizard dot com
+	* wil at visuallizard dot com 
+	
+	(c) 2008  - visuallizard.com
+===========================================================================*/
+
+div {
+	border: none;
+	text-align: left;
+	vertical-align: top;
+}
+
+div#wrapper {
+	margin: 0 auto;
+	width: 950px;
+	text-align: center;
+	padding: 0;
+}
+
+body.flash div#wrapper {
+	width: 300px;
+}
+
+div#header, 
+div#views { 
+	width: 950px; 
+	margin: 0 auto;
+}
+
+div#views {float: left; min-height: 400px; }
+
+div#header {
+    height: 80px;
+    margin: 0; padding: 0;
+    background: url("images/header_bk_new_01.png") no-repeat 0 0;
+    position: relative;
+    z-index: 100;
+}
+
+div#toolbox {
+    position: absolute; 
+    top: 0; left: 300px;
+    height: 80px;
+    width: 650px;
+}
+
+div#tools {
+    position: absolute; 
+    top: 0; right: 0;
+    height: 80px;
+    width: 200px;
+}
+
+
+/* col0 layouts here
+-----------------------------------------------------------------*/
+div#col0 {
+	float: left; position: relative;
+	width: 950px; padding-top: 5px; margin: 0;
+}
+
+
+/* col1 / col2 layouts here 
+-----------------------------------------------------------------*/
+div#col1 {
+	float: left;
+	display: inline; /* set to display inline // double margin float bug in IE*/
+}
+div#col2 {
+	float: right;
+	display: inline; /* set to display inline // double margin float bug in IE*/
+}
+
+/* default widths / padding */
+div#col1 { 
+	width: 300px; 
+	padding: 10px; 
+	w\idth: 280px; /*redeclare width - padding for compliant browsers */
+}
+div#col2 { 
+	width: 600px; 
+	padding: 10px; 
+	w\idth: 580px; /*redeclare width - padding for compliant browsers */
+}
+
+div#col1,
+div#col2 { padding-top: 1em; }
+
+/* view specific widths */
+
+/* this is the top of the annoucements col - post login */
+div#wrapper.plugin_none.controller_menus.action_index div#col2 {
+	background: url(images/col2_annouce_top_bk_01.png) repeat-x 0 0;
+}
+
+
+
+/* this is the summary divs */
+div#summary_0, 
+div#summary_1, 
+div#summary_2 {
+    display: block;
+    float: left;
+    width: 45%;
+    border: 1px solid #74A5CD;
+    height: 75px; 
+    overflow: auto;
+    margin: 0.5em 2em 0.5em 0;
+}
+
+
+
+
+div#footer {
+	background: url("images/footer_bk01.png") repeat-x 0 0;
+	min-height: 50px;
+	padding-top: 1em;
+	clear: both;
+}
+
+
+
+
+

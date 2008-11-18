@@ -1,0 +1,26 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+?>
+	
+	<?php 
+		if ( $auth_msg ) { echo('<div class="error login">'.$translations->t( $auth_msg, $lang ).'</div>'); } 
+	?>
+	
+	<?php 
+		$form_type = 'edit';
+		$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( array( 'User'=>array() ) );
+		$form_field = $ctrapp_form;
+		$form_link = array( 'edit'=>'/users/index/' );
+		$form_lang = $lang;
+		
+		$forms->build( $form_type, $form_model, $form_field, $form_link, $form_lang ); 
+	?>
+	
+<?php 
+	echo $sidebars->footer($lang); 
+	
+	// pr($this);
+	// exit();
+			
+?>

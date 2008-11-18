@@ -1,0 +1,89 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+<?php 
+	$form_extras = array();
+	
+	//-----------------------------------
+	// 1- Display SubForms
+	//-----------------------------------
+
+	// 1.a- Display The Diagnosis Form
+	
+	$form_type = array( 'radiolist', 'return');
+	$form_model = $dx_listall;
+	$form_field = $ctrapp_dx_form;
+	$form_link = array( 'radiolist'=>'ClinicalCollectionLink/diagnosis_id' );
+	$form_lang = $lang;
+	
+	$form_extras['ClinicalCollectionLink/diagnosis_id'] 
+		= $forms->build( 
+			$form_type, 
+			$form_model, 
+			$form_field, 
+			$form_link, 
+			$form_lang ); 
+
+	// 1.a- Display The Consent Form
+	
+	$form_type = array( 'radiolist', 'return');
+	$form_model = $consent_listall;
+	$form_field = $ctrapp_consents_form;
+	$form_link = array( 'radiolist'=>'ClinicalCollectionLink/consent_id' );
+	$form_lang = $lang;
+	
+	$form_extras['ClinicalCollectionLink/consent_id'] 
+		= $forms->build( 
+			$form_type, 
+			$form_model, 
+			$form_field, 
+			$form_link, 
+			$form_lang ); 
+
+	//-----------------------------------
+	// 2- Display Main Form
+	//-----------------------------------
+
+	$form_type = 'edit';
+	$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( $data );
+	$form_field = $ctrapp_form;
+	$form_link = array( 
+		'edit'=>'/clinicalannotation/clinical_collection_links/edit/'.$participant_id.'/', 
+		'cancel'=>'/clinicalannotation/clinical_collection_links/detail/'.$participant_id.'/' );
+	$form_lang = $lang;
+		
+	$form_override = array();	
+	$collection_label = 
+		$data_for_collection_label['acquisition_label'].
+		' [ '.
+		(isset($data_for_collection_label['bank'])?
+			$translations->t($data_for_collection_label['bank'], $lang, false).' / ':
+			'').
+		$data_for_collection_label['collection_datetime'].
+		' ]';	
+	$form_override['ClinicalCollectionLink/collection_id'] = $collection_label;
+	
+	$form_pagination = NULL;
+			
+	// look for CUSTOM HOOKS, "format"
+	if (file_exists($custom_ctrapp_view_hook)) { 
+		require($custom_ctrapp_view_hook); 
+	}
+	
+	$forms->build( 
+		$form_type, 
+		$form_model, 
+		$form_field, 
+		$form_link, 
+		$form_lang, 
+		$form_pagination, 
+		$form_override, 
+		$form_extras );
+	
+?>
+		
+<?php echo $sidebars->footer($lang); ?>

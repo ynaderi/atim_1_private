@@ -1,0 +1,11 @@
+<?php 
+// IE Bug in download name workaround
+// send content type headers and dump data
+ini_set( 'zlib.output_compression','Off' );
+header("HTTP/1.1 200 OK");
+header("Status: 200 OK");
+header('Pragma: anytextexeptno-cache', true);
+header("Content-type: application/force-download");
+header("Content-Disposition: attachment; filename=".$title_for_layout."_".date('YmdHis').".csv");
+print $content_for_layout 
+?>

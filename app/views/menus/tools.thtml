@@ -1,0 +1,41 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+?>
+	
+	<?php
+	
+		// PLUGIN level menu 
+		if ( count($display_menu) ) {
+		
+			echo( '
+				<h4 id="tabToolsTitle">'.$translations->t( 'core_menu_tools', $lang ).'</h4>
+				<ul id="tabTools">
+			' );
+		
+			foreach ( $display_menu as $tab ) {
+			
+				$display_tab_id_tag = str_replace( '/', ' ', $tab['link'] );
+				$display_tab_id_tag = trim( $display_tab_id_tag );
+				$display_tab_id_tag = str_replace( ' ', '_', $display_tab_id_tag );
+				
+				if ( $tab['allowed'] ) {
+					echo( '<li id="'.$display_tab_id_tag.'" '.( $tab['at'] ? 'class="at"' : '' ).'>' );
+					echo( $html->link( $translations->t( $tab['text'], $lang ), $tab['link'], '', '', false ) );
+				} else {
+					echo( '<li id="'.$display_tab_id_tag.'" class="notallowed">' );
+					echo( '<a>'.$translations->t( $tab['text'], $lang ).'</a>' );
+				}
+				echo( '</li>' );
+			}
+			
+			echo( '
+				</ul>
+				<br class="clear" />
+			' );
+		
+		}
+	
+	?>
+
+<?php echo $sidebars->footer($lang); ?>

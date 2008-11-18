@@ -1,0 +1,29 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+	<?php 
+		$form_type = 'add';
+		$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( array( 'SopMaster'=>array() ) );
+		$form_field = $ctrapp_form;
+		$form_link = array( 'add'=>'/sop/sop_masters/add/'.$sop_control_id.'/', 'cancel'=>'/sop/sop_masters/listall/' );
+		$form_lang = $lang;
+		$form_pagination = NULL;
+		$form_overrides = array();
+		
+		$form_extras = array();
+		
+		$form_extras['end'] = $html->hiddenTag( 'SopMaster/sop_group', $control_data['SopControl']['sop_group'] );
+		$form_extras['end'] .= $html->hiddenTag( 'SopMaster/type', $control_data['SopControl']['type'] );
+		$form_extras['end'] .= $html->hiddenTag( 'SopMaster/detail_tablename', $control_data['SopControl']['detail_tablename'] );
+		$form_extras['end'] .= $html->hiddenTag( 'SopMaster/detail_form_alias', $control_data['SopControl']['detail_form_alias'] );
+		$form_extras['end'] .= $html->hiddenTag( 'SopMaster/extend_tablename', $control_data['SopControl']['extend_tablename'] );
+		$form_extras['end'] .= $html->hiddenTag( 'SopMaster/extend_form_alias', $control_data['SopControl']['extend_form_alias'] );
+		
+		$forms->build( $form_type, $form_model, $form_field, $form_link, $form_lang, $form_pagination, $form_overrides, $form_extras ); 
+	?>
+		
+<?php echo $sidebars->footer($lang); ?>

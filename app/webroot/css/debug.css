@@ -1,0 +1,24 @@
+/*
+	written by:
+	* julian at visuallizard dot com 
+	
+	(c) - visuallizard.com
+===========================================================================*/
+
+div#wrapper { background: url(images/debug/40-10grid_01.png) repeat 0 0; }
+
+/* borders for main cols */ 
+
+/*
+div#header { border: 1px solid orange; }
+div#views { border: 1px solid #63ff5f; }
+div#col0 { border: 1px solid pink; }
+*/
+
+div#col1,
+div#col2 { background: url(images/debug/pink_trans.png) repeat 0 0; }
+
+/*
+div#footer { border: 1px solid yellow; }
+*/
+

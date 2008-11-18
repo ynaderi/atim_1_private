@@ -1,0 +1,62 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">		
+
+<head>
+	
+	<title>
+		<?php 
+			echo ( trim($title_for_layout) ? trim($title_for_layout).' &raquo; ' : '' ).$translations->t('core_appname_abbrev', $lang); 
+		?>
+	</title>
+
+	<link rel="shortcut icon" href="favicon.ico" type="image/ico" />
+
+	<?php 
+		echo $html->charset('UTF-8');
+		
+		echo $html->css('stub');
+		
+		// jquery AND prototype BOTH use a "$" function, so jquery's needs to be renamed... 
+		echo $javascript->link('jquery');
+		// rename $ function in JQuery because of Prototype $ function
+		echo ('<script type="text/javascript">JQ = $;</script>');
+		// Also, need to use a modified jtip library, where "$(" has been replaced with "JQ(" 
+		echo $javascript->link('jtip');
+		
+		// no change to Prototype/Scriptaculous 
+		echo $javascript->link('default');
+		echo $javascript->link('scriptaculous/prototype');
+		echo $javascript->link('scriptaculous/scriptaculous');
+		echo $javascript->link('scriptaculous/effects');
+		echo $javascript->link('scriptaculous/controls');
+		
+		// JS calendar
+		echo $javascript->link('jscalendar/calendar.js');
+		echo $javascript->link('jscalendar/lang/calendar-en.js');
+		echo $javascript->link('common.js');
+		echo $html->css('../js/jscalendar/skins/aqua/theme');
+		
+	?>
+	
+	<!--[if lt IE 7]>
+		<?php 
+		echo $html->css('iehacks',$rel='stylesheet', $htmlAttributes=array('media'=>'screen'));
+		?>
+	<![endif]-->
+	
+	<!--[if IE 7]>
+		<?php 
+		echo $html->css('ie7hacks',$rel='stylesheet', $htmlAttributes=array('media'=>'screen'));
+		?>
+	<![endif]-->
+	
+</head>
+
+<body onunload="javascript:history.go(1)">
+	<cake:nocache>
+	<?php echo $content_for_layout ?>
+	</cake:nocache>
+</body>
+
+</html>

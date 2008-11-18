@@ -1,0 +1,84 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	/*
+	$announcements = $sidebars->announcements( $ctrapp_announcements, $lang ); // format announcements for display in sidebar
+	$sidebars->cols( $ctrapp_sidebar, $lang, array('end'=>$announcements) );
+	*/
+?>
+	
+	<?php 
+		
+		// echo $sidebars->announcements( $ctrapp_announcements, $lang );
+		
+		echo '<h2>'.$translations->t( 'core_announcements', $lang ).'</h2>';
+		
+		foreach ( $ctrapp_announcements as $key=>$announcement ) {
+			
+			// first announcement
+			if ( !$key ) {
+				echo '
+					<h3>'.$announcement['Announcement']['title'].' <span>'.$translations->t( strtolower(date( 'M', $time->toUnix($announcement['Announcement']['date']) )), $lang ).' '.date( 'd', $time->toUnix($announcement['Announcement']['date']) ).'</span></h3>
+					<p>'.$announcement['Announcement']['body'].'</p>
+				';
+				
+				if ( count($ctrapp_announcements)>1 ) {
+					echo '
+					<h3 class="previous_announcements">'.$translations->t( 'core_previous_announcements', $lang ).'</h3>
+					';
+				}
+			}
+			
+			// all other announcements
+			else {
+				echo '
+					<h3>'.$html->link( $announcement['Announcement']['title'], '/customize/announcements/detail/'.$announcement['Announcement']['id'] ).' <span>'.$translations->t( strtolower(date( 'M', $time->toUnix($announcement['Announcement']['date']) )), $lang ).' '.date( 'd', $time->toUnix($announcement['Announcement']['date']) ).'</span></h3>
+				';
+			}
+			
+		}
+		
+		// pr($ctrapp_announcements);
+		
+		/*
+		// PLUGIN level menu 
+		if ( count($display_menu) ) {
+		
+			
+			echo '
+				<h4 id="tabPluginsTitle">'.$translations->t( 'core_menu_main', $lang ).'</h4>
+				<ul id="tabPlugins">
+			';
+		
+			foreach ( $display_menu as $tab ) {
+			
+				$display_tab_id_tag = str_replace( '/', ' ', $tab['link'] );
+				$display_tab_id_tag = trim( $display_tab_id_tag );
+				$display_tab_id_tag = str_replace( ' ', '_', $display_tab_id_tag );
+				
+				if ( $tab['allowed'] ) {
+					echo '
+						<li id="'.$display_tab_id_tag.'" '.( $tab['at'] ? 'class="at"' : '' ).'>';
+					
+					echo $html->link( $translations->t( $tab['text'], $lang ), $tab['link'], '', '', false );
+					
+				} else {
+					echo '
+						<li id="'.$display_tab_id_tag.'" class="notallowed">';
+					echo '<a>'.$translations->t( $tab['text'], $lang ).'</a>';
+				}
+				echo '</li>
+				';
+			}
+			
+			echo'
+				</ul>
+				<br class="clear" />
+			';
+			
+		}
+		*/
+	
+	?>
+
+<?php echo $sidebars->footer($lang); ?>

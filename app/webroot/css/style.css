@@ -1,0 +1,1078 @@
+/*
+	* julian at visuallizard dot com
+	* ross at visuallizard dot com
+	* wil at visuallizard dot com 
+	
+	(c) 2008  - visuallizard.com
+*===========================================================================*/
+
+/* -=general typography styles
+-----------------------------------------------------------------*/
+
+h1,h2,h3,h4,h5,h6 {font-weight: normal; line-height: 1; margin-bottom: 1em;} /* setting overall styles for headings */
+
+h1 {font-size: 2.6em; margin-bottom: 0.5em;}
+h2 {font-size: 2.2em; margin-bottom: 0.75em;}
+h3 {font-size: 1.8em;}
+h4 {font-size: 1.5em;}
+h5 {font-size: 1.2em;}
+h6 {font-size: 1.1em;}
+
+h1,h2,h3,h4 { color: #243340; }
+
+h5,h6 { font-weight: bold; }
+
+p {color: #333;}
+
+
+/* -=universal general styles
+-----------------------------------------------------------------*/
+.hidden { display: none; }
+.bulletfree { list-style: none; }
+.numlist { list-style-type: decimal; }
+.mousetype { font-size: 9px; }
+.midgrey { color: rgb(150,150,150); }
+.noborder { border-style: none; }
+.clear { clear: both; }
+.required { background: #fdfccc; }
+
+img {
+	display: block;
+	border: 0;
+}
+
+acronym {
+	border-bottom: 1px dotted #333;
+	cursor: help;
+}
+
+a { 
+	color: #5081A5; padding: 0 3px; 
+	text-decoration: underline; cursor: pointer; 
+}
+a.form {display: block; margin: 1em 0;}
+
+td a.form {display: block; margin: 0;}
+
+
+
+/* show/hide domscripting classes */
+.show { display: block; }
+.hide { display: none; }
+
+/* -=header styles
+-----------------------------------------------------------------*/
+
+#header h1 {color: #fff; font-size: 22px; padding-top: 12px;}
+
+
+/* top nav styles are here 
+-----------------------------------------------------------------*/
+
+div#tools ul#tabs_menu_0 li,
+div#tools ul#tabs_menu_0 li a,
+div#tools ul#tabs_menu_main_menu_1 li,
+div#tools ul#tabs_menu_main_menu_1 li a, 
+div#tools ul#tabs_menu_core_can_33 li,
+div#tools ul#tabs_menu_core_can_33 li a {
+	display: block; float: left;
+	width: 40px; height: 40px;
+	overflow: hidden;
+	text-indent: -1000px;
+}
+
+div#tools ul li,
+div#tools ul#tabs_menu_core_can_33 li { margin: 0 0 0 10px; }
+
+
+/* tabs_0 for contstant header nav */
+div#tools li#menus { background: url(images/icons/home_01.png) no-repeat 0 0; }
+div#tools li#administrate_banks_index { background: url(images/icons/admin_01.png) no-repeat 0 0; }
+div#tools li#customize_profiles { background: url(images/icons/profile_01.png) no-repeat 0 0; }
+div#tools li#users_logout { background: url(images/icons/logout_01.png) no-repeat 0 0; }
+
+div#tools li#menus a:hover,
+div#tools li#administrate_banks_index a:hover,
+div#tools li#customize_profiles a:hover,
+div#tools li#users_logout a:hover,
+div#tools li#sop_sop_masters_listall a:hover,
+div#tools li#drug_drugs_listall a:hover,
+div#tools li#material_materials_index a:hover,
+div#tools li#rtbform_rtbforms a:hover,
+div#tools li#protocol_protocol_masters_listall a:hover,
+div#tools li#storagelayout_storage_masters_index a:hover,
+div#tools li#order_orders_index a:hover,
+/* div#tools li#clinicalannotation_protocol_masters_listall a:hover, */
+div#tools li#study_study_summaries_listall a:hover,
+div#tools li#atimdocs_help a:hover { background: url(images/icons/hover_at_bk_01.gif) no-repeat 0 -40px; }
+
+/* tabs_1 */
+div#tools li#clinicalannotation_participants_index { background: url(images/icons/clinical_annotation_01.png) no-repeat 0 0; }
+div#tools li#inventorymanagement_collections_index { background: url(images/icons/inventory_01.png) no-repeat 0 0; }
+div#tools li#datamart_adhocs_index { background: url(images/icons/query_tool_01.png) no-repeat 0 0; }
+div#tools li#menus_tools { background: url(images/icons/tools_01.png) no-repeat 0 0; }
+
+div#tools li#clinicalannotation_participants_index a:hover,
+div#tools li#inventorymanagement_collections_index a:hover,
+div#tools li#datamart_adhocs_index a:hover,
+div#tools li#menus_tools a:hover { background: url(images/icons/hover_at_bk_01.gif) no-repeat 0 -235px; }
+
+
+/* tabs_2 */
+div#tools ul#tabs_menu_core_can_33 {
+	position: absolute; top: 80px; left: -550px;
+	width: 750px; height: 40px; 
+	background: url(images/icons/tools_menu_bk_01.gif) no-repeat 0 0;
+}
+
+div#tools ul#tabs_menu_core_can_33 li {
+	position: relative;
+	text-indent: 0;
+	float: right; 
+}
+div#tools li#sop_sop_masters_listall { background: url(images/icons/sops_01.png) no-repeat 0 0; }
+div#tools li#drug_drugs_listall { background: url(images/icons/drug_admin_01.png) no-repeat 0 0; }
+div#tools li#material_materials_index { background: url(images/icons/material_equip_01.png) no-repeat 0 0; }
+div#tools li#rtbform_rtbforms { background: url(images/icons/form_builder_01.png) no-repeat 0 0; }
+div#tools li#protocol_protocol_masters_listall { background: url(images/icons/protocol_01.png) no-repeat 0 0; }
+div#tools li#storagelayout_storage_masters_index { background: url(images/icons/storage_01.png) no-repeat 0 0; }
+div#tools li#order_orders_index { background: url(images/icons/order_mgmt_01.png) no-repeat 0 0; }
+/* div#tools li#clinicalannotation_protocol_masters_listall { background: url(images/icons/protocol_01.png) no-repeat 0 0; } */
+div#tools li#study_study_summaries_listall { background: url(images/icons/study_01.png) no-repeat 0 0; }
+div#tools li#atimdocs_help { background: url(images/icons/atimdocs_help_01.png) no-repeat 0 0; }
+
+/* grayed out door for icons with no access */
+div#tools ul#tabs_menu_core_can_33 li.notallowed { background: url("images/icons/notallowed_01.png") no-repeat 50% 50%; }
+
+
+/* main copy styles are here 
+-----------------------------------------------------------------*/
+
+/* annoucements */
+h3.previous_announcements { margin-top: 2em; }
+h3 span {
+	float: right;
+	font-size: 11px;
+	color: #666;
+}
+
+/* lead tabs for sections */
+div#col0 a#h2_administrate_groups_index,
+div#col0 a#h2_clinicalannotation_participants_index,
+div#col0 a#h2_inventorymanagement_collections_index,
+div#col0 a#h2_datamart_adhocs_index,
+div#col0 a#h2_rtbform_rtbforms_index,
+div#col0 a#h2_protocol_protocol_masters_listall,
+div#col0 a#h2_sop_sop_masters_listall,
+div#col0 a#h2_storagelayout_storage_masters_index,
+div#col0 a#h2_order_orders_index,
+div#col0 a#h2_drug_drugs_listall,
+div#col0 a#h2_study_study_summaries_listall,
+div#col0 a#h2_customize_announcements_index,
+div#col0 a#h2_material_materials_index {
+	display: block;
+	width: 250px; height: 40px;
+	padding: 18px 0 0 50px;
+	w\idth: 200px;
+	he\ight: 22px;
+	text-decoration: none;
+	color: #fff;
+	font-size: 16px;
+}
+
+/* main menu links - buh bye */
+div#col0 a#h2_main_menu,
+div#col1 a#h2_main_menu,
+div#col0 a#h2_tools_menu,
+div#col1 a#h2_tools_menu,
+div#col2 a#h2_tools_menu {display: none;}
+
+/* admininstration */
+div#col0 a#h2_administrate_groups_index { background: url(images/lead_tab_admin_01.png) no-repeat 0 0; }
+
+/* clinical annotation */
+div#col0 a#h2_clinicalannotation_participants_index { background: url(images/lead_tab_clinnicalannotation_01.png) no-repeat 0 0; }
+
+/* inventory management */
+div#col0 a#h2_inventorymanagement_collections_index { background: url(images/lead_tab_inventory_01.png) no-repeat 0 0; }
+
+/* adhoc query tool */
+div#col0 a#h2_datamart_adhocs_index { background: url(images/lead_tab_query_01.png) no-repeat 0 0; }
+
+/* sop */
+div#col0 a#h2_sop_sop_masters_listall { background: url(images/lead_tab_sop_01.png) no-repeat 0 0; }
+
+/* rtbform tool */
+div#col0 a#h2_rtbform_rtbforms_index { background: url(images/lead_tab_forms_01.png) no-repeat 0 0; }
+
+/* protocol tool */
+div#col0 a#h2_protocol_protocol_masters_listall { background: url(images/lead_tab_protocols_01.png) no-repeat 0 0; }
+
+/* storage layout tool */
+div#col0 a#h2_storagelayout_storage_masters_index { background: url(images/lead_tab_storage_01.png) no-repeat 0 0; }
+
+/* order management tool */
+div#col0 a#h2_order_orders_index { background: url(images/lead_tab_order_01.png) no-repeat 0 0; }
+
+/* drug management tool */
+div#col0 a#h2_drug_drugs_listall{ background: url(images/lead_tab_drugs_01.png) no-repeat 0 0; }
+
+/* studies tool */
+div#col0 a#h2_study_study_summaries_listall { background: url(images/lead_tab_study_01.png) no-repeat 0 0; }
+
+/* materials */
+div#col0 a#h2_material_materials_index { background: url(images/lead_tab_mat_equip_01.png) no-repeat 0 0; }
+
+/* customize */
+div#col0 a#h2_customize_announcements_index { background: url(images/lead_tab_customize_01.png) no-repeat 0 0; }
+
+div#col0 div#h2_summary {
+	position: absolute; top: 15px; right: 0;
+	float: right;
+	font-size: 10px;
+	text-align: center;
+	background: url(images/summary_left_curve_01.png) no-repeat 0 0;
+}
+div#col0 div#h2_summary a {
+	display: block;
+	font-size: 12px;
+	padding: 11px 5px 10px 7px;
+	background: url(images/summary_right_curve_01.png) no-repeat top right;
+}
+div#col0 div#h2_summary span { display: inline; }
+
+div#col0 h2 { margin-bottom: 0; }
+
+/* -=section navigation styles
+-----------------------------------------------------------------*/
+div#tabs_menu_div {
+	position: absolute; top: 15px; left: 250px;
+	float: left;
+}
+
+div#col0 ul.tabs_0,
+div#col0 ul.tabs_1,
+div#col0 ul.tabs_2,
+div#col0 ul.tabs_3,
+div#col0 ul.tabs_4,
+div#col0 ul.tabs_5,
+div#col0 ul.tabs_6 {
+	float: left;
+	color: #fff;
+}
+
+div#col0 ul.tabs_0 li,
+div#col0 ul.tabs_1 li,
+div#col0 ul.tabs_2 li,
+div#col0 ul.tabs_3 li,
+div#col0 ul.tabs_4 li,
+div#col0 ul.tabs_5 li,
+div#col0 ul.tabs_6 li { background: #374D61; }
+
+/* draw in the arrows and curve */
+
+div#col0 ul.tabs_0 li.at,
+div#col0 ul.tabs_1 li.at,
+div#col0 ul.tabs_2 li.at,
+div#col0 ul.tabs_3 li.at,
+div#col0 ul.tabs_4 li.at,
+div#col0 ul.tabs_5 li.at,
+div#col0 ul.tabs_6 li.at { background: url(images/section_nav_leading_arrow_01.png) no-repeat 0 0; }
+
+/* make tabs self-aware if another tab appears after it */
+div#col0 ul.tabs_0.last a,
+div#col0 ul.tabs_1.last a,
+div#col0 ul.tabs_2.last a,
+div#col0 ul.tabs_3.last a,
+div#col0 ul.tabs_4.last a,
+div#col0 ul.tabs_5.last a,
+div#col0 ul.tabs_6.last a { background: url(images/section_nav_leading_right_curve_01.png) no-repeat top right; }
+
+/* define look of drop down lists */
+div#col0 ul.tabs_0 a,
+div#col0 ul.tabs_1 a,
+div#col0 ul.tabs_2 a,
+div#col0 ul.tabs_3 a,
+div#col0 ul.tabs_4 a,
+div#col0 ul.tabs_5 a,
+div#col0 ul.tabs_6 a,
+div#col0 ul.tabs_0 at.tab_0 a,
+div#col0 ul.tabs_1 at.tab_1 a,
+div#col0 ul.tabs_2 at.tab_2 a,
+div#col0 ul.tabs_3 at.tab_3 a,
+div#col0 ul.tabs_4 at.tab_4 a,
+div#col0 ul.tabs_5 at.tab_5 a,
+div#col0 ul.tabs_6 at.tab_6 a {
+	display: block; position: relative;
+	height: 30px; 
+	padding: 6px 1.5em 0 1.5em;
+	he\ight: 24px;
+	color: #fff; text-decoration: none;
+	font-size: 14px;
+}
+
+div#col0 ul.tabs_0 ul,
+div#col0 ul.tabs_1 ul,
+div#col0 ul.tabs_2 ul,
+div#col0 ul.tabs_3 ul,
+div#col0 ul.tabs_4 ul,
+div#col0 ul.tabs_5 ul,
+div#col0 ul.tabs_6 ul {
+	position: absolute; top: 30px;
+	padding-bottom: 15px;
+	width: 150px;
+	background: transparent url(images/section_nav_sub_ul_curve_02.png) no-repeat bottom left;
+	z-index: 10;
+}
+
+/* flyout styles */
+	div#col0 ul.tabs_0 ul li,
+	div#col0 ul.tabs_1 ul li,
+	div#col0 ul.tabs_2 ul li,
+	div#col0 ul.tabs_3 ul li,
+	div#col0 ul.tabs_4 ul li,
+	div#col0 ul.tabs_5 ul li,
+	div#col0 ul.tabs_6 ul li {
+		position: relative;
+	}
+	div#col0 ul.tabs_0 ul li ul.tabs_0,
+	div#col0 ul.tabs_1 ul li ul.tabs_1,
+	div#col0 ul.tabs_2 ul li ul.tabs_2,
+	div#col0 ul.tabs_3 ul li ul.tabs_3,
+	div#col0 ul.tabs_4 ul li ul.tabs_4,
+	div#col0 ul.tabs_5 ul li ul.tabs_5,
+	div#col0 ul.tabs_6 ul li ul.tabs_6 {
+		display: none;
+	}
+
+	div#col0 ul.tabs_0 ul li:hover ul.tabs_0,
+	div#col0 ul.tabs_0 ul li:hover ul.tabs_0:hover,
+	div#col0 ul.tabs_1 ul li:hover ul.tabs_1,
+	div#col0 ul.tabs_1 ul li:hover ul.tabs_1:hover,
+	div#col0 ul.tabs_2 ul li:hover ul.tabs_2,
+	div#col0 ul.tabs_2 ul li:hover ul.tabs_2:hover,
+	div#col0 ul.tabs_3 ul li:hover ul.tabs_3,
+	div#col0 ul.tabs_3 ul li:hover ul.tabs_3:hover,
+	div#col0 ul.tabs_4 ul li:hover ul.tabs_4,
+	div#col0 ul.tabs_4 ul li:hover ul.tabs_4:hover,
+	div#col0 ul.tabs_5 ul li:hover ul.tabs_5,
+	div#col0 ul.tabs_5 ul li:hover ul.tabs_5:hover,
+	div#col0 ul.tabs_6 ul li:hover ul.tabs_6,
+	div#col0 ul.tabs_6 ul li:hover ul.tabs_6:hover {
+		position: absolute; display: inline;
+		top: 0; left: 145px; z-index: 20;
+		margin: 0;
+	}
+
+
+div#col0 ul.tabs_0 li.at ul li,
+div#col0 ul.tabs_1 li.at ul li,
+div#col0 ul.tabs_2 li.at ul li,
+div#col0 ul.tabs_3 li.at ul li,
+div#col0 ul.tabs_4 li.at ul li,
+div#col0 ul.tabs_5 li.at ul li,
+div#col0 ul.tabs_6 li.at ul li { 
+	border-bottom: 1px solid #eee; 
+	background-image:none; 
+}
+
+div#col0 ul.tabs_0 ul li a,
+div#col0 ul.tabs_1 ul li a,
+div#col0 ul.tabs_2 ul li a,
+div#col0 ul.tabs_3 ul li a,
+div#col0 ul.tabs_4 ul li a,
+div#col0 ul.tabs_5 ul li a,
+div#col0 ul.tabs_6 ul li a,
+div#col0 ul.tabs_0.last ul li a,
+div#col0 ul.tabs_1.last ul li a,
+div#col0 ul.tabs_2.last ul li a,
+div#col0 ul.tabs_3.last ul li a,
+div#col0 ul.tabs_4.last ul li a,
+div#col0 ul.tabs_5.last ul li a,
+div#col0 ul.tabs_6.last ul li a {
+ 	font-size: 11px;
+ 	padding: 3px 2em;
+ 	height: auto;
+ 	background-color: #374D61;
+ 	background-image: none;
+}
+
+div#col0 ul.tabs_0 li.at ul li a:hover,
+div#col0 ul.tabs_1 li.at ul li a:hover,
+div#col0 ul.tabs_2 li.at ul li a:hover,
+div#col0 ul.tabs_3 li.at ul li a:hover,
+div#col0 ul.tabs_4 li.at ul li a:hover,
+div#col0 ul.tabs_5 li.at ul li a:hover,
+div#col0 ul.tabs_6 li.at ul li a:hover {
+	background: #dde8f2 url(images/section_nav_hover_arrow_01.gif) no-repeat left center;
+	color: #374d61;
+}
+
+
+div#col0 ul.tabs_0 ul li.notallowed a,
+div#col0 ul.tabs_1 ul li.notallowed a,
+div#col0 ul.tabs_2 ul li.notallowed a,
+div#col0 ul.tabs_3 ul li.notallowed a,
+div#col0 ul.tabs_4 ul li.notallowed a,
+div#col0 ul.tabs_5 ul li.notallowed a,
+div#col0 ul.tabs_6 ul li.notallowed a,
+div#col0 ul.tabs_0.last ul li.notallowed a,
+div#col0 ul.tabs_1.last ul li.notallowed a,
+div#col0 ul.tabs_2.last ul li.notallowed a,
+div#col0 ul.tabs_3.last ul li.notallowed a,
+div#col0 ul.tabs_4.last ul li.notallowed a,
+div#col0 ul.tabs_5.last ul li.notallowed a,
+div#col0 ul.tabs_6.last ul li.notallowed a {
+	color: #666;
+	background-color: #eee;
+	background-image: none;
+}
+
+
+
+
+
+/* -=table styles
+-----------------------------------------------------------------*/
+
+div table { 
+	clear: both;
+	border: 1px solid #243340;
+	display: block;
+	margin-top: 0;
+}
+
+div table th {
+	background-color: #DDE8F2;
+	font-size: 12px;
+	color: #243340;
+	padding: 5px 0;
+}
+
+div table th strong { display: block; float: left; min-width: 1em; }
+
+div table tr:hover  { background-color: #f8fafd; }
+div table tr td { 
+	padding: 0.4em; 
+	border: 1px solid #eaedf2;
+	border-width: 0 1px 1px 0;
+	vertical-align: top;
+}
+
+	div table tr td.id a {
+		display: block;
+		width: 20px; float: left;
+		height: 20px;
+		text-indent: -1000px;
+		background: url(images/icons/detail_arrow_01.png) no-repeat 50% 50%;
+	}
+	
+	/* TABLE icons */
+	div table tr td.id a.detail { background: url(images/icons/detail_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.list { background: url(images/icons/list_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.add { background: url(images/icons/add_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.edit { background: url(images/icons/edit_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.search { background: url(images/icons/query_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.delete { background: url(images/icons/delete_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.cancel { background: url(images/icons/cancel_16.png) no-repeat 50% 50%; }	
+	div table tr td.id a.duplicate { background: url(images/icons/copy_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.redo { background: url(images/icons/redo_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.order { background: url(images/icons/list_16.png) no-repeat 50% 50%; } 
+	div table tr td.id a.clinicalannotation { background: url(images/icons/clinical_annotation_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.inventorymanagement { background: url(images/icons/inventory_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.querytools { background: url(images/icons/query_tool_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.toolsmenu { background: url(images/icons/tools_16.png) no-repeat 50% 50%; }	
+	div table tr td.id a.sop { background: url(images/icons/sop_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.drugadministration { background: url(images/icons/drugs_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.formsmanagement { background: url(images/icons/forms_builder_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.storagelayout { background: url(images/icons/storage_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.ordermanagement { background: url(images/icons/order_mgmt_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.protocolmanagement { background: url(images/icons/protocol_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.studymanagement { background: url(images/icons/study_16.png) no-repeat 50% 50%; }
+	div table tr td.id a.administration { background: url(images/icons/admin_16.png) no-repeat 50% 50%; }	
+	div table tr td.id a.customize { background: url(images/icons/customize_16.png) no-repeat 50% 50%; }
+
+div form fieldset input.submit {
+	width: 100px; height: 30px; text-align: center;
+	font-size: 1.2em; color: #fff;
+	background: url(images/form_submit_01.png) no-repeat 0 0;
+	border: none;
+	cursor: pointer;
+}
+
+
+/*  details table, add table, edit table
+-----------------------------------------------------------------*/
+
+div#col0 table table.detail,
+div#col0 table table.add, 
+div#col0 table table.edit {
+	width: 938px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+div#col0 table td table.detail td,
+div#col0 table td table.add td, 
+div#col0 table td table.edit td {
+	width: 900px;
+}
+
+
+div#col0 table.columns td.total_columns_1 table.detail {
+	width: 938px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+
+div#col0 table.columns td.total_columns_2 table.detail,
+div#col0 table.columns td.total_columns_2 table.edit,
+div#col0 table.columns td.total_columns_2 table.add {
+	width: 464px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+div#col0 table.columns td.total_columns_3 table.detail {
+	width: 306px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+div#col0 table.columns td.this_column_2.total_columns_3 table.detail {
+	width: 309px;
+}
+div#col0 table.columns td.total_columns_4 table.detail {
+	width: 225px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+
+
+
+
+div#col0 table.index td.no_data_available {
+	width: 948px;
+	font-size: 20px; color: #777; background-color: #FCFDF6;
+	padding: 3em 0; text-align: center;
+}
+
+
+div#col2 table.columns {
+	width: 590px;
+}
+div#col2 table.columns td.total_columns_1 table.detail, 
+div#col2 table.columns td.total_columns_1 table.edit,
+div#col2 table.columns td.total_columns_1 table.add {
+	width: 578px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+
+
+
+div#col0 table.index {
+	width: 950px;
+	border: 1px solid #243340;
+}
+div#views div#col0 table.index td.id.size1 { width: 30px; }
+div#views div#col0 table.index td.id.size2 { width: 60px; }
+div#views div#col0 table.index td.id.size3 { width: 90px; }
+div#views div#col0 table.index td.id.size4 { width: 120px; }
+div#views div#col0 table.index td.id.size5 { width: 150px; }
+
+
+div#col2 table.index {
+	width: 590px;
+}
+div#col2 table.index td.no_data_available {
+	width: 578px;
+	font-size: 20px; color: #777; background-color: #FCFDF6;
+	padding: 3em 0; text-align: center;
+}
+
+
+
+
+div table td table.checklist {
+	width: 800px; border: none
+}
+div table td table.checklist td {
+	width: 800px;
+}
+
+
+
+
+
+/*  clinical annotation / inventory management table styles
+-----------------------------------------------------------------*/
+div#col0 table.columns td.total_columns_1 table.search {
+	w\idth: 938px;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+div#col2 table.search {
+	w\idth: 578px; border: none;
+	border: 1px solid #eaedf2;
+	border-width: 1px 0 0 1px;
+}
+
+table.search td,
+table.detail td,
+table.edit td,
+table.add td {
+	width: 900px;
+}
+
+
+
+div#wrapper.plugin_inventorymanagement div#col2 table table.detail,
+div#wrapper.plugin_clinicalannotation div#col2 table table.detail {
+	width: 465px;
+}
+div form#expanded_filter {
+	width: 950px; border: 1px solid #243340;
+	border-bottom: none;
+	padding: 5px; w\idth: 938px;
+}
+
+
+
+/*  setup specific widths to equal 950w 
+-----------------------------------------------------------------*/
+div table td {  }
+div table th.id { width: 50px; }
+div table th.header { vertical-align: top; }
+
+/*
+div table th.header { width: 20%; }
+div table th.alias { width: 250px; }
+div table th.model { width: 250px; }
+div table th.language_title { width: 250px; }
+div table th.language_help { width: 150px; }
+
+div table th.name { width: 400px; }
+div table th.description { width: 500px; }
+*/
+
+div table tr#pagination th {
+	text-align: center;
+	font-size: 10px;
+	width: 948px;
+}
+div table span#pagination_results { float: left; margin-left: 10px; }
+div table span#pagination_links { float: right; margin-right: 10px; }
+
+
+
+
+/* -=actions bar (now 100% action free!) 
+-----------------------------------------------------------------*/
+
+div.action_bar {
+	width: 950px; margin-bottom: 5px;
+	background: #fff url(images/actions_bk_01.png) bottom left;
+	min-height: 40px;
+	float: left; 
+}
+div.action_bar ul {
+	width: 600px; float: right;
+	padding: 0; margin: 0;
+}
+div.action_bar ul li {
+	display: block; width: 50px; height: 40px;
+	padding: 0; margin: 0;
+	float: right;
+}
+div.action_bar ul li a {
+	display: block; padding: 0; margin: 0;
+	 width: 100%; height: 100%;
+	text-align: center; overflow: hidden; text-indent: -1000px;
+	background: url(images/icons/action_detail_01.png) no-repeat 50% 50%;
+}
+
+	/* ACTION icons */
+	div.action_bar ul li a.detail { background: url(images/icons/action_detail_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.list { background: url(images/icons/action_list_01.png) no-repeat 50% 50%; }
+	
+	div.action_bar ul li a.add { background: url(images/icons/action_add_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.edit { background: url(images/icons/action_edit_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.delete { background: url(images/icons/action_delete_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.cancel { background: url(images/icons/action_cancel_01.png) no-repeat 50% 50%; }
+	
+	div.action_bar ul li a.search { background: url(images/icons/action_search_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.duplicate { background: url(images/icons/action_copy_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.redo { background: url(images/icons/action_redo_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.order { background: url(images/icons/action_order_01.png) no-repeat 50% 50%; }
+	
+	div.action_bar ul li a.clinicalannotation { background: url(images/icons/action_clinical_annotation_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.inventorymanagement { background: url(images/icons/action_inventory_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.querytools { background: url(images/icons/action_query_tool_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.toolsmenu { background: url(images/icons/action_tools_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.sop { background: url(images/icons/action_sop_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.drugadministration { background: url(images/icons/action_drugs_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.formsmanagement { background: url(images/icons/action_forms_builder_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.storagelayout { background: url(images/icons/action_storage_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.ordermanagement { background: url(images/icons/action_order_mgmt_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.protocolmanagement { background: url(images/icons/action_protocol_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.studymanagement { background: url(images/icons/action_study_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.administration { background: url(images/icons/action_admin_01.png) no-repeat 50% 50%; }
+	div.action_bar ul li a.customize { background: url(images/icons/action_customize_01.png) no-repeat 50% 50%; }
+
+
+/* clinical annotation search actionbar */
+div#col2 div.action_bar {
+	width: 590px; background: url(images/actions_col2_bk_01.png) no-repeat left bottom;
+}
+
+/* -=menus  ---- massive tree view stuff
+-----------------------------------------------------------------*/
+div.tree_view {
+	padding: 2em 0;
+	background-color: #dde8f2;
+	border: 1px solid #243340;
+}
+
+div#col0 ul.tree_view {
+	display: block;
+	width: 950px; border: none;
+	w\idth: 948px;
+}
+div#col0 ul.tree_view li {
+	margin: 0;
+	padding: 2px 5px; background: #fff;
+}
+div#col0 ul.tree_view li.no_data_available {
+	width: 948px;
+	font-size: 20px; color: #777; background-color: #FCFDF6;
+	padding: 3em 0; text-align: center;
+}
+div#col0 ul.tree_view li.alt {
+	background: #f8fafd;
+}
+div#col0 ul.tree_view li a {
+	display: block; float: left;
+	width: 20px; height: 20px; text-align: center;
+	padding: 0; margin: 0;
+}
+div#col0 ul.tree_view li a.list,
+div#col0 ul.tree_view li a.detail {
+	margin-left: 10px;
+	display: block;
+	text-indent: -1000px;
+}
+div#col0 ul.tree_view li a.detail {	background: url(images/icons/detail_arrow_01.png) no-repeat 50% 50%; }
+div#col0 ul.tree_view li a.list { background: url(images/icons/tree16.png) no-repeat 50% 50%; }
+
+div#col0 ul.tree_view li span {
+	border-left: 2px solid #999;
+	padding: 0 5px;
+}
+
+div#col0 ul.tree_view ul {
+	width: 920px; margin: 5px 0 10px 10px;
+	border: 1px solid #eaedf2;
+}
+div#col0 ul.tree_view ul ul {
+	width: 890px; 
+}
+div#col0 ul.tree_view ul ul ul {
+	width: 860px;
+}
+div#col0 ul.tree_view ul ul ul ul {
+	width: 830px;
+}
+div#col0 ul.tree_view ul ul ul ul ul {
+	width: 800px;
+}
+div#col0 ul.tree_view ul ul ul ul ul ul {
+	width: 770px;
+}
+div#col0 ul.tree_view ul ul ul ul ul ul ul {
+	width: 740px;
+}
+
+
+
+
+/* -=messages, swatches, invisibles and chips
+-----------------------------------------------------------------*/
+
+.yel_msg, 
+.error {
+    color: #900;
+    background-color: #fefdcc;
+}
+
+ul.error {
+	margin: 0.5em 0;
+}
+
+ul.error li {
+	padding: 0.1em 0.5em;
+}
+
+div.error.validation,
+ul.error.validation {
+	list-style: none; font-size: 1.2em;
+	margin-bottom: 0.25em; padding: 0.25em;
+	background-color: #c00; color:#fff;
+}
+
+span.tag { color:#999; }
+
+span.error {
+	border: 1px solid #c00;
+	padding: 0 0.25em;
+	color:#c00;
+}
+span.error.untranslated {
+	font-size: 1em;
+	background-color: #ff0;
+	color:#999;
+	border: 0;
+}
+span.error.empty {
+	display: block;
+	font-size: 1em;
+	background-color: #ffc;
+	color:#ccc; margin: 0; padding: 0;
+	border: none; width: 100%;
+	text-align: center;
+	
+}
+td span.error.empty {
+	display: inline;
+	padding: 0 0.5em;
+	margin: 0 4px 0 0;
+}
+span.error.help {
+	display: block; height: 18px; width: 18px; overflow: hidden;
+	margin: 0; padding: 0;
+	background: url(images/icons/help16gray.png) no-repeat 50% 50%;
+	text-indent: -1000px;
+	border: none;
+	float: right;
+	margin-right: 10px;
+}
+th strong span.error.help { padding-left: 5px; }
+div#col0 table.search td.label, 
+div#col2 table.search td.label, 
+div#col0 table.add td.label, 
+div#col0 table.edit td.label, 
+div#col0 table.detail td.label,
+div#col2 table.detail td.label { 
+	color: #243340; width: 100px; font-weight: bold;
+}
+div#col0 table.search td.help, 
+div#col2 table.search td.help, 
+div#col0 table.add td.help, 
+div#col0 table.edit td.help, 
+div#col0 table.detail td.help,
+div#col2 table.detail td.help { 
+	width: 50px; 
+}
+
+strong.info.detail,
+span.info.detail {
+	margin: 0; 
+	padding: 0.25em 0 0.25em 1em; 
+	line-height: 2em;
+}
+
+strong.info.detail {
+    color: #61708B;
+    background-color: #F5F7FB;
+	display: block;
+}
+
+
+
+
+
+/* -=landing page styles
+-----------------------------------------------------------------*/
+
+div.plugin_none #col2 form {
+	padding: 55px 20px; border: none;
+	background: url("images/login_table_bk01.png") no-repeat 0 0;
+}
+div.plugin_none #col2 form table th {
+	display: none;
+}
+div.plugin_none #col2 form table,
+div.plugin_none #col2 form table td {
+	border: none;
+}
+div.plugin_none #col2 table.columns td table.edit {
+	border: none; margin: 0;
+}
+div.plugin_none table tr:hover  { background: none; }
+div.plugin_none #col2 form table.columns {
+	width: 510px;
+}
+div.plugin_none #col2 form table.columns table.edit {
+	width: 505px;
+}
+div.plugin_none #col2 table.columns td table.edit td {
+	padding: 5px;
+}
+div.plugin_none #col2 table.columns td table.edit td.label {
+	color: #fff;
+}
+
+/* === login form styles === */
+div.plugin_none #col2 input#UserUsername, 
+div.plugin_none #col2 input#UserPasswd {
+	width: 380px; padding: 15px;
+	font-size: 1.5em; color: #243340;
+	border: 1px solid #243340;
+}
+div.plugin_none div#col2 form fieldset input.submit {
+	width: 250px; height: 50px; padding: 15px;
+	font-size: 1.5em; color: #fff;
+	background: url("images/login_button_01.png") no-repeat 0 0;
+	border: none; float: right; margin-right: 20px;
+}
+
+/* -=jtip styles
+-----------------------------------------------------------------*/
+
+#JT_arrow_left{
+	background-image: url("../img/arrow_left.gif");
+	background-repeat: no-repeat;
+	background-position: left top;
+	position: absolute;
+	z-index:101; 
+	left:-12px; top:-3px;
+	height: 23px; width: 10px;
+}
+#JT_arrow_right{
+	background-image: url("../img/arrow_right.gif");
+	background-repeat: no-repeat;
+	background-position: left top;
+	position: absolute;
+	z-index:101;
+	height:23px; width:11px;
+	top:-2px;
+}
+#JT {
+	position: absolute;
+	z-index: 1000;
+	border: 2px solid #CAD5EA;
+	background-color: #fff;
+}
+#JT_copy{
+	padding:10px 10px 10px 10px;
+	color:#333333;
+}
+.JT_loader{
+	background-image: url("../img/loader.gif");
+	background-repeat: no-repeat;
+	background-position: center center;
+	width:100%;
+	height:12px;
+}
+#JT_close_left{
+	background-color: #CAD5EA;
+	text-align: left;
+	padding-left: 8px;
+	padding-bottom: 5px;
+	padding-top: 2px;
+	font-weight:bold;
+}
+#JT_close_right{
+	background-color: #CAD5EA;
+	text-align: left;
+	padding-left: 8px;
+	padding-bottom: 5px;
+	padding-top: 2px;
+	font-weight:bold;
+}
+#JT_copy p{
+	margin:3px 0;
+}
+#JT_copy img{
+	padding: 1px;
+	border: 1px solid #CAD5EA;
+}
+.jTip {
+	cursor: help;
+}
+a.jTip,
+td.help a.jTip,
+th strong a.jTip,
+fieldset.form label a.jTip,
+div#col0 form label a.jTip,
+div#col2 form label a.jTip { 
+	background: url(images/icons/help16.png) no-repeat 50% 50%;
+	text-decoration: none;
+	text-indent: -9999px;
+	border: none;
+	float: right;
+	display: block; height: 18px; width: 18px; overflow: hidden;
+	margin: 0; padding: 0;
+	text-indent: -1000px;
+
+}
+td.help a.jTip { margin-right: 10px; }
+
+/*
+div#col2 a.jTip,
+td.help a.jTip,
+div#col2 form fieldset.form label a.jTip { 
+	position: absolute;
+}
+
+*/
+
+
+
+/*================================================================
+	-=footer
+================================================================*/
+div#footer p { 
+	width: 950px; text-align: left; 
+	margin: 0 auto; 
+}
+div#footer a {
+	 color: #666;
+}
+
+div#footer span { 
+	float: right; 
+}
+div#footer span span { 
+	float: none; 
+} /* for untranslated links */
+div#footer span a { 
+	margin-left: 0.5em; 
+}
+
+/*-------------------*/
+
+/* this is the CAKEPHP DEBUG table that appears at the bottom of every view */
+table#cakeSqlLog {
+	clear: both;
+	margin: 3em auto;
+	width: 70%;
+	border-top: 1px solid #ccc;
+	border-right: 1px solid #ccc;
+	font-family: courier, serif;
+	
+	opacity: 0.7;
+	filter: alpha(opacity=70);
+}
+
+table#cakeSqlLog td,
+table#cakeSqlLog th {
+	vertical-align: top;
+	text-align: left;
+	border-bottom: 1px solid #ccc;
+	border-left: 1px solid #ccc;
+	padding: 0.5em;
+	font: 11px/14px helvetica, arial, sans-serif;
+}
+
+table#cakeSqlLog th {
+	vertical-align: bottom;
+	font-weight: bold;
+}

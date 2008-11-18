@@ -1,0 +1,20 @@
+<?php 
+	$sidebars->header( $lang );
+	$sidebars->cols( $ctrapp_sidebar, $lang );
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang );
+?>
+	
+	<?php 
+		$form_type = 'add';
+		$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( array( 'Drug'=>array() ) );
+		$form_field = $ctrapp_form;
+		$form_link = array( 'add'=>'/drug/drugs/add/', 'cancel'=>'/drug/drugs/listall/' );
+		$form_lang = $lang;
+		$form_pagination = NULL;
+		$form_overrides = array();
+		
+		$forms->build( $form_type, $form_model, $form_field, $form_link, $form_lang, $form_pagination, $form_overrides ); 
+	?>
+		
+<?php echo $sidebars->footer($lang); ?>

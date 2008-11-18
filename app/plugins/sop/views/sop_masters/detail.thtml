@@ -1,0 +1,19 @@
+<?php 
+	$sidebars->header($lang);
+	$sidebars->cols($ctrapp_sidebar, $lang);
+	$summaries->build( $ctrapp_summary, $lang ); 
+	$menus->tabs( $ctrapp_menu, $lang ); 
+?>
+	
+	<?php 
+		$form_type = 'detail';
+		$form_model = isset( $this->params['data'] ) ? array( $this->params['data'] ) : array( $data );
+		$form_field = $ctrapp_form;
+		$form_link = array( 'edit'=>'/sop/sop_masters/edit/', 'delete'=>'/sop/sop_masters/delete/', 'list'=>'/sop/sop_masters/listall/' );
+		$form_lang = $lang;
+		
+		$form_extras = array();
+		$forms->build( $form_type, $form_model, $form_field, $form_link, $form_lang, NULL, NULL, $form_extras ); 
+	?>
+		
+<?php echo $sidebars->footer($lang); ?>
