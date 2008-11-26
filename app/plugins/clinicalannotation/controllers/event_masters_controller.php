@@ -262,20 +262,33 @@ class EventMastersController extends ClinicalAnnotationAppController {
 			// after EVENTDETAIL model is set and declared
 			$this->cleanUpFields('EventDetail');
 
-			if ( $this->EventMaster->validates( $this->data['EventMaster'] ) && $this->EventDetail->validates( $this->data['EventDetail'] ) ) {
-
-				// save EVENTMASTER data
-				$this->EventMaster->save( $this->data['EventMaster'] );
-
-				// set ID fields based on EVENTMASTER
-				$this->data['EventDetail']['id'] = $this->EventMaster->getLastInsertId();
-				$this->data['EventDetail']['event_master_id'] = $this->EventMaster->getLastInsertId();
-
-				// save EVENTDETAIL data
-				$this->EventDetail->save( $this->data['EventDetail'] );
-
-				$this->flash( 'Your data has been updated.','/event_masters/listall/'.$menu_id.'/'.$event_group.'/'.$participant_id );
-
+			// validate MASTER first...
+			if ( $this->EventMaster->validates( $this->data['EventMaster'] ) ) {
+				
+				// validate DETAIL/CONTROL second...
+				if ( $this->EventDetail->validates( $this->data['EventDetail'] ) ) {
+					
+					// save EVENTMASTER data
+					$this->EventMaster->save( $this->data['EventMaster'] );
+					
+					// set ID fields based on EVENTMASTER
+					$this->data['EventDetail']['id'] = $this->EventMaster->getLastInsertId();
+					$this->data['EventDetail']['event_master_id'] = $this->EventMaster->getLastInsertId();
+	
+					// save EVENTDETAIL data
+					$this->EventDetail->save( $this->data['EventDetail'] );
+					
+					$this->flash( 'Your data has been updated.','/event_masters/listall/'.$menu_id.'/'.$event_group.'/'.$participant_id );
+	
+				} else {
+					// manually assign ERROR MESSAGES to validation variable for VIEW display
+					$this->EventControl->validationErrors= array_merge( $this->EventControl->validationErrors, $this->EventDetail->invalidFields($this->data['EventDetail']) );
+					$this->EventDetail->validationErrors= array_merge( $this->EventDetail->validationErrors, $this->EventDetail->invalidFields($this->data['EventDetail']) );
+				}
+			
+			} else {
+				// manually assign ERROR MESSAGES to validation variable for VIEW display
+				$this->EventMaster->validationErrors= array_merge( $this->EventMaster->validationErrors, $this->EventMaster->invalidFields($this->data['EventMaster']) );
 			}
 
 		} else {
@@ -323,12 +336,7 @@ class EventMastersController extends ClinicalAnnotationAppController {
 			// read EVENTMASTER info, which contains FORM alias and DETAIL tablename
 			$this->EventMaster->id = $event_master_id;
 			$event_master_data = $this->EventMaster->read();
-
-			// setup MODEL(s) validation array(s) for displayed FORM
-				foreach ( $this->Forms->getValidateArray( $event_master_data['EventMaster']['form_alias'] ) as $validate_model=>$validate_rules ) {
-					$this->{ $validate_model }->validate = $validate_rules;
-				}
-
+			
 			// FORM alias, from EVENT MASTER field
 			$this->set( 'ctrapp_form', $this->Forms->getFormArray( $event_master_data['EventMaster']['form_alias'] ) );
 
@@ -337,6 +345,11 @@ class EventMastersController extends ClinicalAnnotationAppController {
 			// read related EVENTDETAIL row, whose ID should be same as EVENTMASTER ID
 			$this->EventDetail->id = $event_master_id;
 			$event_specific_data = $this->EventDetail->read();
+			
+			// setup MODEL(s) validation array(s) for displayed FORM
+			foreach ( $this->Forms->getValidateArray( $event_master_data['EventMaster']['form_alias'] ) as $validate_model=>$validate_rules ) {
+				$this->{ $validate_model }->validate = $validate_rules;
+			}
 
 		// look for CUSTOM HOOKS, "format"
 		$custom_ctrapp_controller_hook 
@@ -358,23 +371,37 @@ class EventMastersController extends ClinicalAnnotationAppController {
 
 			// after EVENTDETAIL model is set and declared
 			$this->cleanUpFields('EventDetail');
-
-			if ( $this->EventMaster->validates( $this->data['EventMaster'] ) && $this->EventDetail->validates( $this->data['EventDetail'] ) ) {
+			
+			// validate MASTER first...
+			if ( $this->EventMaster->validates( $this->data['EventMaster'] ) ) {
 				
-				// Check to see if diagnosis_id has been set
-				if ( isset($this->data['EventMaster']['diagnosis_id']) ) {
-					// Check diagnosis_id is set and FALSE ('' or 0) 
-					if ( !$this->data['EventMaster']['diagnosis_id'] ) {
-						// Set diagnosis_id to NULL. This ensures the diagnosis_id FK
-						// constraint is satisfied. 
-						$this->data['EventMaster']['diagnosis_id']= NULL;
+				// validate CONTROL/DETAIL second...
+				if ( $this->EventDetail->validates( $this->data['EventDetail'] ) ) {
+					
+					// Check to see if diagnosis_id has been set
+					if ( isset($this->data['EventMaster']['diagnosis_id']) ) {
+						// Check diagnosis_id is set and FALSE ('' or 0) 
+						if ( !$this->data['EventMaster']['diagnosis_id'] ) {
+							// Set diagnosis_id to NULL. This ensures the diagnosis_id FK
+							// constraint is satisfied. 
+							$this->data['EventMaster']['diagnosis_id']= NULL;
+						}
 					}
+			
+					$this->EventMaster->save( $this->data['EventMaster'] );
+					$this->EventDetail->save( $this->data['EventDetail'] );
+	
+					$this->flash( 'Your data has been updated.','/event_masters/detail/'.$menu_id.'/'.$event_group.'/'.$participant_id.'/'.$event_master_id );
+					
+				} else {
+					// manually assign ERROR MESSAGES to validation variable for VIE display
+					$this->EventControl->validationErrors= array_merge( $this->EventControl->validationErrors, $this->EventDetail->invalidFields($this->data['EventDetail']) );
+					$this->EventDetail->validationErrors= array_merge( $this->EventDetail->validationErrors, $this->EventDetail->invalidFields($this->data['EventDetail']) );
 				}
-		
-				$this->EventMaster->save( $this->data['EventMaster'] );
-				$this->EventDetail->save( $this->data['EventDetail'] );
-
-				$this->flash( 'Your data has been updated.','/event_masters/detail/'.$menu_id.'/'.$event_group.'/'.$participant_id.'/'.$event_master_id );
+			
+			} else {
+				// manually assign ERROR MESSAGES to validation variable for VIE display
+				$this->EventMaster->validationErrors= array_merge( $this->EventMaster->validationErrors, $this->EventMaster->invalidFields($this->data['EventMaster']) );
 			}
 
 		}
