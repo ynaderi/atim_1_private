@@ -49,6 +49,8 @@ class FormsComponent extends Object {
 			foreach ( $data as $model=>$fields ) {
 				foreach ( $fields as $key=>$value ) {
 				
+					unset($fieldOfDate);
+					
 					$default_year_value = '2000';
 					if ( strrpos( $key, '_start_' ) ) { $default_year_value = '0000'; }
 					if ( strrpos( $key, '_end_' ) ) { $default_year_value = '9999'; }
@@ -56,8 +58,16 @@ class FormsComponent extends Object {
 					// if DATETIME form type 
 					if ( substr($key,-5)=='_year' && isset( $data[$model][ substr($key,0,-5).'_month' ] ) && isset( $data[$model][ substr($key,0,-5).'_hour' ] ) ) {
 						
+						// get DATE field name WITHOUT _year, _month, etc
+						$substrOfDate = explode('_',$key);
+						$remove_YEAR = array_pop($substrOfDate);
+						$substrOfDate = implode('_',$substrOfDate);
+						
 						// get DATE field name WITHOUT _start or _end
-						$substrOfDate = substr($key,0,-5);
+						$fieldOfDate = explode('_',$key);
+						$remove_YEAR = array_pop($fieldOfDate);
+						$remove_START_OR_END = array_pop($fieldOfDate);
+						$fieldOfDate = implode('_',$fieldOfDate);
 						
 						// format HOUR, based on 24 or 12 hour clock
 						$hour = $data[$model][ $substrOfDate.'_hour'];
@@ -87,8 +97,16 @@ class FormsComponent extends Object {
 					// if DATE form type 
 					else if ( substr($key,-5)=='_year' && isset( $data[$model][ substr($key,0,-5).'_month' ] ) ) {
 						
+						// get DATE field name WITHOUT _year, _month, etc
+						$substrOfDate = explode('_',$key);
+						$remove_YEAR = array_pop($substrOfDate);
+						$substrOfDate = implode('_',$substrOfDate);
+						
 						// get DATE field name WITHOUT _start or _end
-						$substrOfDate = substr($key,0,-5);
+						$fieldOfDate = explode('_',$key);
+						$remove_YEAR = array_pop($fieldOfDate);
+						$remove_START_OR_END = array_pop($fieldOfDate);
+						$fieldOfDate = implode('_',$fieldOfDate);
 						
 						// generate full date value for new DATE field
 						$newDateField = ( $data[$model][ $substrOfDate.'_year' ] ? $data[$model][ $substrOfDate.'_year' ] : $default_year_value ).'-'.( $data[$model][ $substrOfDate.'_month' ] ? $data[$model][ $substrOfDate.'_month' ] : '00' ).'-'.( $data[$model][ $substrOfDate.'_day' ] ? $data[$model][ $substrOfDate.'_day' ] : '00' );
@@ -110,8 +128,16 @@ class FormsComponent extends Object {
 					// if TIME form type 
 					else if ( substr($key,-5)=='_hour' && isset( $data[$model][ substr($key,0,-5).'_min' ] ) ) {
 						
+						// get DATE field name WITHOUT _year, _month, etc
+						$substrOfDate = explode('_',$key);
+						$remove_YEAR = array_pop($substrOfDate);
+						$substrOfDate = implode('_',$substrOfDate);
+						
 						// get DATE field name WITHOUT _start or _end
-						$substrOfDate = substr($key,0,-5);
+						$fieldOfDate = explode('_',$key);
+						$remove_YEAR = array_pop($fieldOfDate);
+						$remove_START_OR_END = array_pop($fieldOfDate);
+						$fieldOfDate = implode('_',$fieldOfDate);
 						
 						// format HOUR, based on 24 or 12 hour clock
 						$hour = $data[$model][ $substrOfDate.'_hour'];
@@ -131,6 +157,18 @@ class FormsComponent extends Object {
 						// save to MODEL
 						$data[$model][$substrOfDate] = $newDateField;
 						
+					}
+					
+					// if FIELD is a DATE/TIME field...
+					if ( isset($fieldOfDate) ) {
+						// if BOTH start AND end field is BLANK, then REMOVE from data to allow NULLS to be found
+						if ( $data[$model][$fieldOfDate.'_start']=='0000-00-00 00:00:00' || $data[$model][$fieldOfDate.'_start']=='0000-00-00' || $data[$model][$fieldOfDate.'_start']=='00:00:00' ) {
+							// add ISSET check to IF statement, as above START check might have already unset the variableCorre
+							if ( isset($data[$model][ $fieldOfDate.'_end']) && ($data[$model][$fieldOfDate.'_end']=='9999-00-00 00:00:00' || $data[$model][$fieldOfDate.'_end']=='9999-00-00' || $data[$model][$fieldOfDate.'_end']=='00:00:00') ) {
+								unset($data[$model][ $fieldOfDate.'_start']);
+								unset($data[$model][ $fieldOfDate.'_end']);
+							}
+						}
 					}
 					
 				}

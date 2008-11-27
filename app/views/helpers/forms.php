@@ -180,6 +180,7 @@ class FormsHelper extends Helper {
 				$messages = array();
 				
 				if ( isset( $this->validationErrors ) && $type!='summary' && $type!='csv' ) {
+				
 					foreach( $this->validationErrors as $table ) {
 						
 						foreach($table as $field => $message) {

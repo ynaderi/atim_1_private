@@ -110,6 +110,7 @@ class AppModel extends Model {
 		foreach($this->validate as $field_name => $validators) {
 			foreach($validators as $validator) {
 				if (isset($data[$field_name]) && !preg_match($validator['expression'], $data[$field_name])) {
+					$this->invalidate($field_name);
 					$errors[$field_name] = $validator['message'];
 				}
 			}
@@ -121,10 +122,9 @@ class AppModel extends Model {
 		
 		$this->validationErrors = array_merge( $this->validationErrors, $errors );
 		
-		return $errors;
+		return $this->validationErrors;
 		
 	}
-
 
 }
 ?>
