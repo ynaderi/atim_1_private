@@ -179,6 +179,8 @@ class AdhocsController extends DataMartAppController {
 	
 	function results( $type_of_list = 'all', $adhoc_id=0 ) {
 	
+			$this->data = $this->Forms->clearUpDataArrayForSearches($this->data, array('clearBlankDates'=>false));
+			
 			// BIND models on the fly...
 			$this->Adhoc->bindModel(
 				  array('hasMany' => array(
@@ -254,12 +256,8 @@ class AdhocsController extends DataMartAppController {
 			if ( $adhoc['Adhoc']['sql_query_for_results'] ) {
 				
 				list( $sql_query_with_search_terms, $sql_query_without_search_terms ) = $this->Forms->getSearchConditions( $this->data, NULL, $adhoc['Adhoc']['sql_query_for_results'] );
-				$ids = $this->ModelToSearch->query( $sql_query_with_search_terms );
 				
-				/*
-				pr($ids);
-				exit;
-				*/
+				$ids = $this->ModelToSearch->query( $sql_query_with_search_terms );
 				
 				foreach ( $ids as $array ) {
 					foreach ( $array as $id_model=>$id_fields ) {
@@ -280,7 +278,6 @@ class AdhocsController extends DataMartAppController {
 				$criteria = $this->Forms->getSearchConditions( $this->data, $ctrapp_form );
 				
 			}
-
 		
 		/* make list of SEARCH RESULTS */
 			
@@ -288,13 +285,7 @@ class AdhocsController extends DataMartAppController {
 			$sql_query_with_search_terms = str_replace( '"', '|', $sql_query_with_search_terms );
 			$sql_query_without_search_terms = str_replace( '"', '|', $sql_query_without_search_terms );
 			
-			// Replace ranges with EXTREME ranges
-			$sql_query_without_search_terms = str_replace( '>=||', '>=|-999999|', $sql_query_without_search_terms );
-			$sql_query_without_search_terms = str_replace( '>= ||', '>= |-999999|', $sql_query_without_search_terms );
-			$sql_query_without_search_terms = str_replace( '<=||', '<=|999999|', $sql_query_without_search_terms );
-			$sql_query_without_search_terms = str_replace( '<= ||', '<= |999999|', $sql_query_without_search_terms );
-	    	
-	    	if ( $adhoc['Adhoc']['flag_use_query_results'] && $adhoc['Adhoc']['sql_query_for_results'] ) {
+			if ( $adhoc['Adhoc']['flag_use_query_results'] && $adhoc['Adhoc']['sql_query_for_results'] ) {
 	    		$this->set( 'final_query', $sql_query_without_search_terms );
 	    		$results = $ids;
 			} else {
@@ -318,6 +309,14 @@ class AdhocsController extends DataMartAppController {
 			
 			$this->set( 'ctrapp_form_links', $ctrapp_form_links ); // set for display purposes...
 			
+				/*
+				echo '<h3>with</h3>';
+				pr($sql_query_with_search_terms);
+				echo '<h3>without</h3>';
+				pr($sql_query_without_search_terms);
+				exit;
+				*/
+				
 		/* get list of compatible BATCHES (matching model), for form PULLDOWN */
 			
 			$criteria = array();
