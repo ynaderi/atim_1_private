@@ -75,7 +75,7 @@
 		
 		// Aliquot Number
 		$html_string .= '<select name="aliquot_number">';
-		for($ind=1; $ind < 20 ; $ind++){
+		for($ind=1; $ind < $max_nbr_of_aliq_per_batch ; $ind++){
 			$html_string .='<option value="'.$ind.'">'.$ind.'</option>';
 		}
 		$html_string .= '</select>';
