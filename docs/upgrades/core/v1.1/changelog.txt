@@ -1,0 +1,7 @@
+Current Date - November 20/2008
+Release Number - v1.1
+
+Description - Initial changelog file for the CTRNet core v1.1. Subsequent changelogs will outline bug fixes, enhancements and
+changes to the system.
+
+

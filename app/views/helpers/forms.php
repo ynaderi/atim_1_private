@@ -223,11 +223,7 @@ class FormsHelper extends Helper {
 			
 		// if SETTINGS require it, RETURN value, else ECHO it...
 			
-			$display_form = '
-				<!-- START: Forms Helper -->
-				'.trim($display_form).'
-				<!-- END: Forms Helper -->
-			';
+			$display_form = trim($display_form);
 			
 			if ( in_array( 'return', $form_settings ) ) {
 				return $display_form;
@@ -867,7 +863,6 @@ class FormsHelper extends Helper {
 		
 				<fieldset class="form">
 							
-							<!-- START editgrid -->
 							<table class="addgrid" cellspacing="0">
 							<tbody>
 			';
@@ -991,7 +986,6 @@ class FormsHelper extends Helper {
 			$return_string .= '
 							</tbody>
 							</table>
-							<!-- END addgrid -->
 							
 				</fieldset>
 				
@@ -1042,7 +1036,6 @@ class FormsHelper extends Helper {
 		
 				<fieldset class="form">
 							
-							<!-- START editgrid -->
 							<table class="editgrid" cellspacing="0">
 							<tbody>
 			';
@@ -1168,7 +1161,6 @@ class FormsHelper extends Helper {
 			$return_string .= '
 							</tbody>
 							</table>
-							<!-- END editgrid -->
 							
 				</fieldset>
 				
@@ -1218,7 +1210,6 @@ class FormsHelper extends Helper {
 					$count_columns++;
 					
 					$return_string .= '
-						<!-- START display_column='.$table_column_key.' -->
 						<td class="this_column_'.$count_columns.' total_columns_'.count($table_index).'"> 
 						
 							<table class="detail" cellspacing="0">
@@ -1228,10 +1219,6 @@ class FormsHelper extends Helper {
 					// each row in column 
 					$table_row_count = 0;
 					foreach ( $table_column as $table_row_key=>$table_row ) {
-						
-						$return_string .= '
-								<!-- START display_order='.$table_row_key.' -->
-						';
 						
 						// display heading row, if any...
 						if ( $table_row['heading'] ) {
@@ -1264,7 +1251,6 @@ class FormsHelper extends Helper {
 						
 						$return_string .= '
 								</tr>
-								<!-- END display_order='.$table_row_key.' -->
 						';
 						
 						
@@ -1277,7 +1263,6 @@ class FormsHelper extends Helper {
 							</table>
 							
 						</td>
-						<!-- END display_column='.$table_column_key.' -->
 					';
 					
 				} // end COLUMN 
@@ -1342,7 +1327,6 @@ class FormsHelper extends Helper {
 			$count_columns++;
 			
 			$return_string .= '
-					<!-- START display_column='.$table_column_key.' -->
 					<td class="this_column_'.$table_column_key.' total_columns_'.count($table_index).'">
 					
 						<table class="search" cellspacing="0">
@@ -1354,7 +1338,6 @@ class FormsHelper extends Helper {
 			foreach ( $table_column as $table_row_key=>$table_row ) {
 				
 				$return_string .= '
-							<!-- START display_order='.$table_row_key.' -->
 							<tr>
 								<td class="label'.( !$table_row_count && !$table_row['heading'] ? ' no_border' : '' ).'">
 									'.$table_row['label'].'
@@ -1374,7 +1357,6 @@ class FormsHelper extends Helper {
 				
 				$return_string .= '
 							</tr>
-							<!-- END display_order='.$table_row_key.' -->
 				';
 				
 				$table_row_count++;
@@ -1386,7 +1368,6 @@ class FormsHelper extends Helper {
 						</table>
 						
 					</td>
-					<!-- END display_column='.$table_column_key.' -->
 			';
 			
 		} // end COLUMN 
@@ -1465,7 +1446,6 @@ class FormsHelper extends Helper {
 			$count_columns++;
 			
 			$return_string .= '
-					<!-- START display_column='.$table_column_key.' -->
 					<td class="this_column_'.$table_column_key.' total_columns_'.count($table_index).'">
 					
 						<table class="add" cellspacing="0">
@@ -1476,10 +1456,6 @@ class FormsHelper extends Helper {
 			$table_row_count = 0;
 			foreach ( $table_column as $table_row_key=>$table_row ) {
 				
-				$return_string .= '
-						<!-- START display_order='.$table_row_key.' -->
-				';
-						
 				// display heading row, if any...
 				if ( $table_row['heading'] ) {
 					$return_string .= '
@@ -1511,7 +1487,6 @@ class FormsHelper extends Helper {
 				
 				$return_string .= '
 							</tr>
-							<!-- END display_order='.$table_row_key.' -->
 				';
 				
 				$table_row_count++;
@@ -1523,7 +1498,6 @@ class FormsHelper extends Helper {
 						</table>
 						
 					</td>
-					<!-- END display_column='.$table_column_key.' -->
 			';
 			
 		} // end COLUMN 
@@ -1552,7 +1526,6 @@ class FormsHelper extends Helper {
 			
 			</fieldset>
 			
-			<!-- START hidden -->
 			<fieldset class="hidden">
 		';
 			
@@ -1589,7 +1562,6 @@ class FormsHelper extends Helper {
 		$return_string .= '
 		
 			</fieldset>
-			<!-- START hidden -->
 			
 			</form>
 		';
@@ -1644,7 +1616,6 @@ class FormsHelper extends Helper {
 			$count_columns++;
 			
 			$return_string .= '
-					<!-- START display_column='.$table_column_key.' -->
 					<td class="this_column_'.$table_column_key.' total_columns_'.count($table_index).'">
 					
 						<table class="edit" cellspacing="0">
@@ -1655,10 +1626,6 @@ class FormsHelper extends Helper {
 			$table_row_count = 0;
 			foreach ( $table_column as $table_row_key=>$table_row ) {
 				
-				$return_string .= '
-						<!-- START display_order='.$table_row_key.' -->
-				';
-						
 				// display heading row, if any...
 				if ( $table_row['heading'] ) {
 					$return_string .= '
@@ -1690,7 +1657,6 @@ class FormsHelper extends Helper {
 				
 				$return_string .= '
 							</tr>
-							<!-- END display_order='.$table_row_key.' -->
 				';
 				
 				$table_row_count++;
@@ -1702,7 +1668,6 @@ class FormsHelper extends Helper {
 						</table>
 						
 					</td>
-					<!-- END display_column='.$table_column_key.' -->
 			';
 			
 		} // end COLUMN 
@@ -1731,7 +1696,6 @@ class FormsHelper extends Helper {
 			
 			</fieldset>
 			
-			<!-- START hidden -->
 			<fieldset class="hidden">
 		';
 		
@@ -1789,7 +1753,6 @@ class FormsHelper extends Helper {
 		$return_string .= '
 		
 			</fieldset>
-			<!-- START hidden -->
 			
 			</form>
 		';
@@ -1899,7 +1862,6 @@ class FormsHelper extends Helper {
 				<tr>
 						<td'.( $colspan>1 ? ' colspan="'.$colspan.'"' : '' ).'>
 					
-						<!-- START extras -->
 						<table class="'.$type.'" cellspacing="0">
 						<tbody>
 							
@@ -1907,7 +1869,6 @@ class FormsHelper extends Helper {
 							
 						</tbody>
 						</table>
-						<!-- END extras -->
 						
 					</td>
 				</tr>

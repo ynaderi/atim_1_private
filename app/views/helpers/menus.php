@@ -62,7 +62,7 @@ class MenusHelper extends Helper {
 							// collect all LIs in one VARIABLE
 							$option_list .= '
 											<li id="'.$li_id.'" class="'.implode(' ',$li_classes).'">
-												<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'"'.$attach_js_to_link.'>
+												<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'"'.$attach_js_to_link.'>
 													'.$this->Translations->t( $tab['text'], $lang ).'
 												</a>
 											</li>
@@ -76,7 +76,7 @@ class MenusHelper extends Helper {
 								
 								$extra_at_state_start = '
 									<li id="'.$li_id.'_at" class="at '.implode(' ',$li_classes).'">
-										<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'" class="toggle" '.$attach_js_to_link.'>
+										<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'" class="toggle" '.$attach_js_to_link.'>
 											'.$this->Translations->t( $tab['text'], $lang ).'
 										</a>
 										
@@ -100,7 +100,7 @@ class MenusHelper extends Helper {
 							
 							$option_list .= '
 											<li class="'.implode(' ',$li_classes).'">
-												<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang ).'"' : '' ).'>
+												<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).'>
 													'.$this->Translations->t( $tab['text'], $lang ).'
 												</a>
 											</li>
@@ -189,7 +189,7 @@ class MenusHelper extends Helper {
 						// collect all LIs in one VARIABLE
 						$option_list .= '
 										<li id="'.$li_id.'" class="'.implode(' ',$li_classes).'">
-											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'"'.$attach_js_to_link.'>
+											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'"'.$attach_js_to_link.'>
 												'.$this->Translations->t( $tab['text'], $lang ).'
 												'.( count($tab['children']) ? '&nbsp;<strong>&raquo;</strong>' : '' ).'
 											</a>
@@ -212,7 +212,7 @@ class MenusHelper extends Helper {
 							
 							$extra_at_state_start = '
 								<li id="'.$li_id.'_at" class="at '.implode(' ',$li_classes).'">
-									<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'" class="toggle" '.$attach_js_to_link.'>
+									<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'" class="toggle" '.$attach_js_to_link.'>
 										'.$this->Translations->t( $tab['text'], $lang ).'
 									</a>
 									
@@ -236,7 +236,7 @@ class MenusHelper extends Helper {
 						
 						$option_list .= '
 										<li class="'.implode(' ',$li_classes).'">
-											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang ).'"' : '' ).'>
+											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).'>
 												'.$this->Translations->t( $tab['text'], $lang ).'
 												'.( count($tab['children']) ? '&nbsp;<strong>&raquo;</strong>' : '' ).'
 											</a>
