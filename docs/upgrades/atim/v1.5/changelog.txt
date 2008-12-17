@@ -1,0 +1,6 @@
+Current Date - November 26/2008
+Release Number - v1.5
+
+Description - First changelog file released with ATiM application.
+
+=======================================================================================
