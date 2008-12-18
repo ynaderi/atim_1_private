@@ -27,8 +27,6 @@ WHERE `id` = 'pager';
 INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
 ('pager', 'global', 'Pager', 'Paget');
 
-SELECT `id` FROM `global_lookups` WHERE `alias` = 'phone_type' AND `value` = 'pager';
-
 
 /* Drop Brachytherapy related treatment tables  */
 
