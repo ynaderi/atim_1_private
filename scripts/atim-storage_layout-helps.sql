@@ -37,7 +37,7 @@ UPDATE `form_fields`
 SET `language_help` = 'stor_parent_id_defintion' 
 WHERE `form_fields`.`id` IN ('CAN-999-999-000-999-1185');
 
-DELETE FROM `i18n` WHERE `id` = 'stor_short_label_defintion';
+DELETE FROM `i18n` WHERE `id` = 'stor_parent_id_defintion';
 INSERT INTO `i18n` (`id`, `page_id`, `en`, `fr`) VALUES 
 ('stor_parent_id_defintion', 
 'global', 
