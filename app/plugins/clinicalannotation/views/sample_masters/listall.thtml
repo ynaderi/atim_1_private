@@ -65,7 +65,7 @@
 		
 	$form_field = $ctrapp_form;
 	$form_link = array( 
-		'collection detail'=>'/inventorymanagement/sample_masters/detailSampleFromId/');
+		'plugin inventorymanagement sample detail'=>'/inventorymanagement/sample_masters/detailSampleFromId/');
 	
 	$form_lang = $lang;
 	$form_pagination = $paging;
