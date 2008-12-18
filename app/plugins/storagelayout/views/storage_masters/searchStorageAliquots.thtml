@@ -30,7 +30,7 @@
 	}
 
 	$form_link = array(
-		'plugin inventorymanagement detail' => '/inventorymanagement/aliquot_masters/detailAliquotFromId/',
+		'plugin inventorymanagement aliquot detail' => '/inventorymanagement/aliquot_masters/detailAliquotFromId/',
 		'set position' => '/storagelayout/storage_masters/editAliquotPosition/StorageAliquotsList/');
 	
 	$form_lang = $lang;
