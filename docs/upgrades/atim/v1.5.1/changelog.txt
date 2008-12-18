@@ -9,7 +9,7 @@ depricated tables/fields.
 Module - Inventory
 
 
-
+* Add inventorymanagement help messages.
 
 
 =======================================================================================
@@ -17,3 +17,10 @@ Module - Inventory
 Module - Clinical
 
 * CHANGE (Eventum #436) - Added value 'Pager' to the Telephone Type field lookup list.
+
+=======================================================================================
+
+Module - Storage Layout
+
+
+* Add storagelayout help messages.
