@@ -6,8 +6,14 @@ depricated tables/fields.
 
 =======================================================================================
 
-Module - Inventory
+Module - Core
 
+* Updated core to v1.1.3 from v1.1 - See core changelog's for more details.
+
+
+=======================================================================================
+
+Module - Inventory
 
 * Add inventorymanagement help messages.
 * Add description for button allowing to access inventory object from another module.
@@ -18,6 +24,7 @@ Module - Inventory
 Module - Clinical
 
 * CHANGE (Eventum #436) - Added value 'Pager' to the Telephone Type field lookup list.
+
 
 =======================================================================================
 
