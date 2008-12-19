@@ -1,5 +1,5 @@
 Current Date - December 2, 2008
-Release Number - v1.12
+Release Number - v1.1.2
 
 Description - Minor update to correct bugs with core application
 

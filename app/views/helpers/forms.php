@@ -2194,6 +2194,11 @@ class FormsHelper extends Helper {
 					// reset VALUE for form element
 					$display_value = '';
 							
+						// display ID value of FORM/FIELD row at HTML comment
+							$display_value .=  '
+									<!-- '.$field['FormField']['type'].' '.$field['id'].' -->
+									';
+						
 					// to avoid PHP ERRORS, set value to NULL if combo not in array...
 					if ( !isset($model[$field['FormField']['model']][$field['FormField']['field']]) ) { $model[$field['FormField']['model']][$field['FormField']['field']] = ''; }
 					
@@ -2495,7 +2500,7 @@ class FormsHelper extends Helper {
 							// otherwise, display CHECKLIST, with names as an ARRAY element
 							} else {
 								foreach ( $field['FormField']['options_list'] as $element_key=>$element_value ) {
-									$display_value .=  '<input style="float: left;" type="checkbox" class="checkbox" name="'.$model_suffix.$field['FormField']['model'].'/'.$field['FormField']['field'].'[]" value="'.$element_key.'" '.( $type=='add' && $field['FormField']['default']==$element_key ? 'checked="checked"' : '' ).' />'.$element_value.'<br />';
+									$display_value .=  '<input style="float: left;" type="checkbox" class="checkbox" name="data['.$model_suffix.$field['FormField']['model'].']['.$field['FormField']['field'].'][]" value="'.$element_key.'" '.( ($type=='add' && $field['FormField']['default']==$element_key) || ( in_array($element_key, $this->data[$model_suffix.$field['FormField']['model']][$model_suffix.$field['FormField']['field']]) ) ? 'checked="checked"' : '' ).' />'.$element_value.'<br />';
 								}
 							}
 						}
