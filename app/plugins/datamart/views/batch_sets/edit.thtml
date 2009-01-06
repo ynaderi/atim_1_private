@@ -1,7 +1,7 @@
 <?php 
 	$sidebars->header( $lang );
 	$sidebars->cols( $ctrapp_sidebar, $lang );
-	// $summaries->build( $ctrapp_summary, $lang ); 
+	$summaries->build( $ctrapp_summary, $lang ); 
 	$menus->tabs( $ctrapp_menu, $lang ); 
 ?>
 	
