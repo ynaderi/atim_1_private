@@ -30,8 +30,8 @@ INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
 
 /* Drop Brachytherapy related treatment tables  */
 
-DROP TABLE  IF EXISTS `txe_brachytherapies`;
-DROP TABLE  IF EXISTS `txd_brachytherapies`;
+DROP TABLE IF EXISTS `txe_brachytherapies`;
+DROP TABLE IF EXISTS `txd_brachytherapies`;
 
 
 /* Drop depricated fields from Lifestyle base form  */
@@ -40,3 +40,42 @@ ALTER TABLE `ed_all_lifestyle_base`
   DROP `prior_cancer_dx`,
   DROP `prior_cancer_dx_year`,
   DROP `prior_cancer_tx`;
+
+
+/* Drop depricated breast presentation form */
+
+DELETE FROM `event_controls` WHERE `disease_site` = 'breast' AND `event_group` = 'clinical' AND `event_type` = 'presentation';
+
+DROP TABLE IF EXISTS `ed_breast_clinical_presentation`;
+
+DELETE FROM `forms` WHERE `id` = 'CAN-999-999-000-002-29' LIMIT 1;
+
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-230' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-229' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-237' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-238' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-239' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-235' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-236' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-241' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-270' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-271' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-272' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-273' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-274' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-240' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-522' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-227' LIMIT 1;
+DELETE FROM `form_formats` WHERE `id` = 'CAN-999-999-000-002-29_CAN-999-999-000-999-228' LIMIT 1;
+
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-237' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-238' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-239' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-241' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-270' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-271' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-272' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-273' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-274' LIMIT 1;
+DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-240' LIMIT 1;
+
