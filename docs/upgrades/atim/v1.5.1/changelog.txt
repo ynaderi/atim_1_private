@@ -32,3 +32,10 @@ Module - Storage Layout
 
 
 * Add storagelayout help messages.
+
+=======================================================================================
+
+Module - Order
+
+
+* Allow to create an order line without to select a sample type.

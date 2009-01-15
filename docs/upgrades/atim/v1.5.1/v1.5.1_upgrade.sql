@@ -79,3 +79,8 @@ DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-273' LIMIT 1;
 DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-274' LIMIT 1;
 DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-240' LIMIT 1;
 
+
+/* Allow to create an order line without to select a sample type */
+
+ALTER TABLE `order_lines`
+CHANGE `sample_control_id` `sample_control_id` INT( 11 ) NULL DEFAULT NULL;
