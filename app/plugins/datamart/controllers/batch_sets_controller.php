@@ -56,6 +56,10 @@ class BatchSetsController extends DataMartAppController {
 			}
 		}
 		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
 		$this->set( 'group', $group );
 		$this->set( 'batch_sets', $result );
 		
@@ -142,8 +146,6 @@ class BatchSetsController extends DataMartAppController {
 				$results = $this->ModelToSearch->findall( $criteria, NULL, NULL, NULL, NULL, 3 );
 			}
 			
-			$this->set( 'results', $results ); // set for display purposes...
-		
 		/* parse LINKS field in ADHOCS list for links in CHECKLIST */
 		
 			$ctrapp_form_links = array();
@@ -156,7 +158,12 @@ class BatchSetsController extends DataMartAppController {
 				}
 			}
 			
-			$this->set( 'ctrapp_form_links', $ctrapp_form_links ); // set for display purposes...
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
+		$this->set( 'results', $results ); // set for display purposes...
+		$this->set( 'ctrapp_form_links', $ctrapp_form_links ); // set for display purposes...
 						
 	}
 	
@@ -217,6 +224,10 @@ class BatchSetsController extends DataMartAppController {
 			$batch_set_ids = array_unique($batch_set_ids);
 			$batch_set_ids = array_filter($batch_set_ids);
 			
+			// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+			
 			foreach ( $batch_set_ids as $integer ) {
 				
 				// setup ARRAY for ADDING/SAVING
@@ -276,6 +287,11 @@ class BatchSetsController extends DataMartAppController {
 			
 			$this->data['BatchSet']['count_of_BatchId'] = count($this->data['BatchId']); // add COUNT of IDS to array results, for form list 
 			$this->data['BatchSet']['share_set_with_group'] = $this->data['BatchSet']['group_id'] ? 'yes' : 'no';
+			
+			// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+			
 			$this->set( 'data', $this->data ); // set for display purposes...
 			
 		} else {
@@ -285,6 +301,10 @@ class BatchSetsController extends DataMartAppController {
 			} else {
 				$this->data['BatchSet']['group_id'] = 0;
 			}
+			
+			// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
 			
 			if ( $this->BatchSet->save( $this->data['BatchSet'] ) ) {
 				$this->flash( 'Your data has been updated.', '/batch_sets/listall/'.$batch_set_id );
@@ -314,6 +334,10 @@ class BatchSetsController extends DataMartAppController {
 			// add SESSION id array to criteria
 			$criteria .= 'AND ( lookup_id="'.implode( '" OR lookup_id="', $batch_id_array ).'" )';
 			
+			// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+			
 			// get BatchId ROWS
 			$results = $this->BatchId->findall( $criteria );
 			foreach ( $results as $id ) {
@@ -331,6 +355,10 @@ class BatchSetsController extends DataMartAppController {
 	
 	function delete( $batch_set_id=0 ) {
 		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
 		$this->BatchSet->del( $batch_set_id );
 		$this->flash( 'Your data has been deleted.', '/batch_sets/index/' );
 		
@@ -340,6 +368,10 @@ class BatchSetsController extends DataMartAppController {
 		
 		// clear SESSION info
 		$_SESSION['ctrapp_core']['datamart']['process'] = $this->data;
+		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
 		
 		$this->redirect( $this->data['BatchSet']['process'] );
 		exit();

@@ -66,6 +66,10 @@ class AdhocSavedController extends DataMartAppController {
 		// ERROR if no results
 		if ( !is_array($result) || !count($result) ) { $result = array(array()); }
 		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
 		$this->set( 'type_of_list', $type_of_list );
 		$this->set( 'datamart_queries', $result );
 		
@@ -85,6 +89,10 @@ class AdhocSavedController extends DataMartAppController {
 				'description'		=>	'(unlabelled saved search set)'
 			)
 		);
+		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
 		
 		$this->AdhocSaved->save( $new_AdhocSaved_data );
 		$this->flash( 'Your data has been saved.', '/adhoc_saved/index/' );
@@ -144,9 +152,17 @@ class AdhocSavedController extends DataMartAppController {
 			// ERROR if no results
 			if ( !is_array($this->data) || !count($this->data) ) { $this->redirect('/pages/error'); exit; }
 			
+			// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+			
 			$this->set( 'data', $this->data ); // set for display purposes...
 			
 		} else {
+			
+			// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
 			
 			if ( $this->AdhocSaved->save( $this->data['AdhocSaved'] ) ) {
 				$this->flash( 'Your data has been updated.', '/adhoc_saved/search/'.$adhoc_id.'/'.$saved_id );
@@ -158,6 +174,10 @@ class AdhocSavedController extends DataMartAppController {
 	
 	// remove IDs from Lookup
 	function delete( $adhoc_id=0, $saved_id=0 ) {
+		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
 		
 		$result = $this->Adhoc->query('DELETE FROM datamart_adhoc_saved WHERE id="'.$saved_id.'" AND adhoc_id="'.$adhoc_id.'" AND user_id="'.$this->othAuth->user('id').'"');
 		$this->flash( 'Query is no longer one of your saved searches.', '/adhoc_saved/index' );
@@ -210,12 +230,8 @@ class AdhocSavedController extends DataMartAppController {
 		// ERROR if no results
 		if ( !is_array($ctrapp_form) || !count($ctrapp_form) ) { $this->redirect('/pages/error'); exit; }
 		
-		$this->set( 'adhoc', $ctrapp_form ); // set for display purposes...
 		
-			// set FORM variables, for HELPER call on VIEW 
-			$this->set( 'ctrapp_form_for_query', $this->Forms->getFormArray('querytool_adhoc_saved') );
-	  
-	  /* Build Datamart result FORM from DATAMART queries table and FormFields, instead of Form table */
+		/* Build Datamart result FORM from DATAMART queries table and FormFields, instead of Form table */
 		
 			// findall FORM info, recursive
 			
@@ -224,9 +240,14 @@ class AdhocSavedController extends DataMartAppController {
 				exit();
 			}
 				
-			$this->set( 'ctrapp_form', $this->Forms->getFormArray( $ctrapp_form['Adhoc']['form_alias_for_search'] ) );
-	    
-	    $this->set( 'type_of_list', 'saved' );
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
+		$this->set( 'ctrapp_form_for_query', $this->Forms->getFormArray('querytool_adhoc_saved') );
+	  	$this->set( 'adhoc', $ctrapp_form ); // set for display purposes...
+		$this->set( 'ctrapp_form', $this->Forms->getFormArray( $ctrapp_form['Adhoc']['form_alias_for_search'] ) );
+	   $this->set( 'type_of_list', 'saved' );
 		
 	}
 

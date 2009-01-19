@@ -80,6 +80,10 @@ class AdhocsController extends DataMartAppController {
 		// ERROR if no results
 		if ( !is_array($result) || !count($result) ) { $result = array(array()); }
 		
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
 		$this->set( 'type_of_list', $type_of_list );
 		$this->set( 'datamart_queries', $result );
 		
@@ -87,6 +91,10 @@ class AdhocsController extends DataMartAppController {
 	
 	// save IDs to Lookup, avoid duplicates
 	function favourite( $adhoc_id=0 ) {
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
 		$favourite_result = $this->Adhoc->query('DELETE FROM datamart_adhoc_favourites WHERE adhoc_id="'.$adhoc_id.'" AND user_id="'.$this->othAuth->user('id').'"');
 		$favourite_result = $this->Adhoc->query('INSERT INTO datamart_adhoc_favourites SET adhoc_id="'.$adhoc_id.'", user_id="'.$this->othAuth->user('id').'"');
 		$this->flash( 'Query has been marked as one of your favourites.', '/adhocs/index/favourites' );
@@ -94,6 +102,10 @@ class AdhocsController extends DataMartAppController {
 	
 	// remove IDs from Lookup
 	function unfavourite( $adhoc_id=0 ) {
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
 		$favourite_result = $this->Adhoc->query('DELETE FROM datamart_adhoc_favourites WHERE adhoc_id="'.$adhoc_id.'" AND user_id="'.$this->othAuth->user('id').'"');
 		$this->flash( 'Query is no longer one of your favourites.', '/adhocs/index/favourites' );
 	}
@@ -157,11 +169,7 @@ class AdhocsController extends DataMartAppController {
 		// ERROR if no results
 		if ( !is_array($ctrapp_form) || !count($ctrapp_form) ) { $this->redirect('/pages/error'); exit; }
 		
-		$this->set( 'adhoc', $ctrapp_form ); // set for display purposes...
 		
-			// set FORM variables, for HELPER call on VIEW 
-			$this->set( 'ctrapp_form_for_query', $this->Forms->getFormArray('querytool_adhoc') );
-	  
 	  /* Build Datamart result FORM from DATAMART queries table and FormFields, instead of Form table */
 		
 			// findall FORM info, recursive
@@ -171,9 +179,14 @@ class AdhocsController extends DataMartAppController {
 				exit();
 			}
 				
-			$this->set( 'ctrapp_form', $this->Forms->getFormArray( $ctrapp_form['Adhoc']['form_alias_for_search'] ) );
-	    
-	    $this->set( 'type_of_list', $type_of_list );
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+		if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+		
+		$this->set( 'adhoc', $ctrapp_form ); // set for display purposes...
+		$this->set( 'ctrapp_form_for_query', $this->Forms->getFormArray('querytool_adhoc') );
+	   $this->set( 'ctrapp_form', $this->Forms->getFormArray( $ctrapp_form['Adhoc']['form_alias_for_search'] ) );
+	   $this->set( 'type_of_list', $type_of_list );
 		
 	}
 	
@@ -250,7 +263,11 @@ class AdhocsController extends DataMartAppController {
 			$sql_query_without_search_terms = $adhoc['Adhoc']['sql_query_for_results'];
 			
 		
-	    	// if SEARCH form data, parse and create conditions
+	    	// look for CUSTOM HOOKS, "format"
+			$custom_ctrapp_controller_hook = APP . 'plugins' . DS . $this->params['plugin'] . DS . 'controllers' . DS . 'hooks' . DS . $this->params['controller'].'_'.$this->params['action'].'_format.php';
+			if ( file_exists($custom_ctrapp_controller_hook) ) { require($custom_ctrapp_controller_hook); }
+			
+			// if SEARCH form data, parse and create conditions
 			$criteria = array();
 			
 			if ( $adhoc['Adhoc']['sql_query_for_results'] ) {
