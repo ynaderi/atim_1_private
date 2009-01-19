@@ -334,7 +334,7 @@ class OrdersController extends OrderAppController {
 		
 		// get DATA for LISTALL form
 		
-		$criteria = 'Order.processing_status NOT IN ("completed") OR Order.processing_status IS NULL';
+		$criteria = '';
 		$no_pagination_order = 'short_title ASC';
 		
 		list( $order, $limit, $page ) = $this->Pagination->init( $criteria );

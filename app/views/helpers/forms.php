@@ -180,7 +180,6 @@ class FormsHelper extends Helper {
 				$messages = array();
 				
 				if ( isset( $this->validationErrors ) && $type!='summary' && $type!='csv' ) {
-				
 					foreach( $this->validationErrors as $table ) {
 						
 						foreach($table as $field => $message) {
@@ -223,7 +222,11 @@ class FormsHelper extends Helper {
 			
 		// if SETTINGS require it, RETURN value, else ECHO it...
 			
-			$display_form = trim($display_form);
+			$display_form = '
+				<!-- START: Forms Helper -->
+				'.trim($display_form).'
+				<!-- END: Forms Helper -->
+			';
 			
 			if ( in_array( 'return', $form_settings ) ) {
 				return $display_form;
@@ -863,6 +866,7 @@ class FormsHelper extends Helper {
 		
 				<fieldset class="form">
 							
+							<!-- START editgrid -->
 							<table class="addgrid" cellspacing="0">
 							<tbody>
 			';
@@ -986,6 +990,7 @@ class FormsHelper extends Helper {
 			$return_string .= '
 							</tbody>
 							</table>
+							<!-- END addgrid -->
 							
 				</fieldset>
 				
@@ -1036,6 +1041,7 @@ class FormsHelper extends Helper {
 		
 				<fieldset class="form">
 							
+							<!-- START editgrid -->
 							<table class="editgrid" cellspacing="0">
 							<tbody>
 			';
@@ -1161,6 +1167,7 @@ class FormsHelper extends Helper {
 			$return_string .= '
 							</tbody>
 							</table>
+							<!-- END editgrid -->
 							
 				</fieldset>
 				
@@ -1210,6 +1217,7 @@ class FormsHelper extends Helper {
 					$count_columns++;
 					
 					$return_string .= '
+						<!-- START display_column='.$table_column_key.' -->
 						<td class="this_column_'.$count_columns.' total_columns_'.count($table_index).'"> 
 						
 							<table class="detail" cellspacing="0">
@@ -1219,6 +1227,10 @@ class FormsHelper extends Helper {
 					// each row in column 
 					$table_row_count = 0;
 					foreach ( $table_column as $table_row_key=>$table_row ) {
+						
+						$return_string .= '
+								<!-- START display_order='.$table_row_key.' -->
+						';
 						
 						// display heading row, if any...
 						if ( $table_row['heading'] ) {
@@ -1251,6 +1263,7 @@ class FormsHelper extends Helper {
 						
 						$return_string .= '
 								</tr>
+								<!-- END display_order='.$table_row_key.' -->
 						';
 						
 						
@@ -1263,6 +1276,7 @@ class FormsHelper extends Helper {
 							</table>
 							
 						</td>
+						<!-- END display_column='.$table_column_key.' -->
 					';
 					
 				} // end COLUMN 
@@ -1327,6 +1341,7 @@ class FormsHelper extends Helper {
 			$count_columns++;
 			
 			$return_string .= '
+					<!-- START display_column='.$table_column_key.' -->
 					<td class="this_column_'.$table_column_key.' total_columns_'.count($table_index).'">
 					
 						<table class="search" cellspacing="0">
@@ -1338,6 +1353,7 @@ class FormsHelper extends Helper {
 			foreach ( $table_column as $table_row_key=>$table_row ) {
 				
 				$return_string .= '
+							<!-- START display_order='.$table_row_key.' -->
 							<tr>
 								<td class="label'.( !$table_row_count && !$table_row['heading'] ? ' no_border' : '' ).'">
 									'.$table_row['label'].'
@@ -1357,6 +1373,7 @@ class FormsHelper extends Helper {
 				
 				$return_string .= '
 							</tr>
+							<!-- END display_order='.$table_row_key.' -->
 				';
 				
 				$table_row_count++;
@@ -1368,6 +1385,7 @@ class FormsHelper extends Helper {
 						</table>
 						
 					</td>
+					<!-- END display_column='.$table_column_key.' -->
 			';
 			
 		} // end COLUMN 
@@ -1446,6 +1464,7 @@ class FormsHelper extends Helper {
 			$count_columns++;
 			
 			$return_string .= '
+					<!-- START display_column='.$table_column_key.' -->
 					<td class="this_column_'.$table_column_key.' total_columns_'.count($table_index).'">
 					
 						<table class="add" cellspacing="0">
@@ -1456,6 +1475,10 @@ class FormsHelper extends Helper {
 			$table_row_count = 0;
 			foreach ( $table_column as $table_row_key=>$table_row ) {
 				
+				$return_string .= '
+						<!-- START display_order='.$table_row_key.' -->
+				';
+						
 				// display heading row, if any...
 				if ( $table_row['heading'] ) {
 					$return_string .= '
@@ -1487,6 +1510,7 @@ class FormsHelper extends Helper {
 				
 				$return_string .= '
 							</tr>
+							<!-- END display_order='.$table_row_key.' -->
 				';
 				
 				$table_row_count++;
@@ -1498,6 +1522,7 @@ class FormsHelper extends Helper {
 						</table>
 						
 					</td>
+					<!-- END display_column='.$table_column_key.' -->
 			';
 			
 		} // end COLUMN 
@@ -1526,6 +1551,7 @@ class FormsHelper extends Helper {
 			
 			</fieldset>
 			
+			<!-- START hidden -->
 			<fieldset class="hidden">
 		';
 			
@@ -1562,6 +1588,7 @@ class FormsHelper extends Helper {
 		$return_string .= '
 		
 			</fieldset>
+			<!-- START hidden -->
 			
 			</form>
 		';
@@ -1616,6 +1643,7 @@ class FormsHelper extends Helper {
 			$count_columns++;
 			
 			$return_string .= '
+					<!-- START display_column='.$table_column_key.' -->
 					<td class="this_column_'.$table_column_key.' total_columns_'.count($table_index).'">
 					
 						<table class="edit" cellspacing="0">
@@ -1626,6 +1654,10 @@ class FormsHelper extends Helper {
 			$table_row_count = 0;
 			foreach ( $table_column as $table_row_key=>$table_row ) {
 				
+				$return_string .= '
+						<!-- START display_order='.$table_row_key.' -->
+				';
+						
 				// display heading row, if any...
 				if ( $table_row['heading'] ) {
 					$return_string .= '
@@ -1657,6 +1689,7 @@ class FormsHelper extends Helper {
 				
 				$return_string .= '
 							</tr>
+							<!-- END display_order='.$table_row_key.' -->
 				';
 				
 				$table_row_count++;
@@ -1668,6 +1701,7 @@ class FormsHelper extends Helper {
 						</table>
 						
 					</td>
+					<!-- END display_column='.$table_column_key.' -->
 			';
 			
 		} // end COLUMN 
@@ -1696,6 +1730,7 @@ class FormsHelper extends Helper {
 			
 			</fieldset>
 			
+			<!-- START hidden -->
 			<fieldset class="hidden">
 		';
 		
@@ -1753,6 +1788,7 @@ class FormsHelper extends Helper {
 		$return_string .= '
 		
 			</fieldset>
+			<!-- START hidden -->
 			
 			</form>
 		';
@@ -1862,6 +1898,7 @@ class FormsHelper extends Helper {
 				<tr>
 						<td'.( $colspan>1 ? ' colspan="'.$colspan.'"' : '' ).'>
 					
+						<!-- START extras -->
 						<table class="'.$type.'" cellspacing="0">
 						<tbody>
 							
@@ -1869,6 +1906,7 @@ class FormsHelper extends Helper {
 							
 						</tbody>
 						</table>
+						<!-- END extras -->
 						
 					</td>
 				</tr>
@@ -2194,11 +2232,6 @@ class FormsHelper extends Helper {
 					// reset VALUE for form element
 					$display_value = '';
 							
-						// display ID value of FORM/FIELD row at HTML comment
-							$display_value .=  '
-									<!-- '.$field['FormField']['type'].' '.$field['id'].' -->
-									';
-						
 					// to avoid PHP ERRORS, set value to NULL if combo not in array...
 					if ( !isset($model[$field['FormField']['model']][$field['FormField']['field']]) ) { $model[$field['FormField']['model']][$field['FormField']['field']] = ''; }
 					
@@ -2500,7 +2533,7 @@ class FormsHelper extends Helper {
 							// otherwise, display CHECKLIST, with names as an ARRAY element
 							} else {
 								foreach ( $field['FormField']['options_list'] as $element_key=>$element_value ) {
-									$display_value .=  '<input style="float: left;" type="checkbox" class="checkbox" name="data['.$model_suffix.$field['FormField']['model'].']['.$field['FormField']['field'].'][]" value="'.$element_key.'" '.( ($type=='add' && $field['FormField']['default']==$element_key) || ( in_array($element_key, $this->data[$model_suffix.$field['FormField']['model']][$model_suffix.$field['FormField']['field']]) ) ? 'checked="checked"' : '' ).' />'.$element_value.'<br />';
+									$display_value .=  '<input style="float: left;" type="checkbox" class="checkbox" name="'.$model_suffix.$field['FormField']['model'].'/'.$field['FormField']['field'].'[]" value="'.$element_key.'" '.( $type=='add' && $field['FormField']['default']==$element_key ? 'checked="checked"' : '' ).' />'.$element_value.'<br />';
 								}
 							}
 						}

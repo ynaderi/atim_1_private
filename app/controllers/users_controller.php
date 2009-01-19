@@ -8,13 +8,7 @@ class UsersController extends AppController {
 	function index() {
 		
 		// if LOGGED IN, redirect to main menu
-		if ( 
-			isset($_SESSION['othAuth']) 
-			&& isset($_SESSION['othAuth']['CTRAppHashKey']) 
-			&& isset($_SESSION['othAuth']['CTRAppHashKey']['User']) 
-			&& isset($_SESSION['othAuth']['CTRAppHashKey']['User']['username']) 
-			&& $_SESSION['othAuth']['CTRAppHashKey']['User']['username'] 
-		) {
+		if ( $_SESSION['othAuth']['CTRAppHashKey']['User']['username'] ) {
 			$this->redirect('/menus');
 			exit;
 		}

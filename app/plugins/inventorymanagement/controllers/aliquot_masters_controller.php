@@ -193,8 +193,6 @@ class AliquotMastersController extends InventoryManagementAppController {
 		$this->set('collection_id', $collection_id );
 		$this->set('sample_master_id', $sample_master_id);
 		
-		$this->set('max_nbr_of_aliq_per_batch', 20);
-		
 //		$this->set('sample_code', $sample_master['SampleMaster']['sample_code']);
 				
 		// ** Set MENU variable for echo on VIEW **

@@ -2065,7 +2065,7 @@ class StorageMastersController extends StoragelayoutAppController {
 			isset($storage_control_data['StorageControl']['coord_x_type'])? 
 				$storage_control_data['StorageControl']['coord_x_type']: 
 				$string_null_value);
-			
+pr($storage_control_data);				
 		$this->set('coord_x_size',  
 			isset($storage_control_data['StorageControl']['coord_x_size'])? 
 				$storage_control_data['StorageControl']['coord_x_size']: 

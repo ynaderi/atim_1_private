@@ -175,7 +175,6 @@ class BatchSetsController extends DataMartAppController {
 			// get new SET id, and save
 			$this->data['BatchSet']['id'] = $this->BatchSet->getLastInsertId();
 			
-			/*
 			// copy RESULTS from ADHOC results form fields lookup
 			if ( $this->data['Adhoc']['id'] ) {
 				
@@ -187,7 +186,6 @@ class BatchSetsController extends DataMartAppController {
 				}
 				
 			}
-			*/
 			
 		}
 		

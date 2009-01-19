@@ -275,7 +275,6 @@ class OrderLinesController extends OrderAppController {
 
 		$criteria = array();
 		$criteria['order_id'] = $order_id;
-		$criteria[] = 'OrderLine.status NOT IN ("shipped") OR OrderLine.status IS NULL';
 		$criteria = array_filter($criteria);
 
 		list( $order, $limit, $page ) = $this->Pagination->init( $criteria );

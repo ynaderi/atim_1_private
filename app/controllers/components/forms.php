@@ -45,7 +45,97 @@ class FormsComponent extends Object {
 		// parse if data exists 
 		if ( !empty( $data ) ) {
 			
-			$data = $this->clearUpDataArrayForSearches( $data );
+			// parse all FIELDS, to clean up DATE pulldowns, specifically for start-end ranges...
+			foreach ( $data as $model=>$fields ) {
+				foreach ( $fields as $key=>$value ) {
+				
+					$default_year_value = '2000';
+					if ( strrpos( $key, '_start_' ) ) { $default_year_value = '0000'; }
+					if ( strrpos( $key, '_end_' ) ) { $default_year_value = '9999'; }
+				
+					// if DATETIME form type 
+					if ( substr($key,-5)=='_year' && isset( $data[$model][ substr($key,0,-5).'_month' ] ) && isset( $data[$model][ substr($key,0,-5).'_hour' ] ) ) {
+						
+						// get DATE field name WITHOUT _start or _end
+						$substrOfDate = substr($key,0,-5);
+						
+						// format HOUR, based on 24 or 12 hour clock
+						$hour = $data[$model][ $substrOfDate.'_hour'];
+						if ($hour != 12 && (isset($data[$model][ $substrOfDate.'_meridian']) && 'pm' == $data[$model][ $substrOfDate.'_meridian'])) {
+							$hour = $hour + 12;
+						}
+						
+						// generate full date value for new DATE field
+						$newDateField = ( $data[$model][ $substrOfDate.'_year' ] ? $data[$model][ $substrOfDate.'_year' ] : $default_year_value ).'-'.( $data[$model][ $substrOfDate.'_month' ] ? $data[$model][ $substrOfDate.'_month' ] : '00' ).'-'.( $data[$model][ $substrOfDate.'_day' ] ? $data[$model][ $substrOfDate.'_day' ] : '00' );
+						$newDateField .= ' ';
+						$newDateField .= ( $hour ? $hour : '00' ) . ':' . ( $data[$model][ $substrOfDate.'_min'] ? $data[$model][ $substrOfDate.'_min'] : '00' ) . ':00';
+						$newDateField = $newDateField!='-- ::00' ? $newDateField : '';
+						
+						// unset individual field values
+						unset($data[$model][ $substrOfDate.'_year']);
+						unset($data[$model][ $substrOfDate.'_month']);
+						unset($data[$model][ $substrOfDate.'_day']);
+						unset($data[$model][ $substrOfDate.'_hour']);
+						unset($data[$model][ $substrOfDate.'_min']);
+						unset($data[$model][ $substrOfDate.'_meridian']);
+						
+						// save to MODEL
+						$data[$model][$substrOfDate] = $newDateField;
+						
+					}
+					
+					// if DATE form type 
+					else if ( substr($key,-5)=='_year' && isset( $data[$model][ substr($key,0,-5).'_month' ] ) ) {
+						
+						// get DATE field name WITHOUT _start or _end
+						$substrOfDate = substr($key,0,-5);
+						
+						// generate full date value for new DATE field
+						$newDateField = ( $data[$model][ $substrOfDate.'_year' ] ? $data[$model][ $substrOfDate.'_year' ] : $default_year_value ).'-'.( $data[$model][ $substrOfDate.'_month' ] ? $data[$model][ $substrOfDate.'_month' ] : '00' ).'-'.( $data[$model][ $substrOfDate.'_day' ] ? $data[$model][ $substrOfDate.'_day' ] : '00' );
+						$newDateField = $newDateField!='--' ? $newDateField : '';
+						
+						// unset individual field values
+						unset($data[$model][ $substrOfDate.'_year']);
+						unset($data[$model][ $substrOfDate.'_month']);
+						unset($data[$model][ $substrOfDate.'_day']);
+						unset($data[$model][ $substrOfDate.'_hour']);
+						unset($data[$model][ $substrOfDate.'_min']);
+						unset($data[$model][ $substrOfDate.'_meridian']);
+						
+						// save to MODEL
+						$data[$model][$substrOfDate] = $newDateField;
+						
+					}
+					
+					// if TIME form type 
+					else if ( substr($key,-5)=='_hour' && isset( $data[$model][ substr($key,0,-5).'_min' ] ) ) {
+						
+						// get DATE field name WITHOUT _start or _end
+						$substrOfDate = substr($key,0,-5);
+						
+						// format HOUR, based on 24 or 12 hour clock
+						$hour = $data[$model][ $substrOfDate.'_hour'];
+						if ($hour != 12 && (isset($data[$model][ $substrOfDate.'_meridian']) && 'pm' == $data[$model][ $substrOfDate.'_meridian'])) {
+							$hour = $hour + 12;
+						}
+						
+						// generate full date value for new DATE field
+						$newDateField .= ( $hour ? $hour : '00' ) . ':' . ( $data[$model][ $substrOfDate.'_min'] ? $data[$model][ $substrOfDate.'_min'] : '00' ) . ':00';
+						$newDateField = $newDateField!='::00' ? $newDateField : '';
+						
+						// unset individual field values
+						unset($data[$model][ $substrOfDate.'_hour']);
+						unset($data[$model][ $substrOfDate.'_min']);
+						unset($data[$model][ $substrOfDate.'_meridian']);
+						
+						// save to MODEL
+						$data[$model][$substrOfDate] = $newDateField;
+						
+					}
+					
+				}
+				
+			}
 			
 			// swap out SQL placeholders with SEARCH terms and BLANK values
 			if ( $sql ) {
@@ -60,44 +150,6 @@ class FormsComponent extends Object {
 					}
 				}
 				
-				// WITH
-				
-					// regular expression to change search over field for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s+LIKE\s+([\||\"])\%\%\2/i', '($1 LIKE $2%%$2 OR $1 IS NULL)', $sql_with_search_terms );
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s+\=\s+([\||\"])\2/i', '($1=$2$2 OR $1 IS NULL)', $sql_with_search_terms );
-					
-					// regular expression to change search over DATE fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])0000\-00\-00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])9999\-00\-00\3/i', '(($1$2${3}0000-00-00${3} AND $1$4${3}9999-00-00${3}) OR $1 IS NULL)', $sql_with_search_terms );
-					
-					// regular expression to change search over TIME fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])00\:00\:00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])00\:00\:00\3/i', '(($1$2${3}00:00:00${3} AND $1$4${3}00:00:00${3}) OR $1 IS NULL)', $sql_with_search_terms );
-					
-					// regular expression to change search over DATE/TIME fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])0000\-00\-00 00\:00\:00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])9999\-00\-00 00\:00\:00\3/i', '(($1$2${3}0000-00-00 00:00:00${3} AND $1$4${3}9999-00-00 00:00:00${3}) OR $1 IS NULL)', $sql_with_search_terms );
-					
-					// regular expression to change search over RANGE fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])\3/i', '(($1$2${3}-999999${3} AND $1$4${3}999999${3}) OR $1 IS NULL)', $sql_with_search_terms );
-		
-				// WITHOUT
-					
-				
-					// regular expression to change search over field for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s+LIKE\s+([\||\"])\%\%\2/i', '($1 LIKE $2%%$2 OR $1 IS NULL)', $sql_without_search_terms );
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s+\=\s+([\||\"])\2/i', '($1=$2$2 OR $1 IS NULL)', $sql_without_search_terms );
-					
-					// regular expression to change search over DATE fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])0000\-00\-00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])9999\-00\-00\3/i', '(($1$2${3}0000-00-00${3} AND $1$4${3}9999-00-00${3}) OR $1 IS NULL)', $sql_without_search_terms );
-					
-					// regular expression to change search over TIME fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])00\:00\:00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])00\:00\:00\3/i', '(($1$2${3}00:00:00${3} AND $1$4${3}00:00:00${3}) OR $1 IS NULL)', $sql_without_search_terms );
-					
-					// regular expression to change search over DATE/TIME fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])0000\-00\-00 00\:00\:00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])9999\-00\-00 00\:00\:00\3/i', '(($1$2${3}0000-00-00 00:00:00${3} AND $1$4${3}9999-00-00 00:00:00${3}) OR $1 IS NULL)', $sql_without_search_terms );
-					
-					// regular expression to change search over RANGE fields for BLANK values to be searches over fields for BLANK OR NULL values...
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])\3/i', '(($1$2${3}-999999${3} AND $1$4${3}999999${3}) OR $1 IS NULL)', $sql_without_search_terms );
-		
-				// return BOTH	
 				return array( $sql_with_search_terms, $sql_without_search_terms );
 			}
 			
@@ -153,151 +205,6 @@ class FormsComponent extends Object {
 		//$conditions = $conditions ? $conditions : NULL;
 		
 		return $conditions;
-		
-	}
-	
-	function clearUpDataArrayForSearches( $data=array(), $options=array() ) {
-		
-		// useable options
-			
-			// clear DATE search options that are blank or use 0000-9999 range?
-			if ( !isset($options['clearBlankDates']) ) {
-				$options['clearBlankDates'] = true;
-			}
-			
-		// parse all FIELDS, to clean up DATE pulldowns, specifically for start-end ranges...
-		foreach ( $data as $model=>$fields ) {
-			foreach ( $fields as $key=>$value ) {
-			
-				unset($fieldOfDate);
-				
-				$default_year_value = '2000';
-				if ( strrpos( $key, '_start_' ) ) { $default_year_value = '0000'; }
-				if ( strrpos( $key, '_end_' ) ) { $default_year_value = '9999'; }
-			
-				// if DATETIME form type 
-				if ( substr($key,-5)=='_year' && isset( $data[$model][ substr($key,0,-5).'_month' ] ) && isset( $data[$model][ substr($key,0,-5).'_hour' ] ) ) {
-					
-					// get DATE field name WITHOUT _year, _month, etc
-					$substrOfDate = explode('_',$key);
-					$remove_YEAR = array_pop($substrOfDate);
-					$substrOfDate = implode('_',$substrOfDate);
-					
-					// get DATE field name WITHOUT _start or _end
-					$fieldOfDate = explode('_',$key);
-					$remove_YEAR = array_pop($fieldOfDate);
-					$remove_START_OR_END = array_pop($fieldOfDate);
-					$fieldOfDate = implode('_',$fieldOfDate);
-					
-					// format HOUR, based on 24 or 12 hour clock
-					$hour = $data[$model][ $substrOfDate.'_hour'];
-					if ($hour != 12 && (isset($data[$model][ $substrOfDate.'_meridian']) && 'pm' == $data[$model][ $substrOfDate.'_meridian'])) {
-						$hour = $hour + 12;
-					}
-					
-					// generate full date value for new DATE field
-					$newDateField = ( $data[$model][ $substrOfDate.'_year' ] ? $data[$model][ $substrOfDate.'_year' ] : $default_year_value ).'-'.( $data[$model][ $substrOfDate.'_month' ] ? $data[$model][ $substrOfDate.'_month' ] : '00' ).'-'.( $data[$model][ $substrOfDate.'_day' ] ? $data[$model][ $substrOfDate.'_day' ] : '00' );
-					$newDateField .= ' ';
-					$newDateField .= ( $hour ? $hour : '00' ) . ':' . ( $data[$model][ $substrOfDate.'_min'] ? $data[$model][ $substrOfDate.'_min'] : '00' ) . ':00';
-					$newDateField = $newDateField!='-- ::00' ? $newDateField : '';
-					
-					// unset individual field values
-					unset($data[$model][ $substrOfDate.'_year']);
-					unset($data[$model][ $substrOfDate.'_month']);
-					unset($data[$model][ $substrOfDate.'_day']);
-					unset($data[$model][ $substrOfDate.'_hour']);
-					unset($data[$model][ $substrOfDate.'_min']);
-					unset($data[$model][ $substrOfDate.'_meridian']);
-					
-					// save to MODEL
-					$data[$model][$substrOfDate] = $newDateField;
-					
-				}
-				
-				// if DATE form type 
-				else if ( substr($key,-5)=='_year' && isset( $data[$model][ substr($key,0,-5).'_month' ] ) ) {
-					
-					// get DATE field name WITHOUT _year, _month, etc
-					$substrOfDate = explode('_',$key);
-					$remove_YEAR = array_pop($substrOfDate);
-					$substrOfDate = implode('_',$substrOfDate);
-					
-					// get DATE field name WITHOUT _start or _end
-					$fieldOfDate = explode('_',$key);
-					$remove_YEAR = array_pop($fieldOfDate);
-					$remove_START_OR_END = array_pop($fieldOfDate);
-					$fieldOfDate = implode('_',$fieldOfDate);
-					
-					// generate full date value for new DATE field
-					$newDateField = ( $data[$model][ $substrOfDate.'_year' ] ? $data[$model][ $substrOfDate.'_year' ] : $default_year_value ).'-'.( $data[$model][ $substrOfDate.'_month' ] ? $data[$model][ $substrOfDate.'_month' ] : '00' ).'-'.( $data[$model][ $substrOfDate.'_day' ] ? $data[$model][ $substrOfDate.'_day' ] : '00' );
-					$newDateField = $newDateField!='--' ? $newDateField : '';
-					
-					// unset individual field values
-					unset($data[$model][ $substrOfDate.'_year']);
-					unset($data[$model][ $substrOfDate.'_month']);
-					unset($data[$model][ $substrOfDate.'_day']);
-					unset($data[$model][ $substrOfDate.'_hour']);
-					unset($data[$model][ $substrOfDate.'_min']);
-					unset($data[$model][ $substrOfDate.'_meridian']);
-					
-					// save to MODEL
-					$data[$model][$substrOfDate] = $newDateField;
-					
-				}
-				
-				// if TIME form type 
-				else if ( substr($key,-5)=='_hour' && isset( $data[$model][ substr($key,0,-5).'_min' ] ) ) {
-					
-					// get DATE field name WITHOUT _year, _month, etc
-					$substrOfDate = explode('_',$key);
-					$remove_YEAR = array_pop($substrOfDate);
-					$substrOfDate = implode('_',$substrOfDate);
-					
-					// get DATE field name WITHOUT _start or _end
-					$fieldOfDate = explode('_',$key);
-					$remove_YEAR = array_pop($fieldOfDate);
-					$remove_START_OR_END = array_pop($fieldOfDate);
-					$fieldOfDate = implode('_',$fieldOfDate);
-					
-					// format HOUR, based on 24 or 12 hour clock
-					$hour = $data[$model][ $substrOfDate.'_hour'];
-					if ($hour != 12 && (isset($data[$model][ $substrOfDate.'_meridian']) && 'pm' == $data[$model][ $substrOfDate.'_meridian'])) {
-						$hour = $hour + 12;
-					}
-					
-					// generate full date value for new DATE field
-					$newDateField .= ( $hour ? $hour : '00' ) . ':' . ( $data[$model][ $substrOfDate.'_min'] ? $data[$model][ $substrOfDate.'_min'] : '00' ) . ':00';
-					$newDateField = $newDateField!='::00' ? $newDateField : '';
-					
-					// unset individual field values
-					unset($data[$model][ $substrOfDate.'_hour']);
-					unset($data[$model][ $substrOfDate.'_min']);
-					unset($data[$model][ $substrOfDate.'_meridian']);
-					
-					// save to MODEL
-					$data[$model][$substrOfDate] = $newDateField;
-					
-				}
-				
-				// if FIELD is a DATE/TIME field...
-				if ( isset($fieldOfDate) && $options['clearBlankDates'] ) {
-						
-						// if BOTH start AND end field is BLANK, then REMOVE from data to allow NULLS to be found
-						if ( $data[$model][$fieldOfDate.'_start']=='0000-00-00 00:00:00' || $data[$model][$fieldOfDate.'_start']=='0000-00-00' || $data[$model][$fieldOfDate.'_start']=='00:00:00' ) {
-							// add ISSET check to IF statement, as above START check might have already unset the variableCorre
-							if ( isset($data[$model][ $fieldOfDate.'_end']) && ($data[$model][$fieldOfDate.'_end']=='9999-00-00 00:00:00' || $data[$model][$fieldOfDate.'_end']=='9999-00-00' || $data[$model][$fieldOfDate.'_end']=='00:00:00') ) {
-								unset($data[$model][ $fieldOfDate.'_start']);
-								unset($data[$model][ $fieldOfDate.'_end']);
-							}
-						}
-						
-				}
-				
-			}
-			
-		}
-		
-		return $data;
 		
 	}
 	
