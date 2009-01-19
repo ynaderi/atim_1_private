@@ -1,0 +1,6 @@
+Current Date - <TBA>
+Release Number - v1.6.0
+
+Description - Scheduled for mid to end of Febuary release. Last minor feature release before core cakePHP upgrade.
+
+=======================================================================================
