@@ -1,4 +1,4 @@
-Date - <TBA>
+Date - Jan. 19/09
 Release Number - v1.5.1
 
 Description - This version is a minor release with changes to clinical annotation and the underlying table structure to cleanup
@@ -25,18 +25,18 @@ Module - Inventory
 Module - Clinical
 
 * CHANGE (Eventum #436) - Added value 'Pager' to the Telephone Type field lookup list.
+* Removed some depricated forms/fields and related tables.
 
 
 =======================================================================================
 
 Module - Storage Layout
 
-
 * Add storagelayout help messages.
+
 
 =======================================================================================
 
 Module - Order
-
 
 * Allow to create an order line without to select a sample type.
