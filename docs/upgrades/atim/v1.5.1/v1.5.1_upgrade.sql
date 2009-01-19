@@ -84,3 +84,21 @@ DELETE FROM `form_fields` WHERE `id` = 'CAN-999-999-000-999-240' LIMIT 1;
 
 ALTER TABLE `order_lines`
 CHANGE `sample_control_id` `sample_control_id` INT( 11 ) NULL DEFAULT NULL;
+
+/* Added missing translations for check/uncheck options */
+
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('core_check', 'global', 'Check', ''),
+('core_uncheck', 'global', 'Uncheck', '');
+
+-- ----------------------------------------------------------------------------
+-- INVENTORY MANAGEMENT
+-- ----------------------------------------------------------------------------
+
+/* Fixed some english translations */
+
+UPDATE `i18n` SET `en` = 'Cell Passage number should be a positive decimal!' WHERE `id` = 'cell passage number should be a positif decimal' LIMIT 1 ;
+UPDATE `i18n` SET `en` = 'Concentration should be a positive decimal!' WHERE `id` = 'concentration should be a positif decimal' LIMIT 1 ;
+UPDATE `i18n` SET `en` = 'Number should be a positive decimal!' WHERE `id` = 'number should be a positif decimal' LIMIT 1 ;
+UPDATE `i18n` SET `en` = 'Used blood volume should be a positive decimal!' WHERE `id` = 'used volume should be a positif decimal' LIMIT 1 ;
+UPDATE `i18n` SET `en` = 'Volume should be a positive decimal!' WHERE `id` = 'volume should be a positif decimal' LIMIT 1 ;
