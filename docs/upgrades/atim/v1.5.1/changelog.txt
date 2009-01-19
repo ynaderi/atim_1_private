@@ -17,6 +17,7 @@ Module - Inventory
 
 * Add inventorymanagement help messages.
 * Add description for button allowing to access inventory object from another module.
+* Updated some English translations
 
 
 =======================================================================================
