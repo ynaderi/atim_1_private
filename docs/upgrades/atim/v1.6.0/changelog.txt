@@ -4,3 +4,16 @@ Release Number - v1.6.0
 Description - Scheduled for mid to end of Febuary release. Last minor feature release before core cakePHP upgrade.
 
 =======================================================================================
+Module - Protocol
+* CHANGE (Eventum #221) - Added field validation to protocol code. Now a required field.
+
+
+=======================================================================================
+Module - Administration
+* CHANGE (Eventum #16) - Expanded banks table to included additional fields.
+
+
+=======================================================================================
+Module - Clinical Annotation
+* Updated audit fields for treatment tables to DATETIME format.
+
