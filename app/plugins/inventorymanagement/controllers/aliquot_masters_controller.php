@@ -2980,7 +2980,7 @@ class AliquotMastersController extends InventoryManagementAppController {
 
 					if(strcmp($new_aliquot_to_use['FunctionManagement']['generated_field_delete_storage_data'], 'yes') == 0){
 						// Delete aliquot storage data
-						$new_aliquot_to_use['AliquotMaster']['storage_master_id'] = 0;
+						$new_aliquot_to_use['AliquotMaster']['storage_master_id'] = NULL;
 						$new_aliquot_to_use['AliquotMaster']['storage_coord_x'] = NULL;
 						$new_aliquot_to_use['AliquotMaster']['storage_coord_y'] = NULL;
 					}
@@ -3634,7 +3634,7 @@ class AliquotMastersController extends InventoryManagementAppController {
 				
 				if(strcmp($function_management_data['generated_field_delete_storage_data'], 'yes') == 0){
 					// Delete aliquot storage data
-					$realiquoted_aliquot_master_data['storage_master_id'] = 0;
+					$realiquoted_aliquot_master_data['storage_master_id'] = NULL;
 					$realiquoted_aliquot_master_data['storage_coord_x'] = NULL;
 					$realiquoted_aliquot_master_data['storage_coord_y'] = NULL;
 				}
