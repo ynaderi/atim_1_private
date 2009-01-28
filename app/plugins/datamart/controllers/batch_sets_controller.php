@@ -137,8 +137,13 @@ class BatchSetsController extends DataMartAppController {
 	    		// update DATATABLE names to MODEL names for CTRAPP FORM framework
 				$query_to_use = str_replace( '|', '"', $batch_set['BatchSet']['sql_query_for_results'] ); // due to QUOTES and HTML not playing well, PIPES saved to datatable rows instead
 				
+				/*
 				// add restrictions to query, inserting BATCH SET IDs to WHERE statement
 				$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
+				*/
+				
+				// add restrictions to QUERY, inserting BATCH SET IDs to WHERE statement (using PREG REPLACE to find a WHERE statement NOT inside a sub query)
+				$query_to_use = preg_replace( '^(?!\\(.*)WHERE(?!.*\\))^', 'WHERE ('.$criteria.') AND', $query_to_use );
 				
 				$results = $this->ModelToSearch->query( $query_to_use ); 
 	    	
@@ -181,20 +186,6 @@ class BatchSetsController extends DataMartAppController {
 			
 			// get new SET id, and save
 			$this->data['BatchSet']['id'] = $this->BatchSet->getLastInsertId();
-			
-			/*
-			// copy RESULTS from ADHOC results form fields lookup
-			if ( $this->data['Adhoc']['id'] ) {
-				
-				// copy over LOOKUP values in misc TABLES
-				
-				$result = $this->BatchSet->query('SELECT * FROM datamart_adhoc_result_fields WHERE adhoc_id="'.$this->data['Adhoc']['id'].'"');
-				foreach ( $result as $row ) {
-					$this->BatchSet->execute('INSERT INTO datamart_batch_result_fields SET set_id="'.$this->data['BatchSet']['id'].'", field_id="'.$row['datamart_adhoc_result_fields']['field_id'].'"');
-				}
-				
-			}
-			*/
 			
 		}
 		
@@ -437,8 +428,13 @@ class BatchSetsController extends DataMartAppController {
 	    		// update DATATABLE names to MODEL names for CTRAPP FORM framework
 				$query_to_use = str_replace( '|', '"', $batch_set['BatchSet']['sql_query_for_results'] ); // due to QUOTES and HTML not playing well, PIPES saved to datatable rows instead
 				
+				/*
 				// add restrictions to query, inserting BATCH SET IDs to WHERE statement
 				$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
+				*/
+				
+				// add restrictions to QUERY, inserting BATCH SET IDs to WHERE statement (using PREG REPLACE to find a WHERE statement NOT inside a sub query)
+				$query_to_use = preg_replace( '^(?!\\(.*)WHERE(?!.*\\))^', 'WHERE ('.$criteria.') AND', $query_to_use );
 				
 				$results = $this->ModelToSearch->query( $query_to_use ); 
 	    	
@@ -447,34 +443,6 @@ class BatchSetsController extends DataMartAppController {
 			}
 			
 			$this->set( 'results', $results ); // set for display purposes...
-		
-		/* make list of SEARCH RESULTS
-		
-		$results = $this->ModelToSearch->findall( $criteria, NULL, NULL, NULL, NULL, 3 );
-		$this->set( 'results', $results ); // set for display purposes...
-		*/
-		 
-		/* // Build Datamart result FORM from DATAMART queries table and FormFields, instead of Form table
-		
-			// findall FORM info, recursive 
-			
-			$conditions = 'BatchSet.id="'.$batch_set_id.'"';
-			$fields = '*';
-			$order = '';
-			$limit = 4;
-			$ctrapp_form = $this->BatchSet->findAll( $conditions, $fields, $order, $limit, NULL, 3 );
-				
-				$ctrapp_form[0]['BatchSet']['language_title'] = '';
-				$ctrapp_form[0]['BatchSet']['language_help'] = '';
-				
-				$ctrapp_form[0]['Form'] = $ctrapp_form[0]['BatchSet'];
-				unset($ctrapp_form[0]['BatchSet']);
-				
-				$ctrapp_form[0]['FormField'] = $ctrapp_form[0]['BatchResult'];
-				unset($ctrapp_form[0]['BatchResult']);
-				
-			$this->set( 'ctrapp_form_for_ids', $ctrapp_form[0] );
-		*/
 		
 		// set DISPLAY vars, for CSV
 		$this->layout = 'csv';
