@@ -17,3 +17,8 @@ Module - Administration
 Module - Clinical Annotation
 * Updated audit fields for treatment tables to DATETIME format.
 
+=======================================================================================
+Module - Inventory
+* CHANGE (Eventum #476) - Correct bug to allow user to delete storage information of 
+a used aliquot.
+
