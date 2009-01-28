@@ -30,3 +30,28 @@ CHANGE `modified` `modified` DATETIME NOT NULL DEFAULT '0000-00-00';
 
 ALTER TABLE `txe_surgeries` CHANGE `created` `created` DATETIME NOT NULL DEFAULT '0000-00-00',
 CHANGE `modified` `modified` DATETIME NOT NULL DEFAULT '0000-00-00';
+
+
+/* Add help text and related translations for diagnosis form */
+
+UPDATE `form_fields` SET `language_help` = 'help_dx method', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-69' LIMIT 1 ;
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('help_dx method', 'global', 'The most definitive diagnostic procedure before radiotherapy (to primary site) and/or chemotherapy is given, by which a malignancy is diagnosed within 3 months of the earliest known encounter with the health care system for (an investigation relating to) that tumour.', '');
+
+UPDATE `form_fields` SET `language_help` = 'dx_laterality', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-002-11' LIMIT 1 ;
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('dx_laterality', 'global', 'Side of the tumour in paired organs or skin sites.', '');
+
+UPDATE `form_fields` SET `language_help` = 'help_dx origin', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-91' LIMIT 1 ;
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('help_dx origin', 'global', 'A primary diagnosis indicates the start of a new patient disease. A secondary diagnosis indicates a progression or metastatic from the primary site.', '');
+
+UPDATE `form_fields` SET `language_help` = 'help_dx nature', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-70' LIMIT 1 ;
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('help_dx nature', 'global', 'Indicates the nature of the disease coded in the Registry abstract.', '');
+
+UPDATE `form_fields` SET `language_help` = 'help_dx_case number', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-1221' LIMIT 1 ;
+UPDATE `form_fields` SET `language_help` = 'help_dx_case number', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-76' LIMIT 1 ;
+UPDATE `form_fields` SET `language_help` = 'help_dx_case number', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-76.2' LIMIT 1 ;
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('help_dx_case number', 'global', 'A counter indicating the number of primary malignant tumors a patient has.', '');

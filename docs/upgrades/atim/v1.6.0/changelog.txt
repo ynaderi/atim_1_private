@@ -16,6 +16,7 @@ Module - Administration
 =======================================================================================
 Module - Clinical Annotation
 * Updated audit fields for treatment tables to DATETIME format.
+* Added help text to Diagnosis fields.
 
 =======================================================================================
 Module - Inventory
