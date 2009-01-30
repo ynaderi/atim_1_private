@@ -62,7 +62,6 @@ INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
 
 /* Change db fields sizes */
 
-
 ALTER TABLE `collections` 
 CHANGE `reception_by` `reception_by` VARCHAR( 50 ) NULL DEFAULT NULL; 
 ALTER TABLE `collections` 
@@ -79,3 +78,30 @@ ALTER TABLE `protocol_masters`
 CHANGE `name` `name` VARCHAR( 255 ) NULL DEFAULT NULL;
 ALTER TABLE `storage_masters` 
 CHANGE `short_label` `short_label` VARCHAR( 10 ) NULL;
+
+-- ----------------------------------------------------------------------------
+-- ALL PLUGINS
+-- ----------------------------------------------------------------------------
+
+/* Drop db tables duplicated key */
+
+ALTER TABLE collections DROP KEY sop_master_id_2;
+ALTER TABLE derivative_details DROP KEY sample_master_id_2;
+ALTER TABLE derived_sample_links DROP KEY source_sample_control_id_2;
+ALTER TABLE derived_sample_links DROP KEY derived_sample_control_id_2;
+ALTER TABLE sample_masters DROP KEY sample_control_id_2;
+ALTER TABLE sample_masters DROP KEY initial_specimen_sample_id_2;
+ALTER TABLE sample_masters DROP KEY parent_id_2;
+ALTER TABLE sample_masters DROP KEY collection_id_2;
+ALTER TABLE sample_masters DROP KEY sop_master_id_2;
+ALTER TABLE sd_der_cell_cultures DROP KEY sample_master_id_2;
+ALTER TABLE sd_der_plasmas DROP KEY sample_master_id_2;
+ALTER TABLE sd_der_serums DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_ascites DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_bloods DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_cystic_fluids DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_other_fluids DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_peritoneal_washes DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_tissues DROP KEY sample_master_id_2;
+ALTER TABLE sd_spe_urines DROP KEY sample_master_id_2;
+ALTER TABLE specimen_details DROP KEY sample_master_id_2;

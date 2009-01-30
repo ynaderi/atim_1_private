@@ -18,6 +18,7 @@ Module - Clinical Annotation
 * Updated audit fields for treatment tables to DATETIME format.
 * Added help text to Diagnosis fields.
 
+
 =======================================================================================
 Module - Inventory
 * CHANGE (Eventum #476) - Correct bug to allow user to delete storage information of 
@@ -28,6 +29,7 @@ a used aliquot.
 Module - Query Tool
 * BUG (Eventum #472) - Corrected a bug where the unfilled values were not replaced with NULL
 * BUG (Eventum #475) - Fixed a bug with the query tool where subqueries were not working.
+
 
 =======================================================================================
 Module - ALL
@@ -40,3 +42,8 @@ Module - ALL
 *    `participant_messages`.`due_date`
 *    `protocol_masters`.`name`
 *    `storage_masters`.`short_label`
+
+
+=======================================================================================
+Module - ALL
+* Drop db tables duplicated key 
