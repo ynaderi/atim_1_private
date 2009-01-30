@@ -105,3 +105,209 @@ ALTER TABLE sd_spe_peritoneal_washes DROP KEY sample_master_id_2;
 ALTER TABLE sd_spe_tissues DROP KEY sample_master_id_2;
 ALTER TABLE sd_spe_urines DROP KEY sample_master_id_2;
 ALTER TABLE specimen_details DROP KEY sample_master_id_2;
+
+-- ----------------------------------------------------------------------------
+-- ALL PLUGINS
+-- ----------------------------------------------------------------------------
+
+/* CHANGE TABLES TYPE TO INNODB AND  */
+
+ALTER TABLE `ad_blocks`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_cell_cores`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_cell_slides`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_cell_tubes`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_gel_matrices`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_tissue_cores`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_tissue_slides`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_tubes`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ad_whatman_papers`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `aliquot_controls`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `aliquot_uses`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `collections`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `datamart_adhoc_favourites`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `datamart_adhoc_saved`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `derivative_details`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `derived_sample_links`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `ed_breast_lab_pathology`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `form_formats`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `orders`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `order_items`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `order_lines`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `participant_messages`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `qc_tested_aliquots`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `quality_controls`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `rd_blood_cells`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `rd_breast_cancers`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `realiquotings`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `reproductive_histories`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `review_controls`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `review_masters`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sample_aliquot_control_links`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sample_controls`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sample_masters`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_der_cell_cultures`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_der_plasmas`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_der_serums`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_ascites`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_bloods`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_cystic_fluids`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_other_fluids`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_peritoneal_washes`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_tissues`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `sd_spe_urines`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `shipments`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `source_aliquots`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `specimen_details`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `std_incubators`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `std_rooms`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `std_tma_blocks`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `storage_controls`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `storage_coordinates`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `storage_masters`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `tma_slides`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `txe_chemos`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `install_disease_sites`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `install_locations`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+ALTER TABLE `install_studies`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+
+-- ----------------------------------------------------------------------------
+-- INVENTORY
+-- ----------------------------------------------------------------------------
+
+/* ADD FK CONSTRAINTS  */
+
+SET FOREIGN_KEY_CHECKS=0;
+
+ALTER TABLE ad_blocks DROP CONSTRAINT ad_blocks_ibfk_1;
+  ADD CONSTRAINT `ad_blocks_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
+
+ALTER TABLE `ad_cell_cores`
+  ADD CONSTRAINT `ad_cell_cores_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  
+  ADD CONSTRAINT `ad_cell_cores_ibfk_2` FOREIGN KEY (`ad_gel_matrix_id`) REFERENCES `ad_gel_matrices` (`id`);
+
+ALTER TABLE `ad_cell_slides`
+  ADD CONSTRAINT `ad_cell_slides_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
+
+ALTER TABLE `ad_cell_tubes`
+  ADD CONSTRAINT `ad_cell_tubes_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
+
+ALTER TABLE `ad_gel_matrices`
+  ADD CONSTRAINT `ad_gel_matrices_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
+
+ALTER TABLE `ad_tissue_cores`
+  ADD CONSTRAINT `ad_tissue_cores_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  
+  ADD CONSTRAINT `ad_tissue_cores_ibfk_2` FOREIGN KEY (`ad_block_id`) REFERENCES `ad_blocks` (`id`);
+
+ALTER TABLE `ad_tissue_slides`
+  ADD CONSTRAINT `ad_tissue_slides_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  
+  ADD CONSTRAINT `ad_tissue_slides_ibfk_2` FOREIGN KEY (`ad_block_id`) REFERENCES `ad_blocks` (`id`);
+
+ALTER  TABLE `ad_tubes`
+  ADD CONSTRAINT `ad_tubes_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
+
+ALTER TABLE `ad_whatman_papers`
+  ADD CONSTRAINT `ad_whatman_papers_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
+
+ALTER TABLE `aliquot_masters`
+  ADD CONSTRAINT `aliquot_masters_ibfk_1` FOREIGN KEY (`aliquot_control_id`) REFERENCES `aliquot_controls` (`id`),  
+  ADD CONSTRAINT `aliquot_masters_ibfk_2` FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`),  
+  ADD CONSTRAINT `aliquot_masters_ibfk_3` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`),  
+  ADD CONSTRAINT `aliquot_masters_ibfk_4` FOREIGN KEY (`sop_master_id`) REFERENCES `sop_masters` (`id`),  
+  ADD CONSTRAINT `aliquot_masters_ibfk_5` FOREIGN KEY (`study_summary_id`) REFERENCES `study_summaries` (`id`),  
+  ADD CONSTRAINT `aliquot_masters_ibfk_6` FOREIGN KEY (`storage_master_id`) REFERENCES `storage_masters` (`id`);
+
+ALTER TABLE `aliquot_uses`
+  ADD CONSTRAINT `aliquot_uses_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  
+  ADD CONSTRAINT `aliquot_uses_ibfk_2` FOREIGN KEY (`study_summary_id`) REFERENCES `study_summaries` (`id`);
+
+ALTER TABLE `collections`
+  ADD CONSTRAINT `collections_ibfk_1` FOREIGN KEY (`sop_master_id`) REFERENCES `sop_masters` (`id`);
+
+ALTER TABLE `derivative_details`
+  ADD CONSTRAINT `derivative_details_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `derived_sample_links`
+  ADD CONSTRAINT `derived_sample_links_ibfk_1` FOREIGN KEY (`source_sample_control_id`) REFERENCES `sample_controls` (`id`),  
+  ADD CONSTRAINT `derived_sample_links_ibfk_2` FOREIGN KEY (`derived_sample_control_id`) REFERENCES `sample_controls` (`id`);
+
+ALTER TABLE `qc_tested_aliquots`
+  ADD CONSTRAINT `qc_tested_aliquots_ibfk_1` FOREIGN KEY (`quality_control_id`) REFERENCES `quality_controls` (`id`),  ADD CONSTRAINT `qc_tested_aliquots_ibfk_2` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  ADD CONSTRAINT `qc_tested_aliquots_ibfk_3` FOREIGN KEY (`aliquot_use_id`) REFERENCES `aliquot_uses` (`id`);
+
+ALTER TABLE `quality_controls`
+  ADD CONSTRAINT `quality_controls_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `realiquotings`
+  ADD CONSTRAINT `realiquotings_ibfk_1` FOREIGN KEY (`parent_aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  ADD CONSTRAINT `realiquotings_ibfk_2` FOREIGN KEY (`child_aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  ADD CONSTRAINT `realiquotings_ibfk_3` FOREIGN KEY (`aliquot_use_id`) REFERENCES `aliquot_uses` (`id`);
+
+ALTER TABLE `sample_aliquot_control_links`
+  ADD CONSTRAINT `sample_aliquot_control_links_ibfk_1` FOREIGN KEY (`sample_control_id`) REFERENCES `sample_controls` (`id`),  ADD CONSTRAINT `sample_aliquot_control_links_ibfk_2` FOREIGN KEY (`aliquot_control_id`) REFERENCES `aliquot_controls` (`id`);
+
+ALTER TABLE `sample_masters`
+  ADD CONSTRAINT `sample_masters_ibfk_1` FOREIGN KEY (`sample_control_id`) REFERENCES `sample_controls` (`id`),  ADD CONSTRAINT `sample_masters_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `sample_masters` (`id`),  ADD CONSTRAINT `sample_masters_ibfk_3` FOREIGN KEY (`collection_id`) REFERENCES `collections` (`id`),  ADD CONSTRAINT `sample_masters_ibfk_4` FOREIGN KEY (`sop_master_id`) REFERENCES `sop_masters` (`id`);
+
+ALTER TABLE `sd_der_cell_cultures`
+  ADD CONSTRAINT `sd_der_cell_cultures_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_der_plasmas`
+  ADD CONSTRAINT `sd_der_plasmas_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_der_serums`
+  ADD CONSTRAINT `sd_der_serums_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_ascites`
+  ADD CONSTRAINT `sd_spe_ascites_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_bloods`
+  ADD CONSTRAINT `sd_spe_bloods_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_cystic_fluids`
+  ADD CONSTRAINT `sd_spe_cystic_fluids_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_other_fluids`
+  ADD CONSTRAINT `sd_spe_other_fluids_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_peritoneal_washes`
+  ADD CONSTRAINT `sd_spe_peritoneal_washes_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_tissues`
+  ADD CONSTRAINT `sd_spe_tissues_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `sd_spe_urines`
+  ADD CONSTRAINT `sd_spe_urines_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `source_aliquots`
+  ADD CONSTRAINT `source_aliquots_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`),  ADD CONSTRAINT `source_aliquots_ibfk_2` FOREIGN KEY (`aliquot_use_id`) REFERENCES `aliquot_uses` (`id`),  ADD CONSTRAINT `source_aliquots_ibfk_3` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `specimen_details`
+  ADD CONSTRAINT `specimen_details_ibfk_1` FOREIGN KEY (`sample_master_id`) REFERENCES `sample_masters` (`id`);
+
+ALTER TABLE `std_incubators`
+  ADD CONSTRAINT `std_incubators_ibfk_1` FOREIGN KEY (`storage_master_id`) REFERENCES `storage_masters` (`id`);
+
+ALTER TABLE `std_rooms`
+  ADD CONSTRAINT `std_rooms_ibfk_1` FOREIGN KEY (`storage_master_id`) REFERENCES `storage_masters` (`id`);
+
+ALTER TABLE `std_tma_blocks`
+  ADD CONSTRAINT `std_tma_blocks_ibfk_1` FOREIGN KEY (`storage_master_id`) REFERENCES `storage_masters` (`id`),  ADD CONSTRAINT `std_tma_blocks_ibfk_2` FOREIGN KEY (`sop_master_id`) REFERENCES `sop_masters` (`id`);
+
+ALTER TABLE `storage_coordinates`
+  ADD CONSTRAINT `storage_coordinates_ibfk_1` FOREIGN KEY (`storage_master_id`) REFERENCES `storage_masters` (`id`);
+
+ALTER TABLE `storage_masters`
+  ADD CONSTRAINT `storage_masters_ibfk_1` FOREIGN KEY (`storage_control_id`) REFERENCES `storage_controls` (`id`),  ADD CONSTRAINT `storage_masters_ibfk_2` FOREIGN KEY (`parent_id`) REFERENCES `storage_masters` (`id`);
+
+ALTER TABLE `tma_slides`
+  ADD CONSTRAINT `tma_slides_ibfk_1` FOREIGN KEY (`storage_master_id`) REFERENCES `storage_masters` (`id`),  ADD CONSTRAINT `tma_slides_ibfk_2` FOREIGN KEY (`sop_master_id`) REFERENCES `sop_masters` (`id`),  ADD CONSTRAINT `tma_slides_ibfk_3` FOREIGN KEY (`std_tma_block_id`) REFERENCES `std_tma_blocks` (`id`);
+
+SET FOREIGN_KEY_CHECKS=1;
+
+
+
+
+
+
+
+
+
+
+

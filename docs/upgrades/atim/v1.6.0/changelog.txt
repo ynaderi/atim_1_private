@@ -47,3 +47,5 @@ Module - ALL
 =======================================================================================
 Module - ALL
 * Drop db tables duplicated key 
+* Add FK
+* ADD tables type and collation to innodb and latin
