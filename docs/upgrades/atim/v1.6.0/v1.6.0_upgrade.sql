@@ -55,3 +55,27 @@ UPDATE `form_fields` SET `language_help` = 'help_dx_case number', `install_locat
 UPDATE `form_fields` SET `language_help` = 'help_dx_case number', `install_location_id` = '' WHERE `id` = 'CAN-999-999-000-999-76.2' LIMIT 1 ;
 INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
 ('help_dx_case number', 'global', 'A counter indicating the number of primary malignant tumors a patient has.', '');
+
+-- ----------------------------------------------------------------------------
+-- ALL PLUGINS
+-- ----------------------------------------------------------------------------
+
+/* Change db fields sizes */
+
+
+ALTER TABLE `collections` 
+CHANGE `reception_by` `reception_by` VARCHAR( 50 ) NULL DEFAULT NULL; 
+ALTER TABLE `collections` 
+CHANGE `collection_property` `collection_property` VARCHAR( 50 ) NULL DEFAULT NULL;
+ALTER TABLE `derivative_details` 
+CHANGE `creation_by` `creation_by` VARCHAR( 50 ) NULL DEFAULT NULL;
+ALTER TABLE `diagnoses` 
+CHANGE `dx_number` `dx_number` VARCHAR( 50 ) NULL DEFAULT NULL;
+ALTER TABLE `orders` 
+CHANGE `order_number` `order_number` VARCHAR( 255 ) NOT NULL;
+ALTER TABLE `participant_messages` 
+CHANGE `due_date` `due_date` DATETIME NULL DEFAULT NULL;
+ALTER TABLE `protocol_masters` 
+CHANGE `name` `name` VARCHAR( 255 ) NULL DEFAULT NULL;
+ALTER TABLE `storage_masters` 
+CHANGE `short_label` `short_label` VARCHAR( 10 ) NULL;
