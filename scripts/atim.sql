@@ -10,7 +10,7 @@
 -- Database: `atim-dev`
 -- 
 
-CREATE DATABASE `atim` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE DATABASE `atim` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
 USE `atim`;
 
 -- --------------------------------------------------------
@@ -30,7 +30,7 @@ CREATE TABLE `ad_blocks` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_blocks`
@@ -54,7 +54,7 @@ CREATE TABLE `ad_cell_cores` (
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`),
   KEY `ad_gel_matrix_id` (`ad_gel_matrix_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_cell_cores`
@@ -77,7 +77,7 @@ CREATE TABLE `ad_cell_slides` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_cell_slides`
@@ -104,7 +104,7 @@ CREATE TABLE `ad_cell_tubes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_cell_tubes`
@@ -128,7 +128,7 @@ CREATE TABLE `ad_gel_matrices` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_gel_matrices`
@@ -152,7 +152,7 @@ CREATE TABLE `ad_tissue_cores` (
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`),
   KEY `ad_block_id` (`ad_block_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_tissue_cores`
@@ -177,7 +177,7 @@ CREATE TABLE `ad_tissue_slides` (
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`),
   KEY `ad_block_id` (`ad_block_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_tissue_slides`
@@ -202,7 +202,7 @@ CREATE TABLE `ad_tubes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_tubes`
@@ -226,7 +226,7 @@ CREATE TABLE `ad_whatman_papers` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ad_whatman_papers`
@@ -247,7 +247,7 @@ CREATE TABLE `aliquot_controls` (
   `detail_tablename` varchar(50) default NULL,
   `volume_unit` varchar(20) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 AUTO_INCREMENT=16 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `aliquot_controls`
@@ -305,7 +305,7 @@ CREATE TABLE `aliquot_masters` (
   KEY `sample_master_id` (`sample_master_id`),
   KEY `sop_master_id` (`sop_master_id`),
   KEY `study_summary_id` (`study_summary_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `aliquot_masters`
@@ -334,7 +334,7 @@ CREATE TABLE `aliquot_uses` (
   PRIMARY KEY  (`id`),
   KEY `aliquot_master_id` (`aliquot_master_id`),
   KEY `study_summary_id` (`study_summary_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `aliquot_uses`
@@ -362,7 +362,7 @@ CREATE TABLE `announcements` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `announcements`
@@ -381,7 +381,7 @@ CREATE TABLE `banks` (
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `banks`
@@ -406,7 +406,7 @@ CREATE TABLE `clinical_collection_links` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `clinical_collection_links`
@@ -431,7 +431,7 @@ CREATE TABLE `coding_adverse_events` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `coding_adverse_events`
@@ -445,7 +445,7 @@ CREATE TABLE `coding_adverse_events` (
 -- 
 
 CREATE TABLE `coding_icd10` (
-  `id` varchar(10) character set utf8 collate utf8_unicode_ci NOT NULL default '',
+  `id` varchar(10) NOT NULL default '',
   `category` varchar(50) NOT NULL default '',
   `group` varchar(50) NOT NULL default '',
   `site` varchar(50) NOT NULL default '',
@@ -911,7 +911,7 @@ CREATE TABLE `collections` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sop_master_id` (`sop_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `collections`
@@ -955,7 +955,7 @@ CREATE TABLE `consents` (
   PRIMARY KEY  (`id`),
   KEY `diagnosis_id` (`diagnosis_id`),
   KEY `participant_id` (`participant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `consents`
@@ -981,7 +981,7 @@ CREATE TABLE `datamart_adhoc` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `datamart_adhoc`
@@ -996,7 +996,7 @@ CREATE TABLE `datamart_adhoc` (
 CREATE TABLE `datamart_adhoc_favourites` (
   `adhoc_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- 
 -- Dumping data for table `datamart_adhoc_favourites`
@@ -1018,7 +1018,7 @@ CREATE TABLE `datamart_adhoc_saved` (
   `created` datetime NOT NULL,
   `modified` datetime NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `datamart_adhoc_saved`
@@ -1035,7 +1035,7 @@ CREATE TABLE `datamart_batch_ids` (
   `set_id` int(11) NOT NULL default '0',
   `lookup_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=168 DEFAULT CHARSET=latin1 AUTO_INCREMENT=168 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `datamart_batch_ids`
@@ -1054,7 +1054,7 @@ CREATE TABLE `datamart_batch_processes` (
   `model` varchar(255) NOT NULL default '',
   `url` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `datamart_batch_processes`
@@ -1082,7 +1082,7 @@ CREATE TABLE `datamart_batch_sets` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=latin1 AUTO_INCREMENT=22 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `datamart_batch_sets`
@@ -1106,7 +1106,7 @@ CREATE TABLE `derivative_details` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `derivative_details`
@@ -1126,7 +1126,7 @@ CREATE TABLE `derived_sample_links` (
   PRIMARY KEY  (`id`),
   KEY `source_sample_control_id` (`source_sample_control_id`),
   KEY `derived_sample_control_id` (`derived_sample_control_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=118 DEFAULT CHARSET=utf8 AUTO_INCREMENT=118 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `derived_sample_links`
@@ -1215,7 +1215,7 @@ CREATE TABLE `diagnoses` (
   `participant_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `diagnoses`
@@ -1238,7 +1238,7 @@ CREATE TABLE `drugs` (
   `modified` date NOT NULL default '0000-00-00',
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `drugs`
@@ -1278,7 +1278,7 @@ CREATE TABLE `ed_all_adverse_events_adverse_event` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_all_adverse_events_adverse_event`
@@ -1304,7 +1304,7 @@ CREATE TABLE `ed_all_clinical_followup` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_all_clinical_followup`
@@ -1328,7 +1328,7 @@ CREATE TABLE `ed_all_clinical_presentation` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_all_clinical_presentation`
@@ -1360,7 +1360,7 @@ CREATE TABLE `ed_all_lifestyle_base` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_all_lifestyle_base`
@@ -1382,7 +1382,7 @@ CREATE TABLE `ed_all_protocol_followup` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_all_protocol_followup`
@@ -1407,7 +1407,7 @@ CREATE TABLE `ed_all_study_research` (
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_all_study_research`
@@ -1441,7 +1441,7 @@ CREATE TABLE `ed_allsolid_lab_pathology` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_allsolid_lab_pathology`
@@ -1475,7 +1475,7 @@ CREATE TABLE `ed_breast_clinical_presentation` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_breast_clinical_presentation`
@@ -1523,7 +1523,7 @@ CREATE TABLE `ed_breast_lab_pathology` (
   `modified_by` varchar(50) NOT NULL default '',
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_breast_lab_pathology`
@@ -1546,7 +1546,7 @@ CREATE TABLE `ed_breast_screening_mammogram` (
   `event_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `event_master_id` (`event_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `ed_breast_screening_mammogram`
@@ -1568,7 +1568,7 @@ CREATE TABLE `event_controls` (
   `form_alias` varchar(255) NOT NULL default '',
   `detail_tablename` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=latin1 AUTO_INCREMENT=35 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `event_controls`
@@ -1615,7 +1615,7 @@ CREATE TABLE `event_masters` (
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`),
   KEY `diagnosis_id` (`diagnosis_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `event_masters`
@@ -1643,7 +1643,7 @@ CREATE TABLE `family_histories` (
   `participant_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `family_histories`
@@ -4295,7 +4295,7 @@ CREATE TABLE `form_formats` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- 
 -- Dumping data for table `form_formats`
@@ -6108,7 +6108,7 @@ CREATE TABLE `form_validations` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modifed_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1122 DEFAULT CHARSET=latin1 AUTO_INCREMENT=1122 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `form_validations`
@@ -6416,7 +6416,7 @@ CREATE TABLE `global_lookups` (
   `modified` datetime default NULL,
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11590 DEFAULT CHARSET=latin1 AUTO_INCREMENT=11590 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `global_lookups`
@@ -7323,14 +7323,14 @@ CREATE TABLE `groups` (
   `bank_id` int(11) NOT NULL default '0',
   `name` varchar(255) NOT NULL default '',
   `level` int(11) NOT NULL default '0',
-  `redirect` varchar(255) character set utf8 collate utf8_unicode_ci NOT NULL default '',
+  `redirect` varchar(255) NOT NULL default '',
   `perm_type` enum('allow','deny') NOT NULL default 'allow',
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `created_by` varchar(255) NOT NULL default '',
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `groups`
@@ -7415,10 +7415,10 @@ INSERT INTO `groups_permissions` (`group_id`, `permission_id`) VALUES (2, 20),
 -- 
 
 CREATE TABLE `i18n` (
-  `id` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL default '',
-  `page_id` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL default 'global',
-  `en` text character set utf8 collate utf8_unicode_ci NOT NULL,
-  `fr` text character set utf8 collate utf8_unicode_ci NOT NULL,
+  `id` varchar(100) character set latin1 collate latin1_swedish_ci NOT NULL default '',
+  `page_id` varchar(100) character set latin1 collate latin1_swedish_ci NOT NULL default 'global',
+  `en` text character set latin1 collate latin1_swedish_ci NOT NULL,
+  `fr` text character set latin1 collate latin1_swedish_ci NOT NULL,
   PRIMARY KEY  (`id`,`page_id`),
   KEY `id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -9331,7 +9331,7 @@ CREATE TABLE `install_disease_sites` (
   `modified_by` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `disease_site` (`disease_site`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `install_disease_sites`
@@ -9375,7 +9375,7 @@ CREATE TABLE `install_locations` (
   `modified_by` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `country` (`country`,`region`,`biobank`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `install_locations`
@@ -9409,7 +9409,7 @@ CREATE TABLE `install_studies` (
   `modified_by` tinyint(4) NOT NULL,
   PRIMARY KEY  (`id`),
   UNIQUE KEY `study_name` (`study_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `install_studies`
@@ -9452,9 +9452,9 @@ CREATE TABLE `materials` (
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `created_by` varchar(50) NOT NULL,
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
-  `modified_by` varchar(50) character set utf8 collate utf8_bin NOT NULL default '',
+  `modified_by` varchar(50) character set latin1 collate latin1_swedish_ci NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=latin1 AUTO_INCREMENT=220 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `materials`
@@ -9990,7 +9990,7 @@ CREATE TABLE `misc_identifiers` (
   `participant_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `misc_identifiers`
@@ -10020,7 +10020,7 @@ CREATE TABLE `order_items` (
   `aliquot_master_id` int(11) default NULL,
   `aliquot_use_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `order_items`
@@ -10053,7 +10053,7 @@ CREATE TABLE `order_lines` (
   `sample_control_id` int(11) NOT NULL default '0',
   `order_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `order_lines`
@@ -10081,7 +10081,7 @@ CREATE TABLE `orders` (
   `modified_by` varchar(45) default NULL,
   `study_summary_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- 
 -- Dumping data for table `orders`
@@ -10095,7 +10095,7 @@ CREATE TABLE `orders` (
 -- 
 
 CREATE TABLE `pages` (
-  `id` varchar(100) character set utf8 collate utf8_unicode_ci NOT NULL default '',
+  `id` varchar(100) character set latin1 collate latin1_swedish_ci NOT NULL default '',
   `error_flag` tinyint(4) NOT NULL default '0',
   `language_title` varchar(255) NOT NULL default '',
   `language_body` text NOT NULL,
@@ -10226,7 +10226,7 @@ CREATE TABLE `participant_contacts` (
   `participant_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `participant_contacts`
@@ -10255,7 +10255,7 @@ CREATE TABLE `participant_messages` (
   `participant_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `participant_messages`
@@ -10295,7 +10295,7 @@ CREATE TABLE `participants` (
   `modified` datetime default NULL,
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1 AUTO_INCREMENT=12 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `participants`
@@ -10333,7 +10333,7 @@ CREATE TABLE `path_collection_reviews` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `collection_id` (`collection_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `path_collection_reviews`
@@ -10356,7 +10356,7 @@ CREATE TABLE `pd_chemos` (
   `modified_by` varchar(50) NOT NULL default '',
   `protocol_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `pd_chemos`
@@ -10380,7 +10380,7 @@ CREATE TABLE `pe_chemos` (
   `protocol_master_id` int(11) default NULL,
   `drug_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `pe_chemos`
@@ -10401,7 +10401,7 @@ CREATE TABLE `permissions` (
   `modified_by` varchar(50) NOT NULL default '',
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1 AUTO_INCREMENT=52 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `permissions`
@@ -10446,7 +10446,7 @@ CREATE TABLE `protocol_controls` (
   `modified` date default NULL,
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `protocol_controls`
@@ -10481,7 +10481,7 @@ CREATE TABLE `protocol_masters` (
   `modified_by` varchar(50) default NULL,
   `form_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `protocol_masters`
@@ -10507,7 +10507,7 @@ CREATE TABLE `qc_tested_aliquots` (
   KEY `quality_control_id` (`quality_control_id`),
   KEY `aliquot_master_id` (`aliquot_master_id`),
   KEY `aliquot_use_id` (`aliquot_use_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `qc_tested_aliquots`
@@ -10537,7 +10537,7 @@ CREATE TABLE `quality_controls` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `quality_controls`
@@ -10563,7 +10563,7 @@ CREATE TABLE `rd_blood_cells` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_blood_cells`
@@ -10595,7 +10595,7 @@ CREATE TABLE `rd_bloodcellcounts` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `review_master_id` (`review_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_bloodcellcounts`
@@ -10626,7 +10626,7 @@ CREATE TABLE `rd_breast_cancers` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_breast_cancers`
@@ -10656,7 +10656,7 @@ CREATE TABLE `rd_breastcancertypes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `review_master_id` (`review_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_breastcancertypes`
@@ -10685,7 +10685,7 @@ CREATE TABLE `rd_coloncancertypes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `review_master_id` (`review_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_coloncancertypes`
@@ -10714,7 +10714,7 @@ CREATE TABLE `rd_genericcancertypes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `review_master_id` (`review_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_genericcancertypes`
@@ -10742,7 +10742,7 @@ CREATE TABLE `rd_ovarianuteruscancertypes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `review_master_id` (`review_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rd_ovarianuteruscancertypes`
@@ -10770,7 +10770,7 @@ CREATE TABLE `realiquotings` (
   KEY `parent_aliquot_master_id` (`parent_aliquot_master_id`),
   KEY `child_aliquot_master_id` (`child_aliquot_master_id`),
   KEY `aliquot_use_id` (`aliquot_use_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `realiquotings`
@@ -10818,7 +10818,7 @@ CREATE TABLE `reproductive_histories` (
   `modified_by` varchar(50) NOT NULL default '',
   `participant_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `reproductive_histories`
@@ -10838,7 +10838,7 @@ CREATE TABLE `review_controls` (
   `form_alias` varchar(50) default NULL,
   `detail_tablename` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `review_controls`
@@ -10869,7 +10869,7 @@ CREATE TABLE `review_masters` (
   `modified` datetime default NULL,
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `review_masters`
@@ -10898,7 +10898,7 @@ CREATE TABLE `rtbforms` (
   `modified` datetime default NULL,
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `rtbforms`
@@ -10919,7 +10919,7 @@ CREATE TABLE `sample_aliquot_control_links` (
   PRIMARY KEY  (`id`),
   KEY `sample_control_id` (`sample_control_id`),
   KEY `aliquot_control_id` (`aliquot_control_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 AUTO_INCREMENT=45 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sample_aliquot_control_links`
@@ -10978,7 +10978,7 @@ CREATE TABLE `sample_controls` (
   `form_alias` varchar(50) default NULL,
   `detail_tablename` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=112 DEFAULT CHARSET=utf8 AUTO_INCREMENT=112 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sample_controls`
@@ -11044,7 +11044,7 @@ CREATE TABLE `sample_masters` (
   KEY `parent_id` (`parent_id`),
   KEY `collection_id` (`collection_id`),
   KEY `sop_master_id` (`sop_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sample_masters`
@@ -11069,7 +11069,7 @@ CREATE TABLE `sd_der_cell_cultures` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_der_cell_cultures`
@@ -11092,7 +11092,7 @@ CREATE TABLE `sd_der_plasmas` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_der_plasmas`
@@ -11115,7 +11115,7 @@ CREATE TABLE `sd_der_serums` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_der_serums`
@@ -11139,7 +11139,7 @@ CREATE TABLE `sd_spe_ascites` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_ascites`
@@ -11165,7 +11165,7 @@ CREATE TABLE `sd_spe_bloods` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_bloods`
@@ -11189,7 +11189,7 @@ CREATE TABLE `sd_spe_cystic_fluids` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_cystic_fluids`
@@ -11213,7 +11213,7 @@ CREATE TABLE `sd_spe_other_fluids` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_other_fluids`
@@ -11237,7 +11237,7 @@ CREATE TABLE `sd_spe_peritoneal_washes` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_peritoneal_washes`
@@ -11264,7 +11264,7 @@ CREATE TABLE `sd_spe_tissues` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_tissues`
@@ -11294,7 +11294,7 @@ CREATE TABLE `sd_spe_urines` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sd_spe_urines`
@@ -11317,7 +11317,7 @@ CREATE TABLE `shelves` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `storage_id` (`storage_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `shelves`
@@ -11351,7 +11351,7 @@ CREATE TABLE `shipments` (
   `modified_by` varchar(45) default NULL,
   `order_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `shipments`
@@ -11374,7 +11374,7 @@ CREATE TABLE `sidebars` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=193 DEFAULT CHARSET=latin1 AUTO_INCREMENT=193 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sidebars`
@@ -11419,7 +11419,7 @@ CREATE TABLE `sop_controls` (
   `modified` datetime default NULL,
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sop_controls`
@@ -11457,7 +11457,7 @@ CREATE TABLE `sop_masters` (
   `modified_by` varchar(50) default NULL,
   `form_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sop_masters`
@@ -11510,7 +11510,7 @@ CREATE TABLE `sopd_general_all` (
   `modified_by` varchar(50) NOT NULL default '',
   `sop_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1 AUTO_INCREMENT=37 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sopd_general_all`
@@ -11569,7 +11569,7 @@ CREATE TABLE `sope_general_all` (
   `sop_master_id` int(11) default NULL,
   `material_id` int(11) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=220 DEFAULT CHARSET=latin1 AUTO_INCREMENT=220 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `sope_general_all`
@@ -11814,7 +11814,7 @@ CREATE TABLE `source_aliquots` (
   KEY `aliquot_master_id` (`aliquot_master_id`),
   KEY `aliquot_use_id` (`aliquot_use_id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `source_aliquots`
@@ -11837,7 +11837,7 @@ CREATE TABLE `specimen_details` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `sample_master_id` (`sample_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `specimen_details`
@@ -11861,7 +11861,7 @@ CREATE TABLE `std_incubators` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `storage_master_id` (`storage_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `std_incubators`
@@ -11885,7 +11885,7 @@ CREATE TABLE `std_rooms` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `storage_master_id` (`storage_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `std_rooms`
@@ -11911,7 +11911,7 @@ CREATE TABLE `std_tma_blocks` (
   PRIMARY KEY  (`id`),
   KEY `storage_master_id` (`storage_master_id`),
   KEY `sop_master_id` (`sop_master_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `std_tma_blocks`
@@ -11941,7 +11941,7 @@ CREATE TABLE `storage_controls` (
   `form_alias_for_children_pos` varchar(50) default NULL,
   `detail_tablename` varchar(50) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `storage_controls`
@@ -11985,7 +11985,7 @@ CREATE TABLE `storage_coordinates` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `storage_master_id` (`storage_master_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `storage_coordinates`
@@ -12021,7 +12021,7 @@ CREATE TABLE `storage_masters` (
   PRIMARY KEY  (`id`),
   KEY `storage_control_id` (`storage_control_id`),
   KEY `parent_id` (`parent_id`)
-) ENGINE=MyISAM AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `storage_masters`
@@ -12071,7 +12071,7 @@ CREATE TABLE `study_contacts` (
   `modified_by` varchar(50) default NULL,
   `study_summary_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_contacts`
@@ -12111,7 +12111,7 @@ CREATE TABLE `study_ethicsboards` (
   `modified_by` varchar(50) default NULL,
   `study_summary_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_ethicsboards`
@@ -12157,7 +12157,7 @@ CREATE TABLE `study_fundings` (
   `rtbform_id` int(11) default NULL,
   `study_summary_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_fundings`
@@ -12195,7 +12195,7 @@ CREATE TABLE `study_investigators` (
   `path_to_file` text,
   `study_summary_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_investigators`
@@ -12225,7 +12225,7 @@ CREATE TABLE `study_related` (
   `study_summary_id` int(11) NOT NULL default '0',
   `path_to_file` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_related`
@@ -12252,7 +12252,7 @@ CREATE TABLE `study_results` (
   `rtbform_id` int(11) default NULL,
   `study_summary_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_results`
@@ -12286,7 +12286,7 @@ CREATE TABLE `study_reviews` (
   `modified_by` varchar(50) default NULL,
   `study_summary_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_reviews`
@@ -12321,7 +12321,7 @@ CREATE TABLE `study_summaries` (
   `modified_by` varchar(50) default NULL,
   `path_to_file` varchar(255) default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `study_summaries`
@@ -12353,7 +12353,7 @@ CREATE TABLE `tma_slides` (
   KEY `storage_master_id` (`storage_master_id`),
   KEY `sop_master_id` (`sop_master_id`),
   KEY `std_tma_block_id` (`std_tma_block_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `tma_slides`
@@ -12377,7 +12377,7 @@ CREATE TABLE `towers` (
   `modified_by` varchar(50) default NULL,
   PRIMARY KEY  (`id`),
   KEY `shelf_id` (`shelf_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `towers`
@@ -12400,7 +12400,7 @@ CREATE TABLE `tx_controls` (
   `extend_tablename` varchar(255) NOT NULL default '',
   `extend_form_alias` varchar(255) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `tx_controls`
@@ -12440,7 +12440,7 @@ CREATE TABLE `tx_masters` (
   PRIMARY KEY  (`id`),
   KEY `participant_id` (`participant_id`),
   KEY `diagnosis_id` (`diagnosis_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `tx_masters`
@@ -12478,7 +12478,7 @@ CREATE TABLE `txd_brachytherapies` (
   `tx_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txd_brachytherapies`
@@ -12505,7 +12505,7 @@ CREATE TABLE `txd_chemos` (
   `tx_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 AUTO_INCREMENT=20 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txd_chemos`
@@ -12537,7 +12537,7 @@ CREATE TABLE `txd_combos` (
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified_by` varchar(50) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txd_combos`
@@ -12561,7 +12561,7 @@ CREATE TABLE `txd_radiations` (
   `tx_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txd_radiations`
@@ -12586,7 +12586,7 @@ CREATE TABLE `txd_surgeries` (
   `tx_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txd_surgeries`
@@ -12610,7 +12610,7 @@ CREATE TABLE `txe_brachytherapies` (
   `tx_master_id` int(11) NOT NULL default '0',
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txe_brachytherapies`
@@ -12625,23 +12625,23 @@ CREATE TABLE `txe_brachytherapies` (
 
 CREATE TABLE `txe_chemos` (
   `id` int(11) NOT NULL auto_increment,
-  `source` varchar(50) collate utf8_bin default NULL,
-  `frequency` varchar(50) collate utf8_bin default NULL,
-  `dose` varchar(50) collate utf8_bin default NULL,
-  `method` varchar(50) collate utf8_bin default NULL,
-  `reduction` varchar(50) collate utf8_bin default NULL,
+  `source` varchar(50) collate latin1_swedish_ci default NULL,
+  `frequency` varchar(50) collate latin1_swedish_ci default NULL,
+  `dose` varchar(50) collate latin1_swedish_ci default NULL,
+  `method` varchar(50) collate latin1_swedish_ci default NULL,
+  `reduction` varchar(50) collate latin1_swedish_ci default NULL,
   `cycle_number` int(11) default NULL,
   `completed_cycles` int(11) default NULL,
   `start_date` date default NULL,
   `end_date` date default NULL,
   `created` date default NULL,
-  `created_by` varchar(50) collate utf8_bin default NULL,
+  `created_by` varchar(50) collate latin1_swedish_ci default NULL,
   `modified` date default NULL,
-  `modified_by` varchar(50) collate utf8_bin default NULL,
+  `modified_by` varchar(50) collate latin1_swedish_ci default NULL,
   `tx_master_id` int(11) default NULL,
-  `drug_id` varchar(50) collate utf8_bin default '0',
+  `drug_id` varchar(50) collate latin1_swedish_ci default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci ;
 
 -- 
 -- Dumping data for table `txe_chemos`
@@ -12672,7 +12672,7 @@ CREATE TABLE `txe_radiations` (
   `tx_master_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txe_radiations`
@@ -12695,7 +12695,7 @@ CREATE TABLE `txe_surgeries` (
   `tx_master_id` int(11) default NULL,
   PRIMARY KEY  (`id`),
   KEY `tx_master_id` (`tx_master_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ;
 
 -- 
 -- Dumping data for table `txe_surgeries`
@@ -12715,7 +12715,7 @@ CREATE TABLE `user_logs` (
   `visited` timestamp NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   `allowed` tinyint(4) NOT NULL default '0',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11437 DEFAULT CHARSET=latin1 AUTO_INCREMENT=11437 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1  ;
 
 -- 
 -- Dumping data for table `user_logs`
@@ -12754,7 +12754,7 @@ CREATE TABLE `users` (
   `created` datetime NOT NULL default '0000-00-00 00:00:00',
   `modified` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1  ;
 
 -- 
 -- Dumping data for table `users`
