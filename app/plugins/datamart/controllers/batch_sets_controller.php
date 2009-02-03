@@ -137,13 +137,15 @@ class BatchSetsController extends DataMartAppController {
 	    		// update DATATABLE names to MODEL names for CTRAPP FORM framework
 				$query_to_use = str_replace( '|', '"', $batch_set['BatchSet']['sql_query_for_results'] ); // due to QUOTES and HTML not playing well, PIPES saved to datatable rows instead
 				
-				/*
 				// add restrictions to query, inserting BATCH SET IDs to WHERE statement
-				$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
-				*/
+				if ( substr_count( $query_to_use, 'WHERE' )>=2 ) {
+					$query_to_use = str_replace( 'WHERE TRUE AND ', 'WHERE TRUE  AND ('.$criteria.') AND ', $query_to_use );
+				} else {
+					$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
+				}
 				
 				// add restrictions to QUERY, inserting BATCH SET IDs to WHERE statement (using PREG REPLACE to find a WHERE statement NOT inside a sub query)
-				$query_to_use = preg_replace( '^(?!\\(.*)WHERE(?!.*\\))^', 'WHERE ('.$criteria.') AND', $query_to_use );
+				// $query_to_use = preg_replace( '^(?!\\(.*)WHERE(?!.*\\))^', 'WHERE ('.$criteria.') AND', $query_to_use );
 				
 				$results = $this->ModelToSearch->query( $query_to_use ); 
 	    	
@@ -428,13 +430,15 @@ class BatchSetsController extends DataMartAppController {
 	    		// update DATATABLE names to MODEL names for CTRAPP FORM framework
 				$query_to_use = str_replace( '|', '"', $batch_set['BatchSet']['sql_query_for_results'] ); // due to QUOTES and HTML not playing well, PIPES saved to datatable rows instead
 				
-				/*
 				// add restrictions to query, inserting BATCH SET IDs to WHERE statement
-				$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
-				*/
+				if ( substr_count( $query_to_use, 'WHERE' )>=2 ) {
+					$query_to_use = str_replace( 'WHERE TRUE AND ', 'WHERE TRUE  AND ('.$criteria.') AND ', $query_to_use );
+				} else {
+					$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
+				}
 				
 				// add restrictions to QUERY, inserting BATCH SET IDs to WHERE statement (using PREG REPLACE to find a WHERE statement NOT inside a sub query)
-				$query_to_use = preg_replace( '^(?!\\(.*)WHERE(?!.*\\))^', 'WHERE ('.$criteria.') AND', $query_to_use );
+				// $query_to_use = preg_replace( '^(?!\\(.*)WHERE(?!.*\\))^', 'WHERE ('.$criteria.') AND', $query_to_use );
 				
 				$results = $this->ModelToSearch->query( $query_to_use ); 
 	    	
