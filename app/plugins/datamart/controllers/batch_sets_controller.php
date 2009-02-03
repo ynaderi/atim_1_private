@@ -138,7 +138,7 @@ class BatchSetsController extends DataMartAppController {
 				$query_to_use = str_replace( '|', '"', $batch_set['BatchSet']['sql_query_for_results'] ); // due to QUOTES and HTML not playing well, PIPES saved to datatable rows instead
 				
 				// add restrictions to query, inserting BATCH SET IDs to WHERE statement
-				if ( substr_count( $query_to_use, 'WHERE' )>=2 ) {
+				if ( substr_count( $query_to_use, 'WHERE' )>=2 || substr_count( $query_to_use, 'WHERE TRUE AND' )>=1 ) {
 					$query_to_use = str_replace( 'WHERE TRUE AND ', 'WHERE TRUE  AND ('.$criteria.') AND ', $query_to_use );
 				} else {
 					$query_to_use = str_replace( 'WHERE', 'WHERE ('.$criteria.') AND ', $query_to_use );
