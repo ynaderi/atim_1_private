@@ -49,3 +49,9 @@ Module - ALL
 * Drop db tables duplicated key 
 * Add FK
 * ADD tables type and collation to innodb and latin
+
+
+=======================================================================================
+Module - Inventory
+* ENHANCEMENT (Eventum #487) - Update aliquot_controls.aliquot_type to be consistant with the rest 
+of the tables content.

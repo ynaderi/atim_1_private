@@ -301,6 +301,85 @@ ALTER TABLE `tma_slides`
 
 SET FOREIGN_KEY_CHECKS=1;
 
+-- ----------------------------------------------------------------------------
+-- INVENTORY
+-- ----------------------------------------------------------------------------
+
+/* Update aliquot_controls.aliquot_type to be consistant with the rest of the tables content. See issue 487 */
+
+UPDATE aliquot_masters SET aliquot_type = 'core' 
+WHERE aliquot_control_id IN (SELECT id FROM aliquot_controls WHERE aliquot_type = 'cell core');
+UPDATE aliquot_controls SET aliquot_type = 'core' WHERE aliquot_type = 'cell core';
+
+UPDATE aliquot_masters SET aliquot_type = 'core' 
+WHERE aliquot_control_id IN (SELECT id FROM aliquot_controls WHERE aliquot_type = 'tissue core');
+UPDATE aliquot_controls SET aliquot_type = 'core' WHERE aliquot_type = 'tissue core';
+
+UPDATE aliquot_masters SET aliquot_type = 'slide' 
+WHERE aliquot_control_id IN (SELECT id FROM aliquot_controls WHERE aliquot_type = 'tissue slide');
+UPDATE aliquot_controls SET aliquot_type = 'slide' WHERE aliquot_type = 'tissue slide';
+
+UPDATE aliquot_masters SET aliquot_type = 'slide' 
+WHERE aliquot_control_id IN (SELECT id FROM aliquot_controls WHERE aliquot_type = 'cell slide');
+UPDATE aliquot_controls SET aliquot_type = 'slide' WHERE aliquot_type = 'cell slide';
+
+DELETE FROM form_fields_global_lookups 
+WHERE lookup_id IN (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'cell core');
+DELETE FROM global_lookups WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'cell core';
+
+DELETE FROM form_fields_global_lookups 
+WHERE lookup_id IN (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'cell slide');
+DELETE FROM global_lookups WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'cell slide';
+
+DELETE FROM form_fields_global_lookups 
+WHERE lookup_id IN (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'tissue slide');
+DELETE FROM global_lookups WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'tissue slide';
+
+DELETE FROM form_fields_global_lookups 
+WHERE lookup_id IN (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'tissue core');
+DELETE FROM global_lookups WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'tissue core';
+
+DELETE FROM form_fields_global_lookups 
+WHERE lookup_id IN (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'cell tube');
+DELETE FROM global_lookups WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'cell tube';
+
+DELETE FROM i18n WHERE id IN ('tissue core', 'tissue slide', 'cell slide', 'cell core', 'cell tube');
+
+INSERT INTO `global_lookups` 
+(`id`, `alias`, `section`, `subsection`, `value`, `language_choice`, `display_order`, `active`, 
+`created`, `created_by`, `modified`, `modified_by`) 
+VALUES 
+(NULL, 'aliquot_type', NULL, NULL, 'slide', 'slide', 3, 'yes', NULL, NULL, NULL, NULL),
+(NULL, 'aliquot_type', NULL, NULL, 'core', 'core', 4, 'yes', NULL, NULL, NULL, NULL);
+
+INSERT INTO `form_fields_global_lookups` (`field_id`, `lookup_id`) 
+VALUES 
+('CAN-999-999-000-999-1102', (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'core')),
+('CAN-999-999-000-999-1102', (SELECT id FROM `global_lookups` WHERE `alias` LIKE 'aliquot_type' AND `value` LIKE 'slide'));
+
+INSERT INTO `i18n` (`id`, `page_id`, `en`, `fr`) 
+VALUES 
+('core', 'global', 'Core', 'Core');
+
+ALTER TABLE `aliquot_controls` 
+ADD `comment` VARCHAR( 255 ) NULL ;
+
+UPDATE `aliquot_controls` SET `comment` = 'Specimen tube' WHERE `id` = 1;
+UPDATE `aliquot_controls` SET `comment` = 'Specimen tube requiring volume in ml' WHERE `id` = 2;
+UPDATE `aliquot_controls` SET `comment` = 'Specimen bag' WHERE `id` = 3;
+UPDATE `aliquot_controls` SET `comment` = 'Tissue block' WHERE `id` = 4;
+UPDATE `aliquot_controls` SET `comment` = 'Tissue slide' WHERE `id` = 5;
+UPDATE `aliquot_controls` SET `comment` = 'Blood whatman paper' WHERE `id` = 6;
+UPDATE `aliquot_controls` SET `comment` = 'Derivative tube' WHERE `id` = 7;
+UPDATE `aliquot_controls` SET `comment` = 'Derivative tube requiring volume in ml' WHERE `id` = 8;
+UPDATE `aliquot_controls` SET `comment` = 'Derivative tube requiring volume in ml and concentration' WHERE `id` = 9;
+UPDATE `aliquot_controls` SET `comment` = 'Cells slide' WHERE `id` = 10;
+UPDATE `aliquot_controls` SET `comment` = 'Derivative tube requiring volume in ul and concentration' WHERE `id` = 11;
+UPDATE `aliquot_controls` SET `comment` = 'Tissue core' WHERE `id` = 12;
+UPDATE `aliquot_controls` SET `comment` = 'Cells gel matrix' WHERE `id` = 13;
+UPDATE `aliquot_controls` SET `comment` = 'Cells core' WHERE `id` = 14;
+UPDATE `aliquot_controls` SET `comment` = 'Derivative tube requiring volume in ml specific for cells' WHERE `id` = 15;
+
 
 
 
