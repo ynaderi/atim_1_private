@@ -55,3 +55,7 @@ Module - ALL
 Module - Inventory
 * ENHANCEMENT (Eventum #487) - Update aliquot_controls.aliquot_type to be consistant with the rest 
 of the tables content.
+
+=======================================================================================
+Module - Inventory
+* BUG (Eventum #490) - Changed query criteria to reduce the aliquot detail form display time!

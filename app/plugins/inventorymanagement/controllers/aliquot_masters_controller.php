@@ -1813,6 +1813,8 @@ class AliquotMastersController extends InventoryManagementAppController {
 				
 				// Create array to display available tissue block lists
 				$criteria = array();
+				$criteria['AliquotMaster.sample_master_id'] = $sample_master_id;
+				$criteria['AliquotMaster.collection_id'] = $collection_id;				
 				$criteria['AliquotMaster.id'] 
 					= $aliquot_detail_data['AliquotDetail']['ad_block_id']; // Aliquot Master ID should be equal to Details ID
 				$criteria = array_filter($criteria);
@@ -1824,7 +1826,7 @@ class AliquotMastersController extends InventoryManagementAppController {
 						null, 
 						'{n}.AliquotMaster.id', 
 						'{n}.AliquotMaster.barcode');
-
+				
 				$this->set('available_block_code', $available_block_code);
 				
 			} 
@@ -1836,6 +1838,8 @@ class AliquotMastersController extends InventoryManagementAppController {
 				
 				// Create array to display available gel matrix lists
 				$criteria = array();
+				$criteria['AliquotMaster.sample_master_id'] = $sample_master_id;
+				$criteria['AliquotMaster.collection_id'] = $collection_id;	
 				$criteria['AliquotMaster.id'] 
 					= $aliquot_detail_data['AliquotDetail']['ad_gel_matrix_id']; // Aliquot Master ID should be equal to Details ID
 				$criteria = array_filter($criteria);
