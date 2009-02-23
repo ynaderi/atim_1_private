@@ -88,7 +88,7 @@
 					
 								<tr>
 									<td class="button" colspan="3">
-										<input type="submit" class="submit" value="Submit" />
+										<input type="submit" class="submit" value="Submit" onclick="processSelect=getElementById(\'BatchSetProcess\');processSelectValue=processSelect.options[processSelect.selectedIndex].value;if(processSelectValue.indexOf(\'csv\')!=-1){return confirm(\''.$translations->t( 'export csv confirmation message', $lang, 1 ).'\')};" />
 									</td>
 								</tr>
 								

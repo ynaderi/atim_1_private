@@ -61,17 +61,18 @@ class DATABASE_CONFIG
 								'login' => '',
 								'password' => '',
 								'database' => 'atim',
-
-								'prefix' => '');
-
-	/*
-	var $test = array('driver' => 'mysql',
-							'connect' => 'mysql_connect',
-							'host' => 'localhost',
-							'login' => 'user',
-							'password' => 'password',
-							'database' => 'project_name-test',
 							'prefix' => '');
+
+	
+	/*
+	var $default = array('driver' => 'mysql',
+								'connect' => 'mysql_connect',
+								'host' => '127.0.0.1',
+								'login' => 'root',
+								'password' => '',
+								'database' => 'atim_1',
+								'prefix' => '');
 	*/
+	
 }
 ?>
