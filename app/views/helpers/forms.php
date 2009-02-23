@@ -2116,7 +2116,24 @@ class FormsHelper extends Helper {
 							} else if ( $field['FormField']['type']=='date' || $field['FormField']['type']=='datetime' ) {
 								
 								// get PHP's month name array
-								$cal_info = cal_info(0);
+								// $cal_info = cal_info(0);
+									
+									// some older/different versions of PHP do not have cal_info() function, so manually build expected month array
+									$cal_info = array();
+									$cal_info['abbrevmonths'] = array(
+										1 => 'Jan',
+						            2 => 'Feb',
+						            3 => 'Mar',
+						            4 => 'Apr',
+						            5 => 'May',
+						            6 => 'Jun',
+						            7 => 'Jul',
+						            8 => 'Aug',
+						            9 => 'Sep',
+						            10 => 'Oct',
+						            11 => 'Nov',
+						            12 => 'Dec'
+						         );
 								
 								// format date STRING manually, using PHP's month name array, becuase of UnixTimeStamp's 1970 - 2038 limitation
 								
