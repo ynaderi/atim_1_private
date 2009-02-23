@@ -17,12 +17,15 @@ Module - Administration
 Module - Clinical Annotation
 * Updated audit fields for treatment tables to DATETIME format.
 * Added help text to Diagnosis fields.
+* CHANGE (Eventum #502) - Placed an 'Add' action button on the index view for participants
 
 
 =======================================================================================
 Module - Inventory
-* CHANGE (Eventum #476) - Correct bug to allow user to delete storage information of 
-a used aliquot.
+* CHANGE (Eventum #476) - Correct bug to allow user to delete storage information of a used aliquot.
+* ENHANCEMENT (Eventum #487) - Update aliquot_controls.aliquot_type to be consistant with the rest 
+of the tables content.
+* BUG (Eventum #490) - Changed query criteria to reduce the aliquot detail form display time!
 
 
 =======================================================================================
@@ -50,12 +53,3 @@ Module - ALL
 * Add FK
 * ADD tables type and collation to innodb and latin
 
-
-=======================================================================================
-Module - Inventory
-* ENHANCEMENT (Eventum #487) - Update aliquot_controls.aliquot_type to be consistant with the rest 
-of the tables content.
-
-=======================================================================================
-Module - Inventory
-* BUG (Eventum #490) - Changed query criteria to reduce the aliquot detail form display time!

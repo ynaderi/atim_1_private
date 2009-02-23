@@ -9,7 +9,7 @@
 		$form_type = 'index';
 		$form_model = $participants;
 		$form_field = $ctrapp_form;
-		$form_link = array( 'detail'=>'/clinicalannotation/participants/profile/' );
+		$form_link = array( 'detail'=>'/clinicalannotation/participants/profile/', 'add'=>'/clinicalannotation/participants/add/' );
 		$form_lang = $lang;
 		$form_pagination = $paging;
 		$form_override = NULL;
