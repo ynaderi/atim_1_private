@@ -249,7 +249,74 @@ div#tabs_menu_div {
 	position: absolute; top: 15px; left: 250px;
 	float: left;
 }
+div#tabs_menu_div div.menu_ul_wrapper { 
+	display: block; float: left;
+	padding: 0; margin: 0;
+}
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_0,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_1,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_2,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_3,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_4,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_5,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_6 { 
+	border: 1px solid green; float: left; 
+	margin: 0; list-style: none; padding: 0;
+}
+div#tabs_menu_div div.menu_ul_wrapper ul li { 
+	background: #374D61; 
+}
+div#tabs_menu_div div.menu_ul_wrapper ul li.at { 
+	background: url(images/section_nav_leading_arrow_01.png) no-repeat 0 0; 
+}
+div#tabs_menu_div div.menu_ul_wrapper ul li a { 
+	color: #fff; 
+	display: block; 
+	position: relative;
+	height: 30px; 
+	padding: 6px 1.5em 0 1.5em;
+	he\ight: 24px;
+	text-decoration: none;
+	font-size: 14px;
+}
+div#tabs_menu_div div.menu_ul_wrapper ul.last li a { 
+	background: url(images/section_nav_leading_right_curve_01.png) no-repeat top right; 
+}
 
+
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_0 div ul {
+	position: absolute; 
+	top: 30px;
+	padding-bottom: 15px;
+	width: 150px;
+	background: transparent url(images/section_nav_sub_ul_curve_02.png) no-repeat bottom left;
+	z-index: 10;
+	border: 1px solid red;
+}
+
+
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_0 div ul li div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_1 div ul li div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_2 div ul li div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_3 div ul li div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_4 div ul li div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_5 div ul li div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_6 div ul li div { 
+	display: block; position: absolute;
+	left: -9999px;
+	top: 0; padding: 0; float: left;
+}
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_0 div ul:hover div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_1 div ul:hover div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_2 div ul:hover div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_3 div ul:hover div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_4 div ul:hover div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_5 div ul:hover div,
+div#tabs_menu_div div.menu_ul_wrapper ul.tabs_6 div ul:hover div {
+	left: 145px;
+}
+
+/*
 div#col0 ul.tabs_0,
 div#col0 ul.tabs_1,
 div#col0 ul.tabs_2,
@@ -269,7 +336,7 @@ div#col0 ul.tabs_4 li,
 div#col0 ul.tabs_5 li,
 div#col0 ul.tabs_6 li { background: #374D61; }
 
-/* draw in the arrows and curve */
+
 
 div#col0 ul.tabs_0 li.at,
 div#col0 ul.tabs_1 li.at,
@@ -279,7 +346,7 @@ div#col0 ul.tabs_4 li.at,
 div#col0 ul.tabs_5 li.at,
 div#col0 ul.tabs_6 li.at { background: url(images/section_nav_leading_arrow_01.png) no-repeat 0 0; }
 
-/* make tabs self-aware if another tab appears after it */
+
 div#col0 ul.tabs_0.last a,
 div#col0 ul.tabs_1.last a,
 div#col0 ul.tabs_2.last a,
@@ -288,7 +355,7 @@ div#col0 ul.tabs_4.last a,
 div#col0 ul.tabs_5.last a,
 div#col0 ul.tabs_6.last a { background: url(images/section_nav_leading_right_curve_01.png) no-repeat top right; }
 
-/* define look of drop down lists */
+
 div#col0 ul.tabs_0 a,
 div#col0 ul.tabs_1 a,
 div#col0 ul.tabs_2 a,
@@ -325,7 +392,7 @@ div#col0 ul.tabs_6 ul {
 	z-index: 10;
 }
 
-/* flyout styles */
+
 	div#col0 ul.tabs_0 ul li,
 	div#col0 ul.tabs_1 ul li,
 	div#col0 ul.tabs_2 ul li,
@@ -359,7 +426,7 @@ div#col0 ul.tabs_6 ul {
 	div#col0 ul.tabs_5 ul li:hover ul.tabs_5:hover,
 	div#col0 ul.tabs_6 ul li:hover ul.tabs_6,
 	div#col0 ul.tabs_6 ul li:hover ul.tabs_6:hover {
-		position: absolute; display: inline;
+		position: absolute; display: block;
 		top: 0; left: 145px; z-index: 20;
 		margin: 0;
 	}
@@ -427,7 +494,7 @@ div#col0 ul.tabs_6.last ul li.notallowed a {
 	background-color: #eee;
 	background-image: none;
 }
-
+*/
 
 
 
@@ -1058,8 +1125,6 @@ table#cakeSqlLog {
 	border-right: 1px solid #ccc;
 	font-family: courier, serif;
 	
-	opacity: 0.7;
-	filter: alpha(opacity=70);
 }
 
 table#cakeSqlLog td,

@@ -137,6 +137,8 @@ class AppController extends Controller {
 define('FORM_DATE_FORMAT', 'MDY'); // valid formats are DMY, MDY, YMD
 define('FORM_TIME_FORMAT', '24'); // valid formats are 12, 24
 
+define('CSV_SEPARATOR', ','); // default to comma, though some ppl use semi-colons
+
 
 
 

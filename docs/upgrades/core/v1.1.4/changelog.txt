@@ -1,0 +1,20 @@
+Current Date - February 27, 2009
+Release Number - v1.1.4
+
+Description - Last core release before upgrade to CakePHP v1.2
+
+==========================================================================================================
+
+Module: Core
+
+* BUG (Eventum 481) - Corrected a styling issue with the new menu styles and IE7
+
+* ENHANCEMENT (Eventum 482) - Added new form field type to allow upload of a .csv file as input to
+a query.
+
+* BUG (Eventum 472) - Corrected a bug with the use of NULL and LIKE SQL keywords within the Query Tool
+
+* ENHANCEMENT (Eventum 471) - Added ability to allow user input of multiple values into a query criteria field.
+
+
+ 	

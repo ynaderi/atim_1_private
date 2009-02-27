@@ -33,6 +33,11 @@ class FormsComponent extends Object {
 					$form_fields[ $val['FormField']['model'].'.'.$val['FormField']['field'].'_end' ]['criteria'] = '`'.$val['FormField']['model'].'`.`'.$val['FormField']['field'].'` <= "@@SEARCHTERM@@"';
 				}
 				
+				else if ( isset( $data[$val['FormField']['model'] ][ $val['FormField']['field'] ] ) && is_array( $data[$val['FormField']['model'] ][ $val['FormField']['field'] ] ) ) {
+					$form_fields[ $val['FormField']['model'].'.'.$val['FormField']['field'] ]['key'] = $val['FormField']['model'].'.'.$val['FormField']['field'];
+					$form_fields[ $val['FormField']['model'].'.'.$val['FormField']['field'] ]['criteria'] = 'IN (@@SEARCHTERM@@)';
+				}
+				
 				// all other types, a generic SQL fragment...
 				else {
 					$form_fields[ $val['FormField']['model'].'.'.$val['FormField']['field'] ]['key'] = $val['FormField']['model'].'.'.$val['FormField']['field'];
@@ -64,7 +69,8 @@ class FormsComponent extends Object {
 				
 					// regular expression to change search over field for BLANK values to be searches over fields for BLANK OR NULL values...
 					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s+LIKE\s+([\||\"])\%\%\2/i', '($1 LIKE $2%%$2 OR $1 IS NULL)', $sql_with_search_terms );
-					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s+\=\s+([\||\"])\2/i', '($1=$2$2 OR $1 IS NULL)', $sql_with_search_terms );
+					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s+\=\s+([\||\"])\2/i', '($1 LIKE $2%%$2 OR $1 IS NULL)', $sql_with_search_terms );
+					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s+IN\s+\(\s*\)/i', '($1 LIKE "%%" OR $1 IS NULL)', $sql_with_search_terms );
 					
 					// regular expression to change search over DATE fields for BLANK values to be searches over fields for BLANK OR NULL values...
 					$sql_with_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])0000\-00\-00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])9999\-00\-00\3/i', '(($1$2${3}0000-00-00${3} AND $1$4${3}9999-00-00${3}) OR $1 IS NULL)', $sql_with_search_terms );
@@ -83,7 +89,8 @@ class FormsComponent extends Object {
 				
 					// regular expression to change search over field for BLANK values to be searches over fields for BLANK OR NULL values...
 					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s+LIKE\s+([\||\"])\%\%\2/i', '($1 LIKE $2%%$2 OR $1 IS NULL)', $sql_without_search_terms );
-					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s+\=\s+([\||\"])\2/i', '($1=$2$2 OR $1 IS NULL)', $sql_without_search_terms );
+					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s+\=\s+([\||\"])\2/i', '($1 LIKE $2%%$2 OR $1 IS NULL)', $sql_without_search_terms );
+					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s+IN\s+\(\s*\)/i', '($1 LIKE "%%" OR $1 IS NULL)', $sql_without_search_terms );
 					
 					// regular expression to change search over DATE fields for BLANK values to be searches over fields for BLANK OR NULL values...
 					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])0000\-00\-00\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])9999\-00\-00\3/i', '(($1$2${3}0000-00-00${3} AND $1$4${3}9999-00-00${3}) OR $1 IS NULL)', $sql_without_search_terms );
@@ -96,7 +103,7 @@ class FormsComponent extends Object {
 					
 					// regular expression to change search over RANGE fields for BLANK values to be searches over fields for BLANK OR NULL values...
 					$sql_without_search_terms = preg_replace( '/([\w\.]+)\s*([\>|\<]\=)\s*([\||\"])\3\s+AND\s+\1\s*([\>|\<]\=)\s*([\||\"])\3/i', '(($1$2${3}-999999${3} AND $1$4${3}999999${3}) OR $1 IS NULL)', $sql_without_search_terms );
-		
+					
 				// return BOTH	
 				return array( $sql_with_search_terms, $sql_without_search_terms );
 			}
@@ -104,6 +111,31 @@ class FormsComponent extends Object {
 			// now parse DATA to generate SQL conditions
 			foreach ( $data as $model=>$fields ) {
 				foreach ( $fields as $key=>$value ) {
+					
+					// if CSV file uploaded...
+					if ( is_array($value) && isset($data[$model][$key.'_with_file_upload']) && $data[$model][$key.'_with_file_upload']['tmp_name'] ) {
+						
+						// set $DATA array based on contents of uploaded FILE
+						$handle = fopen($data[$model][$key.'_with_file_upload']['tmp_name'], "r");
+						
+						// in each LINE, get FIRST csv value, and attach to DATA array
+						while (($csv_data = fgetcsv($handle, 1000, CSV_SEPARATOR, '"')) !== FALSE) {
+						    $value[] = $csv_data[0];
+						}
+						
+						fclose($handle);
+						
+						unset($data[$model][$key.'_with_file_upload']);
+						
+					}
+					
+					// if VALUE is an array...
+					if ( is_array($value) ) {
+						$value = array_filter($value);
+						$value = array_unique($value);
+						$value = '"'.implode('","',$value).'"';
+						$data[$model][$key] = $value=='""' ? '' : $value;
+					}
 					
 					// format value, for CakePHP
 					$value = trim($value);
@@ -119,8 +151,14 @@ class FormsComponent extends Object {
 						// add search element to CONDITIONS array if not blank & MODEL data included Model/Field info...
 						if ( $value && isset($form_fields[$model.'.'.$key]) ) {
 							
+							// if KEY is provided but value is an ARRAY, remove KEY from conditions (otherwise, CakePHP will addslashes automatically in the FindAll function, breaking the SQL)...
+							if ( $form_fields[$model.'.'.$key]['key'] && strpos($form_fields[$model.'.'.$key]['criteria'],'IN (')!==false ) {
+								$conditions[] = $form_fields[$model.'.'.$key]['key'].' '.str_replace( '@@SEARCHTERM@@', $value, $form_fields[$model.'.'.$key]['criteria'] );
+								unset($conditions[ $form_fields[$model.'.'.$key]['key'] ]);
+							}
+							
 							// if KEY is provided, save criteria in array with that...
-							if ( $form_fields[$model.'.'.$key]['key'] ) {
+							else if ( $form_fields[$model.'.'.$key]['key'] ) {
 								$conditions[ $form_fields[$model.'.'.$key]['key'] ] = str_replace( '@@SEARCHTERM@@', $value, $form_fields[$model.'.'.$key]['criteria'] );
 							} 
 							
@@ -168,6 +206,31 @@ class FormsComponent extends Object {
 		// parse all FIELDS, to clean up DATE pulldowns, specifically for start-end ranges...
 		foreach ( $data as $model=>$fields ) {
 			foreach ( $fields as $key=>$value ) {
+			
+				// if CSV file uploaded...
+				if ( is_array($value) && isset($data[$model][$key.'_with_file_upload']) && $data[$model][$key.'_with_file_upload']['tmp_name'] ) {
+					
+					// set $DATA array based on contents of uploaded FILE
+					$handle = fopen($data[$model][$key.'_with_file_upload']['tmp_name'], "r");
+					
+					// in each LINE, get FIRST csv value, and attach to DATA array
+					while (($csv_data = fgetcsv($handle, 1000, CSV_SEPARATOR, '"')) !== FALSE) {
+					    $value[] = $csv_data[0];
+					}
+					
+					fclose($handle);
+					
+					unset($data[$model][$key.'_with_file_upload']);
+					
+				}
+				
+				// if VALUE is an array...
+				if ( is_array($value) ) {
+					$value = array_filter($value);
+					$value = array_unique($value);
+					$value = '"'.implode('","',$value).'"';
+					$data[$model][$key] = $value=='""' ? '' : $value;
+				}
 			
 				unset($fieldOfDate);
 				

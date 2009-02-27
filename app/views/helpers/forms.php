@@ -286,7 +286,7 @@ class FormsHelper extends Helper {
 			} // end FOREACH
 		} // end FOREACH
 		
-		$header_row_array = implode(',', $header_row_array);
+		$header_row_array = implode(CSV_SEPARATOR, $header_row_array);
 		$return_array[] = trim($header_row_array);
 			
 			if ( count($model[0]) ) {
@@ -859,8 +859,8 @@ class FormsHelper extends Helper {
 			$return_string .= '
 				<div class="form_helper_table index">
 				
-				'.$this->Html->formTag( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'
-		
+				<form action="'.$this->Html->url( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'" method="post" enctype="multipart/form-data">
+			
 				<fieldset class="form">
 							
 							<table class="addgrid" cellspacing="0">
@@ -1032,8 +1032,8 @@ class FormsHelper extends Helper {
 			$return_string .= '
 				<div class="form_helper_table index">
 				
-				'.$this->Html->formTag( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'
-		
+				<form action="'.$this->Html->url( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'" method="post" enctype="multipart/form-data">
+				
 				<fieldset class="form">
 							
 							<table class="editgrid" cellspacing="0">
@@ -1303,8 +1303,8 @@ class FormsHelper extends Helper {
 		$submit_form_link = $this->str_replace_link( $submit_form_link, $model );
 		
 		$return_string .= '
-			'.$this->Html->formTag( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'
-		
+			<form action="'.$this->Html->url( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'" method="post" enctype="multipart/form-data">
+			
 			<fieldset class="form">
 			
 				<table class="columns" cellspacing="0">
@@ -1419,7 +1419,7 @@ class FormsHelper extends Helper {
 		$submit_form_link = $this->str_replace_link( $submit_form_link, $model );
 		
 		$return_string .= '
-			'.$this->Html->formTag( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'
+			<form action="'.$this->Html->url( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'" method="post" enctype="multipart/form-data">
 		
 			<fieldset class="form">
 			
@@ -1589,8 +1589,8 @@ class FormsHelper extends Helper {
 		$submit_form_link = $this->str_replace_link( $submit_form_link, $model );
 		
 		$return_string .= '
-			'.$this->Html->formTag( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'
-		
+			<form action="'.$this->Html->url( $submit_form_link.( isset( $this->params['pass'] ) && !empty( $this->params['pass'] ) ? $this->params['pass'][ count($this->params['pass'])-1 ] : '' ) ).'" method="post" enctype="multipart/form-data">
+			
 			<fieldset class="form">
 			
 				<table class="columns" cellspacing="0">
@@ -1950,9 +1950,12 @@ class FormsHelper extends Helper {
 						
 						// Older FORM_FIELDS datatable do not have editgrid flags, so use other FLAGS instead - Wil, Aug 21, 2007 
 						$use_field = 'index';
+						
+						/*
 						if ( isset($field['flag_datagrid']) ) {
 							$use_field = 'datagrid';
 						}
+						*/
 						
 						$field['flag_'.$type] = $field['flag_'.$use_field];
 					}
@@ -2618,22 +2621,64 @@ class FormsHelper extends Helper {
 					// if there is a TOOL for this field, APPEND! 
 					if ( $append_field_tool && $type!='editgrid' ) {
 						
-						$append_field_tool_id = '';
-						$append_field_tool_id = str_replace( '/', ' ', $append_field_tool );
-						$append_field_tool_id = trim($append_field_tool_id);
-						$append_field_tool_id = str_replace( ' ', '_', $append_field_tool_id );
-						
-						$javascript_inline = '';
-						$javascript_inline .= "new Ajax.Updater( '".$append_field_tool_id."', '".$this->Html->url( $append_field_tool )."', {asynchronous:false, evalScripts:true} );";
-						$javascript_inline .= "Effect.toggle('".$append_field_tool_id."','appear',{duration:0.25});";
-						
-						$display_value .= '
-							<a class="tools" onclick="'.$javascript_inline.'">'.$this->Translations->t( 'core_tools', $lang).'</a>
+						// multiple INPUT entries, using uploaded CSV file
+						if ( $append_field_tool=='csv' ) {
 							
-							<div class="ajax_tool" id="'.$append_field_tool_id.'" style="display: none;">
-							</div>
+							// replace NAME of input with ARRAY format name
+							// $display_value = preg_replace('/name\=\"data\[([A-Za-z0-9]+)\]\[([A-Za-z0-9]+)\]\"/i','name="data[$1][$2][]"',$display_value);
+							$display_value = str_replace(']"','][]"',$display_value);
 							
-						';
+							// wrap FIELD in DIV/P and add JS links to clone/remove P tags
+							$display_value = '
+								<div id="'.strtolower($field['FormField']['model'].'_'.$field['FormField']['field']).'_with_file_upload">
+									'.$display_value.'
+									<input class="file" type="file" name="data['.$field['FormField']['model'].']['.$field['FormField']['field'].'_with_file_upload]" />
+								</div>
+							';
+							
+						}
+						
+						// multiple INPUT entries, with JS add/remove links
+						else if ( $append_field_tool=='multiple' ) {
+							
+							// replace NAME of input with ARRAY format name
+							// $display_value = preg_replace('/name\=\"data\[([A-Za-z0-9]+)\]\[([A-Za-z0-9]+)\]\"/i','name="data[$1][$2][]"',$display_value);
+							$display_value = str_replace(']"','][]"',$display_value);
+							
+							// wrap FIELD in DIV/P and add JS links to clone/remove P tags
+							$display_value = '
+								<div id="'.strtolower($field['FormField']['model'].'_'.$field['FormField']['field']).'_with_clone_fields_js">
+									<p class="clone">
+										'.$display_value.'
+										<a href="#" class="ajax_tool clone_remove" onclick="remove_fields(this); return false;">Remove</a>
+									</p>
+								</div>
+								
+								<a href="#" class="ajax_tool clone_add" onclick="clone_fields(\''.strtolower($field['FormField']['model'].'_'.$field['FormField']['field']).'_with_clone_fields_js\'); return false;">Add Another</a>
+							';
+							
+						}
+						
+						// any other TOOL
+						else {
+							$append_field_tool_id = '';
+							$append_field_tool_id = str_replace( '/', ' ', $append_field_tool );
+							$append_field_tool_id = trim($append_field_tool_id);
+							$append_field_tool_id = str_replace( ' ', '_', $append_field_tool_id );
+							
+							$javascript_inline = '';
+							$javascript_inline .= "new Ajax.Updater( '".$append_field_tool_id."', '".$this->Html->url( $append_field_tool )."', {asynchronous:false, evalScripts:true} );";
+							$javascript_inline .= "Effect.toggle('".$append_field_tool_id."','appear',{duration:0.25});";
+							
+							$display_value .= '
+								<a class="tools" onclick="'.$javascript_inline.'">'.$this->Translations->t( 'core_tools', $lang).'</a>
+								
+								<div class="ajax_tool" id="'.$append_field_tool_id.'" style="display: none;">
+								</div>
+								
+							';
+							
+						}
 						
 					}
 					
