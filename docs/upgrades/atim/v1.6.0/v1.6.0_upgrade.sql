@@ -80,6 +80,15 @@ ALTER TABLE `storage_masters`
 CHANGE `short_label` `short_label` VARCHAR( 10 ) NULL;
 
 -- ----------------------------------------------------------------------------
+-- QUERY TOOL
+-- ----------------------------------------------------------------------------
+
+/* Default warning message on export of data via CSV */
+
+INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
+('export csv confirmation message', 'global', 'Respect and protect the privacy of others! The data you are exporting may contain personal identifiers. Always follow your institution''s confidential data handling policies. Do not share this information outside your Biobank without prior approval from your Biobank''s director.', '');
+
+-- ----------------------------------------------------------------------------
 -- ALL PLUGINS
 -- ----------------------------------------------------------------------------
 
