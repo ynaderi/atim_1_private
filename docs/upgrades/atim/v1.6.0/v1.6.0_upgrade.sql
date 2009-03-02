@@ -88,32 +88,6 @@ CHANGE `short_label` `short_label` VARCHAR( 10 ) NULL;
 INSERT INTO `i18n` ( `id` , `page_id` , `en` , `fr` ) VALUES
 ('export csv confirmation message', 'global', 'Respect and protect the privacy of others! The data you are exporting may contain personal identifiers. Always follow your institution''s confidential data handling policies. Do not share this information outside your Biobank without prior approval from your Biobank''s director.', '');
 
--- ----------------------------------------------------------------------------
--- ALL PLUGINS
--- ----------------------------------------------------------------------------
-
-/* Drop db tables duplicated key */
-
-ALTER TABLE collections DROP KEY sop_master_id_2;
-ALTER TABLE derivative_details DROP KEY sample_master_id_2;
-ALTER TABLE derived_sample_links DROP KEY source_sample_control_id_2;
-ALTER TABLE derived_sample_links DROP KEY derived_sample_control_id_2;
-ALTER TABLE sample_masters DROP KEY sample_control_id_2;
-ALTER TABLE sample_masters DROP KEY initial_specimen_sample_id_2;
-ALTER TABLE sample_masters DROP KEY parent_id_2;
-ALTER TABLE sample_masters DROP KEY collection_id_2;
-ALTER TABLE sample_masters DROP KEY sop_master_id_2;
-ALTER TABLE sd_der_cell_cultures DROP KEY sample_master_id_2;
-ALTER TABLE sd_der_plasmas DROP KEY sample_master_id_2;
-ALTER TABLE sd_der_serums DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_ascites DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_bloods DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_cystic_fluids DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_other_fluids DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_peritoneal_washes DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_tissues DROP KEY sample_master_id_2;
-ALTER TABLE sd_spe_urines DROP KEY sample_master_id_2;
-ALTER TABLE specimen_details DROP KEY sample_master_id_2;
 
 -- ----------------------------------------------------------------------------
 -- ALL PLUGINS
@@ -187,7 +161,7 @@ ALTER TABLE `install_studies`  ENGINE = innodb DEFAULT CHARACTER SET latin1 COLL
 
 SET FOREIGN_KEY_CHECKS=0;
 
-ALTER TABLE ad_blocks DROP CONSTRAINT ad_blocks_ibfk_1;
+ALTER TABLE `ad_blocks`
   ADD CONSTRAINT `ad_blocks_ibfk_1` FOREIGN KEY (`aliquot_master_id`) REFERENCES `aliquot_masters` (`id`);
 
 ALTER TABLE `ad_cell_cores`
