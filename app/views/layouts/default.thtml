@@ -54,9 +54,7 @@
 </head>
 
 <body onunload="javascript:history.go(1)">
-	<cake:nocache>
 	<?php echo $content_for_layout ?>
-	</cake:nocache>
 </body>
 
 </html>

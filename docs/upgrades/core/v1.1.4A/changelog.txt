@@ -1,0 +1,13 @@
+Current Date - March 5, 2009
+Release Number - v1.1.4A
+
+Description - Minor styling fix for core v1.1.4. No effect on functionality or database.
+
+==========================================================================================================
+
+Module: Core
+
+* BUG (Eventum 481) - Another fix to the menu's under IE7
+
+
+ 	

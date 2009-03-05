@@ -11,10 +11,13 @@ class MenusHelper extends Helper {
 		if ( !isset($options['extra_id_suffix']) ) { $options['extra_id_suffix']=''; } // Any extra text will  be appended to ID name of container DIV
 		if ( !isset($options['no_extra_at_state']) ) { $options['no_extra_at_state']=false; } // TRUE will duplicate AT state as extra LI/A coombo at top of UL; FALSE will set existing LI/A at state
 		
+		$use_ids = false;
+		if ( $options['extra_id_suffix']=='in_toolbox' ) $use_ids=true;
+		
 		// display menus if array not blank
 		if ( count($display_menu) ) {
 			foreach ( $display_menu as $count_menu=>$build_menu ) {
-				$return_string .= $this->levels( count($display_menu), $count_menu, $build_menu, $lang, $options );
+				$return_string .= $this->levels( count($display_menu), $count_menu, $build_menu, $lang, $options, $ids=$use_ids );
 			} // END foreach UL
 		} // END if count
 		
@@ -28,7 +31,7 @@ class MenusHelper extends Helper {
 		
 	} // end TABS function
 	
-	function levels ( $total_menu=0, $count_menu=0, $build_menu=array(), $lang=array(), $options=array() ) {
+	function levels ( $total_menu=0, $count_menu=0, $build_menu=array(), $lang=array(), $options=array(), $ids=false ) {
 		
 		$return_string = '';
 		
@@ -74,16 +77,13 @@ class MenusHelper extends Helper {
 						
 						// collect all LIs in one VARIABLE
 						$option_list .= '
-										<li id="'.$li_id.'" class="'.implode(' ',$li_classes).'">
-											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'"'.$attach_js_to_link.'>
-												'.$this->Translations->t( $tab['text'], $lang ).'
-												'.( count($tab['children']) ? '&nbsp;<strong>&raquo;</strong>' : '' ).'
-											</a>
+										<li '.( $ids ? 'id="'.$li_id.'"' : '' ).' class="'.implode(' ',$li_classes).'">
+											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'"'.$attach_js_to_link.'>'.$this->Translations->t( $tab['text'], $lang ).( count($tab['children']) ? '&nbsp;<strong>&raquo;</strong>' : '' ).'</a>
 											
 						';
 						
 						if ( count($tab['children']) ) {
-							$option_list .= $this->levels( $total_menu, $count_menu, $tab['children'], $lang, $options );
+							$option_list .= $this->levels( $total_menu, $count_menu, $tab['children'], $lang, $options, $ids );
 						}
 						
 						$option_list .= '
@@ -97,18 +97,14 @@ class MenusHelper extends Helper {
 							// $attach_js_to_link = ' onclick="return: false;" onmouseover="document.getElementById(\''.$li_id.'_ul_'.$count_menu.'_to_toggle\').style.display=\'block\'" onmouseout="document.getElementById(\''.$li_id.'_ul_'.$count_menu.'_to_toggle\').style.display=\'none\'"';
 							
 							$extra_at_state_start = '
-								<li id="'.$li_id.'_at" class="at '.implode(' ',$li_classes).'">
-									<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'" class="toggle" '.$attach_js_to_link.'>
-										'.$this->Translations->t( $tab['text'], $lang ).'
-									</a>
+								<li '.( $ids ? 'id="'.$li_id.'_at"' : '' ).' class="at '.implode(' ',$li_classes).'">
+									<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).' href="'.$this->Html->url( $tab['link'] ).'" class="toggle" '.$attach_js_to_link.'>'.$this->Translations->t( $tab['text'], $lang ).'</a>
 									
-									<div class="menu ul_wrapper">
-									<ul id="'.$li_id.'_ul_'.$count_menu.'_to_toggle" '.$attach_js_to_link.'>
+									<div class="menu ul_wrapper"><ul '.( $ids ? 'id="'.$li_id.'_ul_'.$count_menu.'_to_toggle"' : '' ).' '.$attach_js_to_link.'>
 							';
 							
 							$extra_at_state_end = '
-									</ul>
-									</div>
+									</ul></div>
 									
 								</li>
 							';
@@ -125,8 +121,7 @@ class MenusHelper extends Helper {
 						$option_list .= '
 										<li class="'.implode(' ',$li_classes).'">
 											<a '.( $tab['description'] ? 'title="'.$this->Translations->t( $tab['description'], $lang, false ).'"' : '' ).'>
-												'.$this->Translations->t( $tab['text'], $lang ).'
-												'.( count($tab['children']) ? '&nbsp;<strong>&raquo;</strong>' : '' ).'
+												'.$this->Translations->t( $tab['text'], $lang ).( count($tab['children']) ? '&nbsp;<strong>&raquo;</strong>' : '' ).'
 											</a>
 											
 						';
@@ -150,13 +145,11 @@ class MenusHelper extends Helper {
 			
 			// attach to RETURN STRING; include show/hide if MENU for TOOL header menu
 			$return_string .= '
-						<div class="menu_ul_wrapper">
-						<ul id="tabs_menu_'.$ul_id.'" class="'.implode(' ', $ul_classes).'" '.( 'tabs_menu_'.$ul_id=='tabs_menu_core_can_33' ? 'style="display:none;" onclick="return: false;"' : '' ).'>
+						<div class="menu_ul_wrapper"><ul '.( $ids ? 'id="tabs_menu_'.$ul_id.'"' : '' ).' class="'.implode(' ', $ul_classes).'" '.( 'tabs_menu_'.$ul_id=='tabs_menu_core_can_33' ? 'style="display:none;" onclick="return: false;"' : '' ).'>
 						'.$extra_at_state_start.'
 						'.$option_list.'
 						'.$extra_at_state_end.'
-						</ul>
-						</div>
+						</ul></div>
 			';
 		
 		return $return_string;

@@ -35,9 +35,8 @@
 							<div id="h2_summary">
 								'.$this->Html->link( $this->Translations->t( 'core_appname', $lang ), '/administrate/banks/index/', NULL, NULL, false ).'
 							</div>
+							
 						</h2>
-					
-						<!-- <br class="clear" /> -->
 					';
 				
 			} // END if count
