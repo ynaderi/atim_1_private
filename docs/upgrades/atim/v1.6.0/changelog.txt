@@ -1,4 +1,4 @@
-Current Date - <TBA>
+Current Date - March 6, 2009
 Release Number - v1.6.0
 
 Description - Scheduled for mid to end of Febuary release. Last minor feature release before core cakePHP upgrade.
@@ -6,11 +6,6 @@ Description - Scheduled for mid to end of Febuary release. Last minor feature re
 =======================================================================================
 Module - Protocol
 * CHANGE (Eventum #221) - Added field validation to protocol code. Now a required field.
-
-
-=======================================================================================
-Module - Administration
-* CHANGE (Eventum #16) - Expanded banks table to included additional fields.
 
 
 =======================================================================================
