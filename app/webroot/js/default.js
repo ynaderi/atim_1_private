@@ -36,6 +36,58 @@ function uncheckAll( $div ) {
 	}
 	
 }
+
+function checkAllCheckBoxSpecific( $div , $model, $field ) {
+	
+	// check compatibility
+	if ( !document.getElementsByTagName ) return false;
+	if ( !document.getElementById ) return false;
+	
+	// check existing IDs and attributes
+	if ( !document.getElementById( $div ) ) return false;
+	
+	// Search Check Box Field to check
+	pattern = '.*' + $model + '.*' + $field + '.*';
+	expression = new RegExp( pattern );
+
+	allInputs = document.getElementById( $div ).getElementsByTagName( 'input' );
+	for ( var i=0; i<allInputs.length; i++ ) {
+		if ( allInputs[i].getAttribute('type')=='checkbox' ) {
+			check_box_name = allInputs[i].getAttribute('name');
+			res = expression.exec(check_box_name);
+			if(res != null) {
+				allInputs[i].checked = true;
+			}
+		}
+	}
+
+}
+
+function uncheckAllCheckBoxSpecific( $div , $model, $field ) {
+	
+	// check compatibility
+	if ( !document.getElementsByTagName ) return false;
+	if ( !document.getElementById ) return false;
+	
+	// check existing IDs and attributes
+	if ( !document.getElementById( $div ) ) return false;
+	
+	// Search Check Box Field to check
+	pattern = '.*' + $model + '.*' + $field + '.*';
+	expression = new RegExp( pattern );
+
+	allInputs = document.getElementById( $div ).getElementsByTagName( 'input' );
+	for ( var i=0; i<allInputs.length; i++ ) {
+		if ( allInputs[i].getAttribute('type')=='checkbox' ) {
+			check_box_name = allInputs[i].getAttribute('name');
+			res = expression.exec(check_box_name);
+			if(res != null) {
+				allInputs[i].checked = false;
+			}
+		}
+	}
+
+}
 	
 /*
 	admin editors, expandable list of elements
