@@ -698,134 +698,45 @@ class AliquotMastersController extends InventoryManagementAppController {
 				}
 			}
 			
-			// ** Search defined aliquot storage **
+			// ** Check the user storage defintion (selection label / storage_master_id) **
+			
 			$recorded_selection_label = $this->data['FunctionManagement']['storage_selection_label'];
 			$returned_storage_id = $this->data['AliquotMaster']['storage_master_id'];
 				
-			$problem_in_the_storage_defintion = FALSE;
+			$problem_in_the_storage_defintion = false;
 			$arr_storage_list = array();
+			$storage_control_errors = array();
+	
+			$arr_storage_selection_results 
+				= $this->validateStorageIdAndSelectionLabel($recorded_selection_label, $returned_storage_id);
+			$this->data['AliquotMaster']['storage_master_id'] = $arr_storage_selection_results['defined_storage_id'];
+			$arr_storage_list = $arr_storage_selection_results['aliquot_arr_storage_list'];
+			if(!$arr_storage_selection_results['submitted_data_validates']){
+				$problem_in_the_storage_defintion = true;
+			}
+			$storage_control_errors = $arr_storage_selection_results['storage_control_errors'];
 			
-			if(!empty($recorded_selection_label)) {
-				// A storage selection label has been recorded
-				
-				// Look for storage matching the storage selection label 
-				$arr_storage_list 
-					= $this->requestAction(
-						'/storagelayout/storage_masters/getStorageMatchingSelectLabel/'.$recorded_selection_label);
-				
-				if(empty($returned_storage_id)) {	
-					// No storage id has been selected:
-					//    User expects to find the storage using selection label
-										
-					if(empty($arr_storage_list)) {
-						// No storage matches	
-						$problem_in_the_storage_defintion = TRUE;
-						$this->AliquotMaster->validationErrors[] 
-							= 'no storage matches (at least one of) the selection label(s)';
-																
-					} else if(sizeof($arr_storage_list) > 1) {
-						// More than one storage matche this storage selection label
-						$problem_in_the_storage_defintion = TRUE;
-						$this->AliquotMaster->validationErrors[] 
-							= 'more than one storages matche (at least one of) the selection label(s)';
-											
-					} else {
-						// The selection label match only one storage
-						$this->data['AliquotMaster']['storage_master_id'] 
-							= key($arr_storage_list);
-					}
-				
-				} else {
-					// A storage id has been selected
-					//    Verify that this one matches one record of the $arr_storage_list;
-					if(!array_key_exists($returned_storage_id, $arr_storage_list)) {
-
-						// Set error
-						$problem_in_the_storage_defintion = TRUE;
-						$this->AliquotMaster->validationErrors[] 
-							= '(at least one of) the selected id does not match a selection label';						
-						
-						// Add the storage to the array
-						$arr_storage_list[$returned_storage_id] 
-							= $this->requestAction(
-								'/storagelayout/storage_masters/getStorageData/'.$returned_storage_id);				
-						
-					}	
-				}
-			
-			} else if(!empty($returned_storage_id)) {
-				// Only  storage id has been selected:
-				//    Be sure to add this one in $arr_storage_list if an error is displayed
-
-				$arr_storage_list 
-					= array($returned_storage_id 
-						=> $this->requestAction('/storagelayout/storage_masters/getStorageData/'.$returned_storage_id));				
-						
-			} // else if $returned_storage_id and $recorded_selection_label empty: Nothing to do						
-
 			$this->set('arr_storage_list', $arr_storage_list);	
 			
 			// ** Verify set aliquot coordinates into storage **
 			
-			if(empty($this->data['AliquotMaster']['storage_master_id'])){
-				
-				if(!$problem_in_the_storage_defintion) {
-					// No storage selected: no coordinate should be set
-					$bool_display_error_msg = FALSE;
-					
-					if(!empty($this->data['AliquotMaster']['storage_coord_x'])){
-						$this->data['AliquotMaster']['storage_coord_x'] = 'err!';
-						$bool_display_error_msg = TRUE;
-					}
-					
-					if(!empty($this->data['AliquotMaster']['storage_coord_y'])){
-						$this->data['AliquotMaster']['storage_coord_y'] = 'err!';
-						$bool_display_error_msg = TRUE;		
-					}
-					
-					if($bool_display_error_msg) {
-						// Display error message
-						$this->AliquotMaster->validationErrors[] 
-							= 'no postion has to be recorded when no storage is selected';
-					}
-				}
-					
-			} else {
-				// Verify coordinates
-				$a_coord_valid = 
-					$this->requestAction('/storagelayout/storage_masters/validateStoragePosition/'.
-						$this->data['AliquotMaster']['storage_master_id'].'/'.
-						// Add 'x_' before coord to support empty value
-						'x_'.$this->data['AliquotMaster']['storage_coord_x'].'/'.
-						'y_'.$this->data['AliquotMaster']['storage_coord_y'].'/');
-						
-				$bool_display_error_msg = FALSE;
+			$arr_storage_coord_results 
+				= $this->validateStorageCoordinates(
+					$this->data['AliquotMaster']['storage_master_id'], 
+					$this->data['AliquotMaster']['storage_coord_x'], 
+					$this->data['AliquotMaster']['storage_coord_y']);
 			
-				// Manage coordinate x
-				if(!$a_coord_valid['coord_x']['validated']) {
-					$this->data['AliquotMaster']['storage_coord_x'] = 'err!';
-					$bool_display_error_msg = TRUE;
-				} else if($a_coord_valid['coord_x']['to_uppercase']) {
-					$this->data['AliquotMaster']['storage_coord_x'] =
-						strtoupper($this->data['AliquotMaster']['storage_coord_x']);
-				}
-				
-				// Manage coordinate y
-				if(!$a_coord_valid['coord_y']['validated']) {
-					$this->data['AliquotMaster']['storage_coord_y'] = 'err!';
-					$bool_display_error_msg = TRUE;
-				} else if($a_coord_valid['coord_y']['to_uppercase']) {
-					$this->data['AliquotMaster']['storage_coord_y'] =
-						strtoupper($this->data['AliquotMaster']['storage_coord_y']);
-				}
-				
-				if($bool_display_error_msg) {
-				// Display error message
-					$this->AliquotMaster->validationErrors[] 
-						= 'at least one position value does not match format';					
-				}
+			$this->data['AliquotMaster']['storage_coord_x'] = $arr_storage_coord_results['validated_storage_coord_x'];
+			$this->data['AliquotMaster']['storage_coord_y'] = $arr_storage_coord_results['validated_storage_coord_y'];
+			if(!$arr_storage_coord_results['submitted_data_validates']){
+				$problem_in_the_storage_defintion = true;
+			}
+			$storage_control_errors = $storage_control_errors + $arr_storage_coord_results['storage_control_errors'];	
 
-			}		
+			// Set storage errors
+			foreach($storage_control_errors as $id => $msg) {
+				$this->AliquotMaster->validationErrors[$id] = $msg;
+			}
 			
 			// ** Set value that have not to be defined by the user **
 			
@@ -1216,14 +1127,13 @@ class AliquotMastersController extends InventoryManagementAppController {
 			// New aliquots have to be created
 	
 			// ** Manage the save of the data	**
-			
+		
 			// 1- Manage copy and track barcode
 			$bool_copy_done = FALSE;
 			$arr_new_barcode = array();			
 			foreach($this->data as $id => $new_studied_aliquot){
-				
-				$this->data[$id]['AliquotMaster']['storage_datetime'] 
-					= $this->tmpGetCleanedStorageDateForDatagrid($this->data[$id]['AliquotMaster']);
+
+				$this->cleanUpDatagridFields($id, 'AliquotMaster');	
 				
 				if((strcmp($new_studied_aliquot['FunctionManagement']['generated_field_copy_prev_line'], 'yes') == 0)
 				&& ($id > 0)) {
@@ -1275,124 +1185,32 @@ class AliquotMastersController extends InventoryManagementAppController {
 						$this->data[$id]['AliquotMaster']['barcode'] = '';
 					}
 					
-					// B- Search defined aliquot storage
+					// B- Check the user storage defintion (selection label / storage_master_id)
 					$recorded_selection_label = $this->data[$id]['FunctionManagement']['storage_selection_label'];
 					$returned_storage_id = $this->data[$id]['AliquotMaster']['storage_master_id'];
-					
-					$aliquot_arr_storage_list = array();
-					
-					if(!empty($recorded_selection_label)) {
-						// A storage selection label has been recorded
-						
-						// Look for storage matching the storage selection label 
-						$aliquot_arr_storage_list 
-							= $this->requestAction(
-								'/storagelayout/storage_masters/getStorageMatchingSelectLabel/'.$recorded_selection_label);
-						
-						if(empty($returned_storage_id)) {	
-							// No storage id has been selected:
-							//    User expects to find the storage using selection label
-												
-							if(empty($aliquot_arr_storage_list)) {
-								// No storage matches	
-								$submitted_data_validates = FALSE;
-								$storage_control_errors['B1'] 
-									= 'no storage matches (at least one of) the selection label(s)';
-																		
-							} else if(sizeof($aliquot_arr_storage_list) > 1) {
-								// More than one storage matche this storage selection label
-								$submitted_data_validates = FALSE;
-								$storage_control_errors['B2'] 
-									= 'more than one storages matche (at least one of) the selection label(s)';
-													
-							} else {
-								// The selection label match only one storage
-								$this->data[$id]['AliquotMaster']['storage_master_id'] 
-									= key($aliquot_arr_storage_list);
-							}
-						
-						} else {
-							// A storage id has been selected
-							//    Verify that this one matches one record of the $arr_storage_list;
-							if(!array_key_exists($returned_storage_id, $aliquot_arr_storage_list)) {
-					
-								// Set error
-								$submitted_data_validates = FALSE;
-								$storage_control_errors['B3'] 
-									= '(at least one of) the selected id does not match a selection label';						
-								
-								// Add the storage to the array
-								$aliquot_arr_storage_list[$returned_storage_id] 
-									= $this->requestAction('/storagelayout/storage_masters/getStorageData/'.$returned_storage_id);								
 
-							}	
-						}
+					$arr_storage_selection_results = $this->validateStorageIdAndSelectionLabel($recorded_selection_label, $returned_storage_id);
+
+					$this->data[$id]['AliquotMaster']['storage_master_id'] = $arr_storage_selection_results['defined_storage_id'];
+					$arr_storage_list = $arr_storage_list + $arr_storage_selection_results['aliquot_arr_storage_list'];
+					if(!$arr_storage_selection_results['submitted_data_validates']){
+						$submitted_data_validates = false;
+					}
+					$storage_control_errors = $storage_control_errors + $arr_storage_selection_results['storage_control_errors'];			
 					
-					} else if(!empty($returned_storage_id)) {
-						// Only  storage id has been selected:
-						//    Be sure to add this one in $arr_storage_list if an error is displayed
-					
-						$aliquot_arr_storage_list 
-							= array($returned_storage_id  
-								=> $this->requestAction('/storagelayout/storage_masters/getStorageData/'.$returned_storage_id));
-							
-					} // else if $returned_storage_id and $recorded_selection_label empty: Nothing to do						
-					
-					$arr_storage_list = $arr_storage_list + $aliquot_arr_storage_list;				
-					
-					// C- Check Positions
-					
-					// Verify set Coordinates
-					if(empty($this->data[$id]['AliquotMaster']['storage_master_id'])){
-						// No storage selected: no coordinate should be set
+					// C- Check Aliquot Storage Coordinates
+					$arr_storage_coord_results = $this->validateStorageCoordinates(
+							$this->data[$id]['AliquotMaster']['storage_master_id'], 
+							$this->data[$id]['AliquotMaster']['storage_coord_x'], 
+							$this->data[$id]['AliquotMaster']['storage_coord_y']);
 						
-						if(!empty($this->data[$id]['AliquotMaster']['storage_coord_x'])){
-							//$new_studied_aliquot['AliquotMaster']['storage_coord_x'] = 'err!';
-							$this->data[$id]['AliquotMaster']['storage_coord_x'] = 'err!';
-							$storage_control_errors['C1'] 
-								= 'no postion has to be recorded when no storage is selected';
-						}
-						
-						if(!empty($this->data[$id]['AliquotMaster']['storage_coord_y'])){
-							//$new_studied_aliquot['AliquotMaster']['storage_coord_y'] = 'err!';
-							$this->data[$id]['AliquotMaster']['storage_coord_y'] = 'err!';
-							$storage_control_errors['C1'] 
-								= 'no postion has to be recorded when no storage is selected';
-						}						
-							
-					} else {
-						// Verify coordinates
-						$a_coord_valid = 
-							$this->requestAction('/storagelayout/storage_masters/validateStoragePosition/'.
-								$this->data[$id]['AliquotMaster']['storage_master_id'].'/'.
-								// Add 'x_' before coord to support empty value
-								'x_'.$this->data[$id]['AliquotMaster']['storage_coord_x'].'/'.
-								'y_'.$this->data[$id]['AliquotMaster']['storage_coord_y'].'/');
-								
-						// Manage coordinate x
-						if(!$a_coord_valid['coord_x']['validated']) {
-							//$new_studied_aliquot['AliquotMaster']['storage_coord_x'] = 'err!';
-							$this->data[$id]['AliquotMaster']['storage_coord_x'] = 'err!';
-							$storage_control_errors['C2'] 
-								= 'at least one position value does not match format';
-						} else if($a_coord_valid['coord_x']['to_uppercase']) {
-							$this->data[$id]['AliquotMaster']['storage_coord_x'] =
-								strtoupper($this->data[$id]['AliquotMaster']['storage_coord_x']);
-						}
-						
-						// Manage coordinate y
-						if(!$a_coord_valid['coord_y']['validated']) {
-							//$new_studied_aliquot['AliquotMaster']['storage_coord_y'] = 'err!';
-							$this->data[$id]['AliquotMaster']['storage_coord_y'] = 'err!';
-							$storage_control_errors['C2'] 
-								= 'at least one position value does not match format';
-						} else if($a_coord_valid['coord_y']['to_uppercase']) {
-							$this->data[$id]['AliquotMaster']['storage_coord_y'] =
-								strtoupper($this->data[$id]['AliquotMaster']['storage_coord_y']);
-						}
+					$this->data[$id]['AliquotMaster']['storage_coord_x'] = $arr_storage_coord_results['validated_storage_coord_x'];
+					$this->data[$id]['AliquotMaster']['storage_coord_y'] = $arr_storage_coord_results['validated_storage_coord_y'];
+					if(!$arr_storage_coord_results['submitted_data_validates']){
+						$submitted_data_validates = false;
+					}
+					$storage_control_errors = $storage_control_errors + $arr_storage_coord_results['storage_control_errors'];		
 					
-					}	
-							
 					// D- Set Initial Volume
 				
 					// Set current volume
@@ -1416,8 +1234,6 @@ class AliquotMastersController extends InventoryManagementAppController {
 						$submitted_data_validates = FALSE;
 					}
 					if($bool_needs_details_table && isset($this->data[$id]['AliquotDetail'])){
-						$this->cleanUpFields('AliquotDetail');
-						
 						// Validates Fields of Aliquot Detail Table
 						if(!$this->AliquotDetail->validates($this->data[$id]['AliquotDetail'])){
 							$submitted_data_validates = FALSE;
@@ -2171,131 +1987,46 @@ class AliquotMastersController extends InventoryManagementAppController {
 		} else {
 			// ** SAVE DATA **
 				
-			// ** Search defined aliquot storage **
+			// ** Check the user storage defintion (selection label / storage_master_id) **
+			
 			$recorded_selection_label = $this->data['FunctionManagement']['storage_selection_label'];
 			$returned_storage_id = $this->data['AliquotMaster']['storage_master_id'];
 				
-			$problem_in_the_storage_defintion = FALSE;
+			$problem_in_the_storage_defintion = false;
 			$arr_storage_list = array();
+			$storage_control_errors = array();
+	
+			$arr_storage_selection_results 
+				= $this->validateStorageIdAndSelectionLabel($recorded_selection_label, $returned_storage_id);
+			$this->data['AliquotMaster']['storage_master_id'] = $arr_storage_selection_results['defined_storage_id'];
+			$arr_storage_list = $arr_storage_selection_results['aliquot_arr_storage_list'];
+			if(!$arr_storage_selection_results['submitted_data_validates']){
+				$problem_in_the_storage_defintion = true;
+			}
+			$storage_control_errors = $arr_storage_selection_results['storage_control_errors'];
 			
-			if(!empty($recorded_selection_label)) {
-				// A storage selection label has been recorded
-				
-				// Look for storage matching the storage selection label 
-				$arr_storage_list 
-					= $this->requestAction(
-						'/storagelayout/storage_masters/getStorageMatchingSelectLabel/'.$recorded_selection_label);
-				
-				if(empty($returned_storage_id)) {	
-					// No storage id has been selected:
-					//    User expects to find the storage using selection label
-										
-					if(empty($arr_storage_list)) {
-						// No storage matches	
-						$problem_in_the_storage_defintion = TRUE;
-						$this->AliquotMaster->validationErrors[] 
-							= 'no storage matches (at least one of) the selection label(s)';
-																
-					} else if(sizeof($arr_storage_list) > 1) {
-						// More than one storage matche this storage selection label
-						$problem_in_the_storage_defintion = TRUE;
-						$this->AliquotMaster->validationErrors[] 
-							= 'more than one storages matche (at least one of) the selection label(s)';
-											
-					} else {
-						// The selection label match only one storage
-						$this->data['AliquotMaster']['storage_master_id'] 
-							= key($arr_storage_list);
-					}
-				
-				} else {
-					// A storage id has been selected
-					//    Verify that this one matches one record of the $arr_storage_list;
-					if(!array_key_exists($returned_storage_id, $arr_storage_list)) {
-
-						// Set error
-						$problem_in_the_storage_defintion = TRUE;
-						$this->AliquotMaster->validationErrors[] 
-							= '(at least one of) the selected id does not match a selection label';						
-						
-						// Add the storage to the array
-						$arr_storage_list[$returned_storage_id] 
-							= $this->requestAction(
-								'/storagelayout/storage_masters/getStorageData/'.$returned_storage_id);
-														
-					}	
-				}
-			
-			} else if(!empty($returned_storage_id)) {
-				// Only  storage id has been selected:
-				//    Be sure to add this one in $arr_storage_list if an error is displayed
-
-				$arr_storage_list 
-					= array($returned_storage_id 
-						=> $this->requestAction('/storagelayout/storage_masters/getStorageData/'.$returned_storage_id));
-					
-			} // else if $returned_storage_id and $recorded_selection_label empty: Nothing to do						
-
 			$this->set('arr_storage_list', $arr_storage_list);	
 			
-			// ** Verify set Coordinates **
-			if(empty($this->data['AliquotMaster']['storage_master_id'])){
-				// No storage selected: no coordinate should be set
-				$bool_display_error_msg = FALSE;
-				
-				if(!empty($this->data['AliquotMaster']['storage_coord_x'])){
-					$this->data['AliquotMaster']['storage_coord_x'] = 'err!';
-					$bool_display_error_msg = TRUE;					
-				}
-				
-				if(!empty($this->data['AliquotMaster']['storage_coord_y'])){
-					$this->data['AliquotMaster']['storage_coord_y'] = 'err!';
-					$bool_display_error_msg = TRUE;		
-				}
-				
-				if($bool_display_error_msg) {
-					// Display error message
-					$this->AliquotMaster->validationErrors[] 
-						= 'no postion has to be recorded when no storage is selected';
-				}
-				
-			} else {
-				// Verify coordinates
-				$a_coord_valid = 
-					$this->requestAction('/storagelayout/storage_masters/validateStoragePosition/'.
-						$this->data['AliquotMaster']['storage_master_id'].'/'.
-						// Add 'x_' before coord to support empty value
-						'x_'.$this->data['AliquotMaster']['storage_coord_x'].'/'.
-						'y_'.$this->data['AliquotMaster']['storage_coord_y'].'/');
-						
-				$bool_display_error_msg = FALSE;
+			// ** Verify set aliquot coordinates into storage **
 			
-				// Manage coordinate x
-				if(!$a_coord_valid['coord_x']['validated']) {
-					$this->data['AliquotMaster']['storage_coord_x'] = 'err!';
-					$bool_display_error_msg = TRUE;
-				} else if($a_coord_valid['coord_x']['to_uppercase']) {
-					$this->data['AliquotMaster']['storage_coord_x'] =
-						strtoupper($this->data['AliquotMaster']['storage_coord_x']);
-				}
-				
-				// Manage coordinate y
-				if(!$a_coord_valid['coord_y']['validated']) {
-					$this->data['AliquotMaster']['storage_coord_y'] = 'err!';
-					$bool_display_error_msg = TRUE;
-				} else if($a_coord_valid['coord_y']['to_uppercase']) {
-					$this->data['AliquotMaster']['storage_coord_y'] =
-						strtoupper($this->data['AliquotMaster']['storage_coord_y']);
-				}
-				
-				if($bool_display_error_msg) {
-				// Display error message
-					$this->AliquotMaster->validationErrors[] 
-						= 'at least one position value does not match format';					
-				}
-					
+			$arr_storage_coord_results 
+				= $this->validateStorageCoordinates(
+					$this->data['AliquotMaster']['storage_master_id'], 
+					$this->data['AliquotMaster']['storage_coord_x'], 
+					$this->data['AliquotMaster']['storage_coord_y']);
+			
+			$this->data['AliquotMaster']['storage_coord_x'] = $arr_storage_coord_results['validated_storage_coord_x'];
+			$this->data['AliquotMaster']['storage_coord_y'] = $arr_storage_coord_results['validated_storage_coord_y'];
+			if(!$arr_storage_coord_results['submitted_data_validates']){
+				$problem_in_the_storage_defintion = true;
 			}
+			$storage_control_errors = $storage_control_errors + $arr_storage_coord_results['storage_control_errors'];	
 
+			// Set storage errors
+			foreach($storage_control_errors as $id => $msg) {
+				$this->AliquotMaster->validationErrors[$id] = $msg;
+			}
+			
 			// ** Set value that have not to be defined by the user **
 			
 			if(isset($this->data['AliquotMaster']['initial_volume'])){	
@@ -4756,32 +4487,134 @@ class AliquotMastersController extends InventoryManagementAppController {
 		exit();
 		
 	}
+
+	function validateStorageIdAndSelectionLabel($storage_selection_label, $storage_master_id) {
 	
-	function tmpGetCleanedStorageDateForDatagrid($aliquot_master_table) {
-		
-		//TODO: To delete when a correct function will be developed for cleanUpField()
-		//Temporary fix that should be corrected by a cleanUpFields() function usable for datagrid
-		if(isset($aliquot_master_table['storage_datetime_year'])) {
+		$submitted_data_validates = true;
+		$defined_storage_id = $storage_master_id;
+		$aliquot_arr_storage_list = array();
+		$storage_control_errors = array();
+
+		if(!empty($storage_selection_label)) {
 			
-			$hour = $aliquot_master_table['storage_datetime_hour'];
+			// Case 1: A storage selection label exists
+			
+			// Look for storage matching the storage selection label 
+			$aliquot_arr_storage_list 
+				= $this->requestAction(
+					'/storagelayout/storage_masters/getStorageMatchingSelectLabel/'.$storage_selection_label);
+			
+			if(empty($storage_master_id)) {	
+				
+				// Case 1.a: No storage id has been defined: Define storage id using selection label
+				
+				if(empty($aliquot_arr_storage_list)) {
+					// No storage matches	
+					$submitted_data_validates = false;
+					$storage_control_errors['B1'] 
+						= 'no storage matches (at least one of) the selection label(s)';
+				} else if(sizeof($aliquot_arr_storage_list) > 1) {
+					// More than one storage matche this storage selection label
+					$submitted_data_validates = false;
+					$storage_control_errors['B2'] 
+						= 'more than one storages matche (at least one of) the selection label(s)';
+				} else {
+					// The selection label match only one storage: Get the storage_master_id
+					$defined_storage_id = key($aliquot_arr_storage_list);
+				}
+			
+			} else {
+				
+				// Case 1.b: A storage id has been selected
+				
+				// Verify this one matches one record of the $arr_storage_list;
+				if(!array_key_exists($storage_master_id, $aliquot_arr_storage_list)) {
+		
+					// Set error
+					$submitted_data_validates = false;
+					$storage_control_errors['B3'] 
+						= '(at least one of) the selected id does not match a selection label';						
+					
+					// Add the storage to the storage list
+					$aliquot_arr_storage_list[$storage_master_id] 
+						= $this->requestAction('/storagelayout/storage_masters/getStorageData/'.$storage_master_id);								
 
-			if ($hour != 12 
-			&& (isset($aliquot_master_table['storage_datetime_meridian']) 
-			&& 'pm' == $aliquot_master_table['storage_datetime_meridian'])) {
-				$hour = $hour + 12;
+				}	
 			}
-
-			$newDate  = $aliquot_master_table['storage_datetime_year'] . '-';
-			$newDate .= $aliquot_master_table['storage_datetime_month'] . '-';
-			$newDate .= $aliquot_master_table['storage_datetime_day'] . ' ';
-			$newDate .= $hour . ':' . $aliquot_master_table['storage_datetime_min'] . ':00';
-				$newDate = $newDate!='-- ::00' ? $newDate : ''; 
-
-			return $newDate;
+		
+		} else if(!empty($storage_master_id)) {
+			
+			// Case 2: Only storage_master_id has been defined
+						
+			// Only  storage id has been selected:
+			// Add this one in $arr_storage_list if an error is displayed
+			$aliquot_arr_storage_list 
+				= array($storage_master_id  
+					=> $this->requestAction('/storagelayout/storage_masters/getStorageData/'.$storage_master_id));
+				
+		} // else if $returned_storage_id and $recorded_selection_label empty: Nothing to do	
+		
+		return array(
+			'submitted_data_validates' => $submitted_data_validates,
+			'defined_storage_id' => $defined_storage_id,
+			'aliquot_arr_storage_list' => $aliquot_arr_storage_list,
+			'storage_control_errors' => $storage_control_errors);
+			
+	}
+	
+	function validateStorageCoordinates($storage_master_id, $storage_coord_x, $storage_coord_y) {
+		
+		$submitted_data_validates = true;
+		$validated_storage_coord_x = $storage_coord_x;
+		$validated_storage_coord_y = $storage_coord_y;
+		$storage_control_errors = array();
+	
+		if(empty($storage_master_id)){
+			// No storage selected: no coordinate should be set
+			if(!empty($storage_coord_x)){
+				$submitted_data_validates = false;
+				$validated_storage_coord_x = 'err!';
+				$storage_control_errors['C1'] = 'no postion has to be recorded when no storage is selected';
+			}
+			if(!empty($storage_coord_y)){
+				$submitted_data_validates = false;
+				$validated_storage_coord_y = 'err!';
+				$storage_control_errors['C1'] = 'no postion has to be recorded when no storage is selected';
+			}						
+				
+		} else {
+			// Verify coordinate values
+			$a_coord_valid = 
+				$this->requestAction('/storagelayout/storage_masters/validateStoragePosition/'.
+					$storage_master_id.'/'.
+					'x_'.$storage_coord_x.'/'.		// Add 'x_' before coord to support empty value
+					'y_'.$storage_coord_y.'/');		// Add 'y_' before coord to support empty value
+					
+			// Manage coordinate x
+			if(!$a_coord_valid['coord_x']['validated']) {
+				$submitted_data_validates = false;
+				$validated_storage_coord_x = 'err!';
+				$storage_control_errors['C2'] = 'at least one position value does not match format';
+			} else if($a_coord_valid['coord_x']['to_uppercase']) {
+				$validated_storage_coord_x = strtoupper($storage_coord_x);
+			}
+			
+			// Manage coordinate y
+			if(!$a_coord_valid['coord_y']['validated']) {
+				$submitted_data_validates = false;
+				$validated_storage_coord_y = 'err!';
+				$storage_control_errors['C2'] = 'at least one position value does not match format';
+			} else if($a_coord_valid['coord_y']['to_uppercase']) {
+				$validated_storage_coord_y = strtoupper($storage_coord_y);
+			}
 		
 		}
 		
-		return NULL;	
+		return array(
+			'submitted_data_validates' => $submitted_data_validates,
+			'validated_storage_coord_x' => $validated_storage_coord_x,
+			'validated_storage_coord_y' => $validated_storage_coord_y,
+			'storage_control_errors' => $storage_control_errors);
 		
 	}
 

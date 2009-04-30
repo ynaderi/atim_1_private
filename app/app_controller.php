@@ -122,6 +122,60 @@ class AppController extends Controller {
 		
 	}
 	
+	/**
+	 * Cleans up the date fields of current Model for datagrid records.
+	 *
+	 * @param $record_id Id of the datagrid record that should be clean up. 
+	 * Set value to all to clean up all datagrid records
+	 * @param $modelClass Model that should be clean up
+	 */
+	function cleanUpDatagridFields($record_id='all', $modelClass = null) {
+		//TODO: To delete when a correct function will be developed for cleanUpField()
+		//Temporary fix that should be corrected by a cleanUpFields() function usable for datagrid
+				
+		if(!isset($this->params['data'][0])){
+			//form_type different than datagrid: nothing to do
+			return;
+		}
+		
+		// 1- Set data in memeory
+		$this_params_data = $this->params['data'];
+		$this_data = $this->data;
+		
+		// 2- Clean up fields
+		if(strcmp($record_id,'all')==0){
+			//Clean up all datagrid records
+			foreach($this_params_data as $record_id => $data){
+				if(!isset($this_data[$record_id])){
+					$this->redirect('/pages/error'); 
+					exit;
+				}					
+				$this->params['data'] = $this_params_data[$record_id];
+				$this->data = $this_data[$record_id];
+				$this->cleanUpFields($modelClass);
+				$this_params_data[$record_id] = $this->params['data'];
+				$this_data[$record_id] = $this->data;				
+			}
+		} else {
+			//Clean up specific datagrid record
+			if((!isset($this_params_data[$record_id]))||(!isset($this_data[$record_id]))){
+				//The specified record does not exist
+				$this->redirect('/pages/error'); 
+				exit;
+			}			
+			$this->params['data'] = $this_params_data[$record_id];
+			$this->data = $this_data[$record_id];
+			$this->cleanUpFields($modelClass);
+			$this_params_data[$record_id] = $this->params['data'];
+			$this_data[$record_id] = $this->data;
+		}
+		
+		// 3- Reset data
+		$this->params['data'] = $this_params_data;
+		$this->data = $this_data;		
+		
+	}
+	
 	// error handling...
 /*	function appError( $method, $params ) {
 		$source_path = $_SERVER['PHP_SELF'];
