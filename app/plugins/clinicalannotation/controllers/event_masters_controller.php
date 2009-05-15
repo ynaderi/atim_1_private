@@ -118,6 +118,15 @@ class EventMastersController extends ClinicalAnnotationAppController {
 		die();
 		*/
 
+		// look for CUSTOM HOOKS, "format"
+		$custom_ctrapp_controller_hook 
+			= APP . 'plugins' . DS . $this->params['plugin'] . DS . 
+			'controllers' . DS . 'hooks' . DS . 
+			$this->params['controller'].'_'.$this->params['action'].'_format.php';
+		
+		if (file_exists($custom_ctrapp_controller_hook)) {
+			require($custom_ctrapp_controller_hook);
+		}
 	}
 
 	function detail( $menu_id=NULL, $event_group=NULL, $participant_id=null, $event_master_id=null ) {
