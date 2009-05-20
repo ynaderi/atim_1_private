@@ -3292,7 +3292,7 @@ class AliquotMastersController extends InventoryManagementAppController {
 			$submitted_data_validates = TRUE;	
 			$aliquots_to_define_as_source = array();
 			
-			if(!$this->AliquotMaster->validates($this->data['Realiquoting'])){
+			if(!$this->AliquotMaster->validates($this->data['AliquotMaster'])){
 				$submitted_data_validates = FALSE;
 			}
 			
@@ -3300,7 +3300,7 @@ class AliquotMastersController extends InventoryManagementAppController {
 				$submitted_data_validates = FALSE;
 			}
 			
-			if(!$this->AliquotUse->validates($this->data['AliquotMaster'])){
+			if(!$this->Realiquoting->validates($this->data['Realiquoting'])){
 				$submitted_data_validates = FALSE;
 			}
 			
